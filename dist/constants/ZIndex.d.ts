@@ -1,0 +1,9 @@
+export declare const OverlayZIndex = "100";
+export declare const FormActionsZIndex = "200";
+export declare const FloatingZIndex = "500";
+export declare const ModalZIndex = "1000";
+export declare const MessageModalZIndex = "1500";
+export declare const PopupZIndex = "2000";
+export declare const PopupMessageZIndex = "3000";
+export declare const FixedMessageZIndex = "4000";
+export declare const MaxZIndex = "2147483647";

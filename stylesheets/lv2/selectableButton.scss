@@ -1,0 +1,81 @@
+.vb-selectableButton {
+  &__button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0 1rem;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    border-radius: $vbBaseBorderRadius;
+    border: 0;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    transition-property: background-color, color, box-shadow, border-color;
+    font-family: '-apple-system', BlinkMacSystemFont, 'Helvetica Neue',
+      'ヒラギノ角ゴ ProN', Hiragino Kaku Gothic ProN, Arial, 'メイリオ', Meiryo,
+      sans-serif;
+    font-size: 0.875rem;
+    height: 2.25rem;
+    vertical-align: middle;
+    white-space: nowrap;
+
+    .vb-selectableButton__icon {
+      // 22px
+      width: 1.375rem;
+      height: 1.375rem;
+      fill: $vbColorsP07;
+    }
+
+    // デフォルト時のカラー
+    color: $vbColorsGY07;
+    background-color: $vbColorsS01;
+
+    // ホバー時のカラー
+    &:hover {
+      background-color: $vbColorsS02;
+    }
+
+    &:active {
+      background-color: $vbColorsS03;
+    }
+
+    // 選択時のカラー
+    &.active {
+      background-color: $vbColorsP01;
+
+      .vb-selectableButton__label {
+        color: $vbColorsP07;
+        font-weight: bold;
+      }
+
+      &:hover {
+        background-color: $vbColorsP02;
+      }
+
+      &:active {
+        background-color: $vbColorsP03;
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 1px #fff, 0 0 0 3px $vbColorsP05, 0 0 0 4px #fff;
+        background-color: $vbColorsP03;
+      }
+    }
+  }
+
+  &__badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.25rem;
+    margin-left: -0.25rem;
+    padding: 0 0.625rem;
+    color: $vbColorsGY10;
+    background-color: $vbColorsGY02;
+    border-radius: $vbCardBorderRadius;
+  }
+}

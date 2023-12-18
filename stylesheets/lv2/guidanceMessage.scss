@@ -1,0 +1,95 @@
+.vb-guidanceMessage {
+  position: relative;
+  background-color: $vbColorsP01;
+  color: $vbColorsP10;
+  border-radius: $vbBaseBorderRadius;
+
+  &__content {
+    &--alignMiddle {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &--inline {
+    display: inline-block;
+  }
+
+  &--widthFitContent {
+    width: fit-content;
+  }
+
+  &--widthFull {
+    width: 100%;
+  }
+
+  &--clickable {
+    border-radius: $vbBaseBorderRadius;
+  }
+
+  &__container {
+    display: grid;
+    display: -ms-grid;
+    grid-template-columns: auto 1fr;
+    -ms-grid-columns: auto 1fr;
+    padding: $vbBasicSize;
+
+    &--responsive {
+      @media (max-width: $vbMobileBoundaryWidth) {
+        padding: $vbSmallSize;
+      }
+    }
+
+    &--alignTop {
+      align-items: flex-start;
+    }
+
+    &--alignMiddle {
+      align-items: center;
+    }
+
+    &--small {
+      padding: $vbXSmallSize $vbSmallSize;
+    }
+  }
+
+  &__icon {
+    grid-column: 1 / 2;
+    -ms-grid-column: 1;
+    margin-right: $vbSmallSize;
+    font-size: $vbLargeSize;
+  }
+
+  &__link,
+  &__button {
+    color: $vbColorsP10;
+    text-decoration: none;
+    display: inline-block;
+    text-align: left;
+    border: 0;
+    background-color: transparent;
+    font-size: $vbNormalFontSize;
+    font-weight: bold;
+    padding: 0;
+    font-family: inherit;
+
+    &::before {
+      // クリッカブル領域をMessage全体に広げる
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      cursor: pointer;
+      transition-duration: 0.2s;
+      transition-property: background-color, color;
+    }
+
+    &:hover {
+      &::before {
+        background-color: rgba($vbPrimaryColor, 0.06);
+      }
+    }
+  }
+}

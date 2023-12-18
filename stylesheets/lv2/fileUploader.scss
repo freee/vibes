@@ -1,0 +1,91 @@
+.vb-fileUploader {
+  width: 32.75rem;
+  height: 19.625rem;
+  background-color: $vbColumnColor;
+  transition-duration: 0.2s;
+  transition-property: background-color;
+  position: relative;
+  border-radius: $vbBaseBorderRadius;
+
+  &__content,
+  &__dropMessage,
+  &__errorMessage {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition-duration: 0.2s;
+    transition-property: opacity;
+  }
+
+  &__content {
+    opacity: 1;
+
+    &--disabled {
+      cursor: default;
+    }
+  }
+
+  &__dropMessage,
+  &__errorMessage {
+    opacity: 0;
+  }
+
+  &--widthFull {
+    width: 100%;
+    height: 100%;
+  }
+
+  &--typeCompact {
+    .vb-fileUploader__content,
+    .vb-fileUploader__dropMessage {
+      display: flex;
+      align-items: center;
+    }
+
+    .vb-fileUploader__contentIllust {
+      flex: 1;
+      margin: 0;
+    }
+
+    .vb-fileUploader__contentDescription {
+      flex: 1;
+      margin: 0 1rem;
+    }
+  }
+
+  &--active {
+    background-color: $vbBaseColor1;
+
+    .vb-illust--cloudUpload .vb-illust__frame {
+      fill: $vbBaseColor3;
+    }
+
+    .vb-fileUploader__content {
+      opacity: 0;
+    }
+
+    .vb-fileUploader__dropMessage {
+      opacity: 1;
+    }
+  }
+
+  &--error {
+    .vb-fileUploader__content {
+      opacity: 0;
+    }
+
+    .vb-fileUploader__errorMessage {
+      opacity: 1;
+    }
+  }
+
+  &__icon {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    fill: $vbColorsGY05;
+  }
+}

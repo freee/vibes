@@ -1,0 +1,115 @@
+@use 'sass:math';
+
+%image-base {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  line-height: 0;
+}
+
+%logo-base {
+  margin: 0;
+  padding: 0;
+  fill: #4575b4;
+  display: inline-block;
+  line-height: 0;
+  height: 3rem;
+}
+
+%logo--small {
+  height: 1.5rem;
+}
+
+%logo__svg {
+  height: 100%;
+  width: 100%;
+  text-indent: 0;
+}
+
+/** @define logo */
+.vb-logo {
+  margin: 0;
+  padding: 0;
+  fill: #4575b4;
+  display: inline-block;
+  line-height: 0;
+
+  & &__svg {
+    height: 3rem;
+    text-indent: 0;
+  }
+
+  &--minpaku &__svg {
+    width: 10.9375rem;
+  }
+
+  &--seal &__svg {
+    width: 10.9375rem;
+  }
+
+  &--sfa &__svg {
+    width: 10.75rem;
+  }
+
+  &--cryptocurrency &__svg {
+    width: 9.8125rem;
+  }
+}
+
+/** @define illust */
+$illustClass: vb-illust;
+
+.#{$illustClass} {
+  @extend %image-base;
+
+  & &__svg {
+    height: 12rem;
+  }
+
+  & &__background {
+    fill: #fff;
+  }
+
+  & &__frame {
+    fill: $vbBaseColor2;
+  }
+
+  & &__border {
+    fill: $vbBaseColor1;
+  }
+
+  &--fileUpload,
+  &--imageUpload,
+  &--csvUpload,
+  &--cloudUpload,
+  &--cloudSkeleton {
+    .#{$illustClass}__svg {
+      height: 8rem;
+      width: 8rem;
+    }
+  }
+}
+
+.vb-swallow {
+  &__svg {
+    display: block;
+    margin: auto;
+  }
+}
+
+/** @define storeBadge */
+.vb-storeBadge {
+  @extend %image-base;
+
+  & &__svg {
+    height: 2.5rem;
+  }
+
+  &--googlePlayStore &__svg {
+    width: 8.4375rem;
+  }
+
+  &--appStore &__svg {
+    width: 6.8125rem;
+  }
+}

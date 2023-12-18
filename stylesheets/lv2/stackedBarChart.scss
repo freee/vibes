@@ -1,0 +1,91 @@
+.vb-stackedBarChart {
+  &__container {
+    height: 1.5rem;
+    box-sizing: border-box;
+    display: flex;
+    overflow: hidden;
+    background-color: #fff;
+    border: $vbMinimum solid $vbColorsS06;
+    border-radius: $vbFullBorderRadius;
+    // reset ul's user-agent-stylesheet
+    list-style-type: none;
+    padding-inline-start: 0;
+    margin-block: 0;
+  }
+
+  &__item {
+    box-sizing: border-box;
+
+    & + & {
+      border-left: $vbMinimum solid $vbColorsS08;
+    }
+    // WithBalloon を横幅いっぱいに広げる
+    display: flex;
+    flex-direction: column;
+
+    &__button {
+      width: 100%;
+      height: calc(1.5rem - $vbMinimum * 2);
+      border: none;
+      padding: 0 0.5rem;
+      font-size: $vbCaptionFontSize;
+      font-family: $vbFontFamily;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      &:focus {
+        outline: none;
+        box-shadow: $vbFocusHighlightShadowInset;
+      }
+
+      &--first {
+        border-radius: $vbFullBorderRadius 0 0 $vbFullBorderRadius;
+      }
+
+      &--last {
+        border-radius: 0 $vbFullBorderRadius $vbFullBorderRadius 0;
+      }
+
+      &--RE {
+        background-color: $vbColorsRE02;
+        color: $vbColorsRE10;
+      }
+
+      &--OR {
+        background-color: $vbColorsOR02;
+        color: $vbColorsOR10;
+      }
+
+      &--YE {
+        background-color: $vbColorsYE02;
+        color: $vbColorsYE10;
+      }
+
+      &--YG {
+        background-color: $vbColorsYG02;
+        color: $vbColorsYG10;
+      }
+
+      &--GR {
+        background-color: $vbColorsGR02;
+        color: $vbColorsGR10;
+      }
+
+      &--BG {
+        background-color: $vbColorsBG02;
+        color: $vbColorsBG10;
+      }
+
+      &--PU {
+        background-color: $vbColorsPU02;
+        color: $vbColorsPU10;
+      }
+
+      &--GY {
+        background-color: $vbColorsGY02;
+        color: $vbColorsGY10;
+      }
+    }
+  }
+}

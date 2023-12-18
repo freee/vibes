@@ -1,0 +1,28 @@
+.vb-fullScreenModal {
+  z-index: $vbFullScreenZIndex;
+  background-color: #fff;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  &__header {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: $vbMinimum solid $vbBaseColor2;
+  }
+
+  &__headerInnerContent {
+    flex-grow: 1;
+  }
+
+  &__body {
+    padding: 1.5rem 1.5rem 1.5rem 4.75rem;
+    overflow: auto;
+  }
+}

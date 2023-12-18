@@ -1,0 +1,169 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title='doc/Stylesheets' />
+
+# CSS
+
+変更する場合は **stylesheetsディレクトリに格納されているSCSSファイル** を変更してください。
+ルートディレクトリにある `vibes.css` や `vibes_hr.css` はビルド成果物です。取り違えに気をつけてください。
+
+vibes では [BEM](https://en.bem.info/methodology/) をベースにしたコーディングルールを採用しています。
+
+
+## styled-components
+
+部分的にstyled-componentsを導入しはじめています。
+styled-componentsについては、[?path=/docs/doc-typescript--page](TypeScript)のページを参照してください。
+
+## コーディング規約
+
+### Block
+
+基本的には各 Lv でディレクトリごとに区切られた modules や components ごとに 1 つの Block として扱います。ただし、 `button` と `textButton`, `TextField` と `TextArea` のように振る舞いや DOM 構造が大きく異なる場合は同じ modules であっても Modifier ではなく別の Block として定義することを推奨します。
+
+### Element
+
+Block の構成要素で、スタイルはその Block の子要素である場合のみ有効となります。
+
+### Modifier
+
+Block と Element の状態やバリエーションを表します。`primary, danger, active, small` といったものが該当します。上述のように、振る舞いや DOM 構造が大きく変わる場合は別の Block や Element として扱うことを検討してください。
+
+### 命名規則
+
+`vb-Block__Element--Modifier`
+
+#### 接頭辞として `vb-` をつける
+
+```css
+.vb-block
+```
+
+#### Block と Element はアンダースコア 2 つ `__` で繋ぐ
+
+```css
+.vb-block__text
+.vb-block__image
+```
+
+#### Block または Element と Modifier はハイフン 2 つ `--` で繋ぐ
+
+```css
+.vb-block--active
+.vb-block__button--primary
+```
+
+#### 2 単語以上を含む名前はキャメルケース `camelCase` で記述する
+
+```css
+.vb-form-block      // NG
+.vb-formBlock       // OK
+.vb-block--text-only // NG
+.vb-block--textOnly // OK
+```
+
+### Element はネストさせない
+
+並列に記述する。要素がネストしていてもクラス名には反映させない。
+
+```css
+.vb-block__text__image // NG
+.vb-block__text        // OK
+.vb-block__image // OK
+```
+
+### 複数の Modifier の組み合わせによって状態が変化しうる場合は、 Modifier をネストさせてもよい
+
+ただし、ネストせずに記述できそうな場合は極力避ける。
+
+```css
+.vb-block--primary--disable // OK
+.vb-block--primary         // better
+.vb-block--disable // better
+```
+
+### マークアップ
+
+#### Block を入れ子にしたスタイルの指定をしない。
+
+```css
+// NG
+.vb-block {
+  display: block;
+  .vb-form {
+    line-height: 1;
+  }
+}
+
+// OK
+.vb-block {
+  display: block;
+}
+.vb-form {
+  line-height: 1;
+}
+```
+
+#### Modifier をつける時は必ず元の Block, Element のクラスと併記する
+
+Modifier 単体で使えるようにしない。
+
+```html
+// NG
+<div class="vb-block--active"></div>
+// OK
+<div class="vb-block vb-block--active"></div>
+```
+
+```css
+// NG
+.vb-block {
+  display: block;
+  color: #000;
+}
+.vb-block--active {
+  display: block;
+  color: #f00;
+}
+
+// OK
+.vb-block {
+  display: block;
+  color: #f00;
+  &--active {
+    color: #f00;
+  }
+}
+```
+
+#### 要素セレクタを使わない
+
+必要な場合は Element として定義する。
+
+```html
+<!-- NG -->
+<div class="vb-block">
+  <a href="/foo">foo</a>
+</div>
+
+<!-- OK -->
+<div class="vb-block">
+  <a className="vb-block__link" href="/foo">foo</a>
+</div>
+```
+
+```css
+// NG
+.vb-block {
+  a {
+    text-decoration: underline;
+  }
+}
+
+// OK
+.vb-block {
+  &__link {
+    text-decoration: underline;
+  }
+}
+```

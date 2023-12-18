@@ -1,0 +1,51 @@
+%button-disabled-face {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+
+  &:hover {
+    cursor: not-allowed;
+  }
+}
+
+.vb-listButtonSelector {
+  position: relative;
+  display: inline-block;
+
+  &__popupWrapper {
+    position: absolute;
+    top: 100%;
+    min-width: 100%;
+  }
+
+  &__button {
+    display: inline-block;
+    padding: $vbBasicSize;
+    padding-right: 3em;
+    background-color: #fff;
+    border: solid 1px $vbPrimaryColor;
+    border-radius: $vbFontBorderRadius;
+    font-size: $vbBasicSize;
+    font-weight: bold;
+    color: $vbPrimaryColor;
+    cursor: pointer;
+    line-height: 1;
+
+    &--disabled {
+      @extend %button-disabled-face;
+    }
+
+    &--isOpen {
+      background-color: $vbBaseColor1;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    display: inline-block;
+    font-size: 1.5em;
+    right: 0.5em;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

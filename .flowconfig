@@ -1,0 +1,20 @@
+[ignore]
+.*/__tests__/types/.*
+lv1/.*
+lv2/.*
+utilities/.*
+hooks/.*
+
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+server.max_workers=4
+module.name_mapper='^vibes\(.*\)$' -> '<PROJECT_ROOT>\1'
+sharedmemory.hash_table_pow=21
+
+[strict]

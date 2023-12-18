@@ -1,0 +1,523 @@
+@use 'sass:math';
+$vbListTableRowHeight: 2.5rem;
+
+%table-row-base {
+  border: none;
+  border-collapse: collapse;
+  transition-duration: 0.2s;
+  transition-property: background-color, color;
+  height: $vbListTableRowHeight;
+}
+
+%table-cell-base {
+  border: none;
+  border-spacing: 0;
+  border-collapse: collapse;
+  font-size: $vbNormalFontSize;
+  text-align: left;
+  padding: $vbXSmallSize $vbSmallSize;
+  line-height: 1;
+  vertical-align: middle;
+  transition-duration: 0.2s;
+  transition-property: background-color, color;
+  word-break: break-all;
+
+  &:first-child {
+    padding-left: $vbLargeSize;
+  }
+
+  &:last-child {
+    padding-right: $vbLargeSize;
+  }
+}
+
+%border-table-cell-face {
+  border-right: 1px solid $vbBaseColor2;
+  border-bottom: 1px solid $vbBaseColor2;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+%table-hover-face {
+  background-color: $vbColumnColor;
+}
+
+.vb-tableListCell,
+.vb-BorderTableListCell {
+  @extend %table-cell-base;
+
+  position: relative;
+
+  &--small {
+    font-size: $vbCaptionFontSize;
+  }
+
+  &--alignCenter {
+    text-align: center;
+  }
+
+  &--alignRight {
+    text-align: right;
+  }
+
+  &--alignBottom {
+    vertical-align: bottom;
+  }
+
+  &--alignTop {
+    vertical-align: top;
+  }
+
+  &--breakWord {
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+}
+
+.vb-tableListCell {
+  border-bottom: 1px solid $vbBaseColor2;
+
+  &__link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  &__indentContainer {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__indent {
+    width: $vbLargeSize - $vbSmallSize;
+    flex-shrink: 0;
+  }
+
+  &__indentedContent {
+    flex-grow: 1;
+    min-width: 0;
+
+    &--alignCenter {
+      text-align: center;
+    }
+
+    &--alignRight {
+      text-align: right;
+    }
+  }
+
+  &__text {
+    // __link より上に表示されるようにしておく
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+    &--withLink {
+      pointer-events: none;
+
+      a[href],
+      button,
+      label,
+      input,
+      select,
+      textarea,
+      [role='button'] {
+        pointer-events: auto;
+      }
+    }
+  }
+
+  // IEのflexバグの問題で、display:flexを使うとセル内でテキストが折り返さなくなる。そのためインデントをdisplay:flexではなくdisplay:tableで表現する
+  // IEのflexバグが解消した際は、display:flexでindentとtextを横並びにするのが良い
+  @at-root {
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      &__link {
+        top: -$vbXSmallSize;
+        left: -$vbSmallSize;
+        right: -$vbSmallSize;
+        bottom: -$vbXSmallSize;
+      }
+
+      &:first-child &__link {
+        left: -$vbLargeSize;
+      }
+
+      &:last-child &__link {
+        right: -$vbLargeSize;
+      }
+
+      &__indentContainerWrapper {
+        display: table;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+
+      &__indentContainer {
+        display: table-row;
+      }
+
+      &__indent {
+        display: table-cell;
+      }
+
+      &__indentedContent {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
+      &--alignTop &__indentedContent {
+        vertical-align: top;
+      }
+
+      &--alignBottom &__indentedContent {
+        vertical-align: bottom;
+      }
+    }
+  }
+}
+
+.vb-BorderTableListCell {
+  @extend %border-table-cell-face;
+
+  &--clickable {
+    cursor: pointer;
+
+    &:hover {
+      @extend %table-hover-face;
+    }
+  }
+
+  &__clickElement {
+    // クリック可能域をセル全体にするために透明な疑似要素を置く
+    &::before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+
+  &__status {
+    &::after {
+      position: absolute;
+      content: '';
+      top: 0;
+      right: 0;
+      border: 0 solid transparent;
+      border-bottom-width: 1rem;
+      border-right-width: 1rem;
+    }
+
+    &--alert {
+      &::after {
+        border-right-color: $vbAlertColor;
+      }
+    }
+
+    &--notice {
+      &::after {
+        border-right-color: $vbNoticeColor;
+      }
+    }
+
+    &--success {
+      &::after {
+        border-right-color: $vbAccentColor;
+      }
+    }
+  }
+
+  &--noWrap {
+    white-space: nowrap;
+  }
+
+  // 以下2つは行見出しのための style
+  &--rowHeader {
+    background-color: $vbColumnColor;
+    font-weight: normal;
+  }
+
+  &--fixedRowHeader {
+    position: sticky;
+    left: 0;
+    z-index: 1; // 同じ行の他のセルより手前に置きたいため
+    border-right: none;
+  }
+
+  @for $i from 1 through 70 {
+    &--fixedRowHeaderLeft#{$i} {
+      left: #{$i}rem;
+    }
+  }
+}
+
+.vb-checkBoxCell {
+  @extend %table-cell-base;
+
+  position: relative;
+  border-bottom: 1px solid $vbBaseColor2;
+  box-sizing: border-box;
+  width: ($vbLargeSize + $vbSmallSize);
+  text-align: center;
+
+  + .vb-BorderTableListCell {
+    border-left: 1px solid $vbBaseColor2;
+  }
+
+  &__label {
+    &:not(&--disabled) {
+      cursor: pointer;
+    }
+
+    &--disabled {
+      ::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        cursor: not-allowed;
+      }
+    }
+    // クリック可能域をセル全体にするために透明な疑似要素を置く
+    &::before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}
+
+.vb-treeFoldingButtonCell {
+  @extend %table-cell-base;
+
+  position: relative;
+  border-bottom: 1px solid $vbBaseColor2;
+  box-sizing: border-box;
+  width: $vbXLargeSize;
+  text-align: center;
+
+  &__button {
+    cursor: pointer;
+    color: $vbLinkColor;
+    display: inline;
+    border: 0;
+    background: none;
+    padding: 0;
+    // クリック可能域をセル全体にするために透明な疑似要素を置く
+    &::before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+
+    &:hover {
+      color: darken($vbLinkColor, 12%);
+    }
+  }
+
+  &__icon {
+    width: $vbLargeSize;
+    height: $vbLargeSize;
+  }
+}
+
+.vb-descriptionListHeadCell {
+  @extend %table-cell-base;
+
+  // 見出し側セルを小さくするため、widthを1pxにしている
+  width: $vbMinimum;
+  white-space: nowrap;
+  font: $vbItemNameFont;
+  vertical-align: middle;
+
+  @for $i from 1 through 70 {
+    &--minWidth#{$i} {
+      min-width: #{$i}rem;
+    }
+  }
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      &,
+      &:first-child,
+      &:last-child {
+        padding: $vbBasicSize $vbBasicSize $vbXSmallSize;
+      }
+
+      display: block;
+      width: auto;
+    }
+  }
+}
+
+.vb-descriptionListCell {
+  @extend %table-cell-base;
+
+  padding-top: $vbSmallSize;
+  padding-bottom: $vbSmallSize;
+  line-height: 1.5;
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      &,
+      &:first-child,
+      &:last-child {
+        padding: $vbXSmallSize $vbBasicSize $vbBasicSize;
+      }
+
+      display: block;
+      width: auto;
+    }
+  }
+}
+
+.vb-tableListHeadCell {
+  border: none;
+  border-spacing: 0;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  padding: $vbXSmallSize $vbSmallSize;
+  font: $vbItemNameFont;
+  height: 1.875rem;
+  text-align: left;
+  line-height: 1;
+  vertical-align: middle;
+  border-bottom: 1px solid $vbBaseColor2;
+  position: relative;
+  transition-duration: 0.3s;
+  transition-property: background-color;
+
+  &:first-child {
+    padding-left: $vbLargeSize;
+  }
+
+  &:last-child {
+    padding-right: $vbLargeSize;
+  }
+
+  &--alignCenter {
+    text-align: center;
+  }
+
+  &--alignRight {
+    text-align: right;
+  }
+
+  &--clickable {
+    &:hover {
+      background: $vbBaseColor1;
+    }
+  }
+
+  &--fixedRowHeader {
+    position: sticky;
+    left: 0;
+    z-index: 1; // 同じ行の他のセルより手前に置きたいため
+    background-color: $vbColumnColor;
+  }
+
+  @for $i from 1 through 70 {
+    &--width#{$i} {
+      width: #{$i}rem;
+    }
+
+    &--minWidth#{$i} {
+      min-width: #{$i}rem;
+    }
+
+    &--maxWidth#{$i} {
+      max-width: #{$i}rem;
+    }
+
+    &--fixedRowHeaderLeft#{$i} {
+      left: #{$i}rem;
+    }
+  }
+
+  &__clickElement {
+    cursor: pointer;
+
+    &:hover {
+      font-weight: bold;
+    }
+    // クリック可能域をセル全体にするために透明な疑似要素を置く
+    &::before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+
+  &--orderAscending,
+  &--orderDescending {
+    font-weight: bold;
+  }
+
+  &__iconWrapper {
+    height: $vbCaptionFontSize;
+    width: $vbBasicSize;
+    display: inline-block;
+  }
+
+  &__headerArrowUp,
+  &__headerArrowDown,
+  &__headerSwapVert {
+    margin-left: $vbSmallSize;
+    vertical-align: middle;
+    height: $vbBasicSize;
+    width: $vbBasicSize;
+    margin-top: $vbCaptionFontSize - $vbBasicSize;
+  }
+
+  &__headerSwapVert {
+    color: $vbColorsS08;
+  }
+
+  &--noWrap {
+    white-space: nowrap;
+  }
+}
+
+.vb-tableListHead {
+  @extend %table-row-base;
+
+  height: 1.875rem; // 30dp
+  background-color: $vbColumnColor;
+
+  &--fixedHeader {
+    position: sticky;
+    top: 0;
+    z-index: 2; // fixedRowHeader の 1 より手前におきたいため
+  }
+}
+
+.vb-tableListRow {
+  @extend %table-row-base;
+
+  &#{&}--clickable {
+    cursor: pointer;
+
+    &:hover,
+    &:nth-child(2n):hover {
+      @extend %table-hover-face;
+    }
+  }
+}

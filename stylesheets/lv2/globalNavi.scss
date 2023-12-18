@@ -1,0 +1,40 @@
+.vb-globalNavi {
+  display: flex;
+  box-sizing: border-box;
+  // 本体サイズ + Container の左右 margin 分
+  min-width: $vbContainerSize + $vbLargeSize * 2;
+  padding: 0 $vbLargeSize;
+  background-color: $vbPrimaryColor;
+
+  @if $use2021Style {
+    box-sizing: border-box;
+    background-color: #fff;
+    border-bottom: $vbMinimum solid $vbColorsP05;
+    height: $vbXXLargeSize;
+  }
+
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+
+  &--disableGutters {
+    min-width: $vbContainerSize;
+  }
+
+  &List {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &__item {
+      display: block;
+      float: left;
+    }
+
+    &__itemInner {
+      display: block;
+      padding: $vbBasicSize;
+    }
+  }
+}

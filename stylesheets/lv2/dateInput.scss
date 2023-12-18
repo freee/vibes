@@ -1,0 +1,15 @@
+.vb-dateInput {
+  display: inline;
+  position: relative;
+
+  &__listbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &--rightAligned {
+      left: unset;
+      right: 0;
+    }
+  }
+}

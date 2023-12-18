@@ -1,0 +1,18 @@
+// VSCode 上での syntax error 回避のため、@container 相当の mixin を定義します
+// ビルドして出力される CSS を確認しながら利用してください
+@mixin at-container($x, $y: '') {
+  $name: '';
+  $rule: '';
+
+  @if $y == '' {
+    $rule: $x;
+  } @else {
+    $name: $x;
+    $rule: $y;
+  }
+
+  // 以下が VSCode 上で syntax error となっていても問題ありません (このファイルに syntax error を閉じ込めています)
+  @container #{$name} (#{$rule}) {
+    @content;
+  }
+}

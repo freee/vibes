@@ -1,0 +1,43 @@
+.vb-nameField {
+  &--small {
+    margin: 0 0.25rem;
+  }
+
+  &--error {
+    color: $vbAlertColor;
+  }
+
+  &--disabled {
+    color: $vbBaseColor2;
+  }
+}
+
+.vb-phoneNumberField {
+  & &__hyphen {
+    margin: 0 0.5rem;
+
+    &--small {
+      margin: 0 0.25rem;
+    }
+
+    &--error {
+      color: $vbAlertColor;
+    }
+
+    &--disabled {
+      color: $vbBaseColor2;
+    }
+  }
+}
+
+.vb-dateField {
+  & &__unit {
+    margin: 0 0.5rem;
+    font: $vbNormalFont;
+
+    &--small {
+      margin: 0 0.25rem;
+      font-size: 0.6875rem;
+    }
+  }
+}

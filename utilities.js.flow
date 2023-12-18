@@ -1,0 +1,54 @@
+// @flow
+
+import * as React from 'react';
+
+type MarginSize =
+  | 0.25
+  | 0.5
+  | 1
+  | 1.5
+  | 2
+  | 3
+  | -0.25
+  | -0.5
+  | -1
+  | -1.5
+  | -2
+  | -3
+  | 'auto';
+
+type CommonProps = {|
+  'data-guide'?: string,
+  'data-test'?: string,
+  'data-tracking'?: string,
+  'data-masking'?: boolean,
+  ma?: MarginSize,
+  mt?: MarginSize,
+  mb?: MarginSize,
+  ml?: MarginSize,
+  mr?: MarginSize,
+|};
+
+type VibesContextValue = {|
+  responsive: boolean,
+|};
+
+type getFocusableElements = (el: HTMLElement) => NodeList<Element>;
+type isFocusableElement = (el: HTMLElement) => boolean;
+
+declare module.exports: {
+  CommonProps: CommonProps,
+  convertRemToPixel: (rem: number) => number,
+  pickCommonProps: (props: CommonProps) => CommonProps,
+  VibesContext: React.Context<VibesContextValue>,
+  useResponsive: (responsiveProp?: boolean) => boolean,
+  VibesProvider: ({
+    children: React.Node,
+    fixedLayout?: boolean,
+    portalParent?: HTMLElement,
+    portalParentRef?: React.Ref<HTMLElement>,
+    lang?: 'ja' | 'en',
+  }) => React.Node,
+  getFocusableElements: getFocusableElements,
+  isFocusableElement: isFocusableElement,
+};

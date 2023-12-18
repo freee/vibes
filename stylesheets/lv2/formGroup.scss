@@ -1,0 +1,78 @@
+/** @define formControlGroup */
+.vb-formControlGroup {
+  display: flex;
+  flex-wrap: wrap;
+
+  &--block {
+    display: block;
+  }
+}
+
+/** @define formControl */
+.vb-formControl {
+  max-width: 100%;
+
+  &__legend {
+    padding: 0;
+  }
+
+  &__labelArea {
+    display: flex;
+    align-items: flex-end;
+    min-height: $vbLargeSize;
+    margin-bottom: $vbXSmallSize;
+  }
+
+  &__fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-inline-size: 0;
+    max-width: 100%;
+  }
+}
+
+.vb-formActions {
+  &--fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    z-index: $vbFormActionsZIndex;
+
+    .vb-popupBase {
+      border-radius: initial;
+    }
+  }
+
+  &__inner {
+    box-sizing: border-box;
+    max-width: $vbContainerSize;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    &--widthWide {
+      max-width: 100rem;
+    }
+
+    &--widthNarrow {
+      max-width: 40rem;
+      min-width: 40rem;
+    }
+  }
+
+  &__animation {
+    &-enter,
+    &-exit {
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    &-enter-active,
+    &-enter-done {
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+  }
+}

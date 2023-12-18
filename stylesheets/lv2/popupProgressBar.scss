@@ -1,0 +1,33 @@
+.vb-popupProgressBar {
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  min-width: 20rem;
+  max-width: 40rem;
+
+  &__contents {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__message-block {
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+
+  &__close {
+    flex-shrink: 0;
+  }
+}

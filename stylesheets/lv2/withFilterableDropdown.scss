@@ -1,0 +1,16 @@
+.vb-withFilterableDropdown {
+  &__popup {
+    min-width: 11rem;
+    padding: 1rem 1rem 0 1rem;
+  }
+
+  &__note {
+    padding-bottom: 1rem;
+  }
+
+  &__footer {
+    border-top: 1px solid $vbBaseColor2;
+    margin: 0 -1rem;
+    padding: 1rem;
+  }
+}

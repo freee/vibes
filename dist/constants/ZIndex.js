@@ -1,0 +1,10 @@
+export var OverlayZIndex = '100';
+export var FormActionsZIndex = '200';
+export var FloatingZIndex = '500';
+export var ModalZIndex = '1000';
+export var MessageModalZIndex = '1500';
+export var PopupZIndex = '2000';
+export var PopupMessageZIndex = '3000';
+export var FixedMessageZIndex = '4000';
+export var MaxZIndex = '2147483647';
+//# sourceMappingURL=ZIndex.js.map

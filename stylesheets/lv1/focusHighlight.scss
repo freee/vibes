@@ -1,0 +1,43 @@
+.vb-focusHighlight {
+  display: block;
+  width: fit-content;
+  position: relative;
+
+  &--inline {
+    display: inline-block;
+  }
+
+  &--full {
+    width: 100%;
+  }
+
+  $element: &;
+
+  // 表示順などの問題（フォーカスハイライトを手前に表示したい）で、 :after がフォーカスハイライトの本体になります。
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0;
+    transition-duration: 0.2s;
+    transition-property: opacity;
+  }
+
+  &--round::after {
+    border-radius: $vbFocusHighlightBorderRadius;
+  }
+
+  @at-root #{selector-append("#{$element}:focus-within","#{$element}:after")} {
+    box-shadow: $vbFocusHighlightShadow;
+    opacity: 1;
+  }
+
+  @at-root #{selector-append("#{$element}:focus-within","#{$element}--inset:after")} {
+    box-shadow: $vbFocusHighlightShadowInset;
+  }
+}

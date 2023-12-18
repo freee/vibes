@@ -1,0 +1,829 @@
+@use 'sass:math';
+
+/** @define form */
+
+%form-base {
+  display: inline-flex;
+  padding: 0;
+  margin: 0;
+  border: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  font: $vbNormalFont;
+  vertical-align: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+%form-text-base {
+  @extend %form-base;
+
+  height: $vbFormControlHeight;
+  padding: 0 $vbSmallSize;
+  border: 1px solid $vbColorsGY02;
+  border-radius: $vbFontBorderRadius;
+  background-color: #fff;
+  transition-duration: 0.2s;
+  transition-property: border-color, background-color, color;
+
+  @if not $use2021Style {
+    border-color: $vbBaseColor2;
+  }
+
+  &:-ms-input-placeholder {
+    color: $vbBaseColor3;
+    transition-duration: 0.3s;
+    transition-property: opacity;
+  }
+
+  &::placeholder {
+    color: $vbBaseColor3;
+    transition-duration: 0.3s;
+    transition-property: opacity;
+  }
+
+  &:focus {
+    &:-ms-input-placeholder {
+      opacity: 0;
+    }
+
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+
+  &[disabled] {
+    background-color: $vbBaseColor1;
+    cursor: not-allowed;
+    color: revert;
+  }
+}
+
+%form-text-error-face {
+  border-color: $vbAlertColor;
+  color: $vbAlertColor;
+
+  &:-ms-input-placeholder {
+    color: $vbAlertColor;
+  }
+
+  &::placeholder {
+    color: $vbAlertColor;
+  }
+}
+
+%form-text-small-face {
+  height: $vbFormControlSmallHeight;
+  padding: 0 $vbSmallSize;
+  font-size: $vbCaptionFontSize;
+}
+
+%form-text-large-face {
+  height: $vbFormControlLargeHeight;
+  padding: 0 $vbBasicSize;
+  font-size: $vbHeadline2FontSize;
+}
+
+%form-text-borderless-face {
+  border: 0;
+  border-radius: 0;
+  outline: none;
+}
+
+%form-textarea-base {
+  @extend %form-text-base;
+
+  min-width: 55em;
+  height: 5em;
+  max-width: 100%;
+  padding-top: $vbSmallSize;
+  padding-bottom: $vbSmallSize;
+}
+
+%form-control-base {
+  cursor: pointer;
+  margin: 0;
+  vertical-align: middle;
+}
+
+%form-label-base {
+  margin-left: $vbSmallSize;
+  vertical-align: middle;
+}
+
+%form-control-disabled-face {
+  color: $vbBaseColor2;
+  cursor: not-allowed;
+}
+
+%form-control-error-face {
+  color: $vbAlertColor;
+}
+
+%form-control-small-face {
+  font-size: $vbCaptionFontSize;
+}
+
+/**
+  @define radio
+  @define checkbox
+*/
+.vb-radio,
+.vb-checkbox {
+  @extend %form-base;
+
+  align-items: baseline;
+  cursor: pointer;
+
+  & &__control {
+    @extend %form-control-base;
+
+    &--disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  & &__label {
+    @extend %form-label-base;
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &--error {
+    @extend %form-control-error-face;
+  }
+
+  &--small {
+    @extend %form-control-small-face;
+  }
+}
+
+/** @define searchField */
+.vb-searchField {
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
+  min-width: 4rem;
+
+  &--widthFull {
+    width: 100%;
+  }
+
+  & &__input {
+    @extend %form-text-base;
+
+    padding-left: 2.75em;
+    max-width: 100%;
+    min-width: 4rem;
+
+    &::-webkit-search-cancel-button {
+      cursor: pointer;
+    }
+
+    + svg {
+      fill: $vbBaseColor2;
+    }
+
+    &--error {
+      @extend %form-text-error-face;
+
+      + svg {
+        fill: $vbAlertColor;
+      }
+    }
+
+    &--small {
+      @extend %form-text-small-face;
+
+      padding-left: 1.75rem;
+    }
+
+    &--large {
+      @extend %form-text-large-face;
+    }
+
+    &--widthXSmall {
+      width: 4rem;
+    }
+
+    &--widthSmall {
+      width: 7rem;
+    }
+
+    &--widthMedium {
+      width: 11rem;
+    }
+
+    &--widthLarge {
+      width: 24rem;
+    }
+
+    &--widthFull {
+      width: 100%;
+    }
+
+    &--borderless {
+      @extend %form-text-borderless-face;
+    }
+
+    &--responsive {
+      @media (max-width: $vbMobileBoundaryWidth) {
+        font-size: $vbFontSize1000;
+      }
+    }
+  }
+
+  & &__icon {
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    position: absolute;
+    top: 50%;
+    left: 0.75em;
+    transform: translateY(-50%);
+
+    &--small {
+      display: block;
+      width: 1em;
+      height: 1em;
+      position: absolute;
+      top: 50%;
+      left: 0.5em;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+/** @define select */
+.vb-select {
+  display: inline-flex;
+  position: relative;
+  min-width: 4rem;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: $vbFontBorderRadius;
+
+  &:focus-within {
+    box-shadow: $vbFocusHighlightShadow;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    width: 0;
+    border-left: 0.1875em solid transparent;
+    border-right: 0.1875em solid transparent;
+    position: absolute;
+    right: 0.5em;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &::before {
+    border-bottom: 0.315em solid $vbBlackColor;
+    bottom: 50%;
+    transform: translateY(-0.08em);
+  }
+
+  &::after {
+    border-top: 0.315em solid $vbBlackColor;
+    top: 50%;
+    transform: translateY(0.08em);
+  }
+
+  &--widthXSmall {
+    width: 4rem;
+  }
+
+  &--widthSmall {
+    width: 7rem;
+  }
+
+  &--widthMedium {
+    width: 11rem;
+  }
+
+  &--widthLarge {
+    width: 24rem;
+  }
+
+  &--widthFull {
+    width: 100%;
+  }
+
+  &--error {
+    &::before {
+      border-bottom-color: $vbAlertColor;
+    }
+
+    &::after {
+      border-top-color: $vbAlertColor;
+    }
+  }
+
+  &__body {
+    @extend %form-text-base;
+
+    padding-right: $vbBasicSize;
+    width: 100%;
+    text-overflow: ellipsis;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:not(&--error) {
+      color: $vbBlackColor;
+    }
+
+    &--small {
+      @extend %form-text-small-face;
+    }
+
+    &--large {
+      @extend %form-text-large-face;
+    }
+
+    &--error {
+      @extend %form-text-error-face;
+
+      optgroup:not(:disabled),
+      option:not(:disabled) {
+        color: initial;
+      }
+    }
+
+    &--alignCenter {
+      text-align: center;
+    }
+
+    &--alignRight {
+      text-align: right;
+    }
+  }
+}
+
+/** @define textarea */
+.vb-textarea {
+  @extend %form-textarea-base;
+
+  font-family: inherit;
+
+  &--small {
+    @extend %form-text-small-face;
+  }
+
+  &--large {
+    @extend %form-text-large-face;
+  }
+
+  &--error {
+    @extend %form-text-error-face;
+  }
+
+  &--resizeNone {
+    resize: none;
+  }
+
+  &--resizeHorizontal {
+    resize: horizontal;
+  }
+
+  &--resizeVertical {
+    resize: vertical;
+  }
+
+  &--resizeBoth {
+    resize: both;
+  }
+
+  &--widthSmall {
+    min-width: 24rem;
+  }
+
+  &--widthMedium {
+    min-width: 55rem;
+  }
+
+  &--widthLarge {
+    min-width: 67rem;
+  }
+
+  &--widthFull {
+    min-width: 100%;
+  }
+
+  @for $i from 1 through 70 {
+    &--height#{$i} {
+      height: #{$i}rem;
+    }
+  }
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      font-size: $vbFontSize1000;
+    }
+  }
+}
+
+/** @define textField */
+.vb-textField {
+  @extend %form-text-base;
+
+  min-width: 4rem;
+  max-width: 100%;
+
+  &__wrapper {
+    position: relative;
+    display: inline-flex;
+    max-width: 100%;
+    align-items: center;
+
+    &--widthFull {
+      width: 100%;
+    }
+  }
+
+  &--alignCenter {
+    text-align: center;
+  }
+
+  &--alignRight {
+    text-align: right;
+  }
+
+  &--small {
+    @extend %form-text-small-face;
+  }
+
+  &--large {
+    @extend %form-text-large-face;
+  }
+
+  &--error {
+    @extend %form-text-error-face;
+  }
+
+  &--widthXSmall {
+    width: 4rem;
+  }
+
+  &--widthSmall {
+    width: 7rem;
+  }
+
+  &--widthMedium {
+    width: 11rem;
+  }
+
+  &--widthLarge {
+    width: 24rem;
+  }
+
+  &--widthFull {
+    width: 100%;
+  }
+
+  &--hideSpinner {
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  &--borderless {
+    @extend %form-text-borderless-face;
+  }
+
+  &--withIcon {
+    padding-right: 1.25rem;
+  }
+
+  &__suffix {
+    font: $vbNormalFont;
+    margin-left: $vbXSmallSize;
+
+    &--small {
+      font-size: $vbCaptionFontSize;
+    }
+
+    &--large {
+      font-size: $vbHeadline2FontSize;
+    }
+  }
+
+  &__icon,
+  &__iconButton {
+    position: absolute;
+    right: $vbXSmallSize;
+    top: 0;
+    bottom: 0;
+    font-size: $vbBasicSize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 1;
+    color: $vbBaseColor3;
+    box-sizing: border-box;
+
+    // アイコンが小さいので、クリック可能領域を24px四方になるように広げる
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: -$vbXSmallSize;
+      width: $vbLargeSize;
+    }
+  }
+
+  &__icon {
+    pointer-events: none;
+  }
+
+  &__iconButton {
+    border: 0;
+    background: transparent;
+    padding: 0;
+
+    &[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &:not([disabled]):hover {
+      cursor: pointer;
+      color: $vbColorsP07;
+    }
+  }
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      font-size: $vbFontSize1000;
+    }
+  }
+}
+
+.vb-readOnlyField {
+  display: inline-block;
+  min-height: $vbFormControlHeight;
+  font-size: $vbNormalFontSize;
+  vertical-align: middle;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    min-height: $vbFormControlHeight;
+    white-space: pre-line;
+  }
+
+  &--alignRight {
+    .vb-readOnlyField__inner {
+      justify-content: flex-end;
+    }
+  }
+
+  &--small {
+    height: $vbFormControlSmallHeight;
+    font-size: $vbCaptionFontSize;
+  }
+
+  &--large {
+    height: $vbFormControlLargeHeight;
+    font-size: $vbHeadline2FontSize;
+  }
+
+  &--widthXSmall {
+    min-width: 4rem;
+  }
+
+  &--widthSmall {
+    min-width: 7rem;
+  }
+
+  &--widthMedium {
+    min-width: 11rem;
+  }
+
+  &--widthLarge {
+    min-width: 24rem;
+  }
+
+  &--widthFull {
+    min-width: 100%;
+  }
+}
+
+.vb-formControlLabel {
+  display: inline-block;
+
+  &__text {
+    display: inline-block;
+    vertical-align: middle;
+    overflow-wrap: break-word;
+    color: $vbBlackColor;
+    font: $vbItemNameFont;
+  }
+}
+
+.vb-toggleButton {
+  display: inline-block;
+
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &__input {
+    // vb-visuallyHiddenと同じなのだが、兄弟セレクタを使用するために直接指定している
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    clip: rect(1px 1px 1px 1px);
+  }
+
+  &__body {
+    display: inline-block;
+    cursor: pointer;
+    font-size: $vbNormalFontSize;
+    box-sizing: border-box;
+    transition-duration: 0.2s;
+    transition-property: background-color, color, border-color;
+    height: $vbFormControlHeight;
+    line-height: $vbFormControlHeight;
+    vertical-align: middle;
+    padding: 0 $vbSmallSize;
+    border: $vbMinimum solid $vbBaseColor2;
+    margin-left: -$vbMinimum;
+    color: $vbLinkColor;
+    background-color: #fff;
+    position: relative;
+
+    &:hover {
+      background-color: mix($vbPrimaryColor, #fff, 6%);
+    }
+
+    // focus時に枠線を太くしたいが、元々の枠線を太くすると要素のサイズが替わってしまう
+    // 調整するのではなく、疑似要素を被せてそれの枠線を太くしている
+    &::before {
+      transition-duration: 0.2s;
+      transition-property: border-color;
+      content: '';
+      position: absolute;
+      top: -$vbMinimum;
+      left: -$vbMinimum;
+      right: -$vbMinimum;
+      bottom: -$vbMinimum;
+      border: $vbMinimum * 2 solid transparent;
+    }
+  }
+
+  &--small &__body {
+    height: $vbFormControlSmallHeight;
+    line-height: $vbFormControlSmallHeight;
+    font-size: $vbCaptionFontSize;
+  }
+
+  &:first-child &__body {
+    margin-left: unset;
+    border-top-left-radius: 0.4em;
+    border-bottom-left-radius: 0.4em;
+
+    &::before {
+      border-top-left-radius: 0.4em;
+      border-bottom-left-radius: 0.4em;
+    }
+  }
+
+  &:last-child &__body {
+    border-top-right-radius: 0.4em;
+    border-bottom-right-radius: 0.4em;
+
+    &::before {
+      border-top-right-radius: 0.4em;
+      border-bottom-right-radius: 0.4em;
+    }
+  }
+
+  %focused-toggle-button {
+    z-index: 2; // ほかの __body よりも前面に表示
+
+    &::before {
+      border-color: $vbAccentColor;
+    }
+  }
+
+  &__input:focus + &__body {
+    @extend %focused-toggle-button;
+  }
+
+  &__input:checked + &__body {
+    background: $vbColumnColor;
+    border-color: $vbBaseColor3;
+    font-weight: bold;
+    z-index: 1; // ほかの __body よりも前面に表示
+
+    &:hover {
+      background-color: mix($vbPrimaryColor, #fff, 6%);
+    }
+  }
+
+  &__input:focus:checked + &__body {
+    @extend %focused-toggle-button;
+  }
+}
+
+.vb-optionButton {
+  border-radius: $vbFontBorderRadius;
+  box-sizing: border-box;
+  border: $vbMinimum solid $vbColorsS05;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  background: #fff;
+  position: relative;
+  transition-duration: 0.2s;
+  transition-property: background-color, border-color, box-shadow;
+
+  &:hover {
+    background-color: mix($vbPrimaryColor, #fff, 6%);
+  }
+
+  $base: &;
+
+  &--size {
+    &Small {
+      min-height: $vbFormControlSmallHeight;
+      min-width: 5rem;
+      padding: 0 $vbSmallSize;
+
+      #{$base}__children {
+        min-height: $vbFormControlSmallHeight;
+      }
+    }
+
+    &Medium {
+      min-height: $vbFormControlHeight;
+      min-width: 6rem;
+      padding: 0 $vbBasicSize;
+
+      #{$base}__children {
+        min-height: $vbFormControlHeight;
+      }
+    }
+
+    &Large {
+      min-width: 11rem;
+      min-height: $vbFormControlLargeHeight;
+      padding: 0 $vbBasicSize;
+
+      #{$base}__children {
+        min-height: $vbFormControlLargeHeight;
+      }
+    }
+  }
+
+  &--widthFull {
+    width: 100%;
+  }
+
+  &--checked {
+    border-color: $vbColorsP05;
+    box-shadow: 0 0 0 $vbMinimum $vbColorsP05;
+  }
+
+  &__button {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__children {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+
+    &__inner {
+      width: 100%;
+    }
+  }
+}

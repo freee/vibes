@@ -1,0 +1,105 @@
+/** @define calendar */
+
+.vb-calendar {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  min-width: 50rem;
+  position: relative;
+
+  &__inner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+$vbDatePickerCellSize: 2rem;
+
+.vb-datePicker {
+  width: calc((2rem + #{$vbMinimum}) * 7);
+  font-size: $vbNormalFontSize;
+  background: #fff;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: $vbXSmallSize;
+  }
+
+  &__calendar {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  &__calendarHead,
+  &__calendarCell {
+    text-align: center;
+    width: $vbDatePickerCellSize;
+    box-sizing: border-box;
+  }
+
+  &__calendarHead {
+    font-size: $vbCaptionFontSize;
+    color: $vbBurntColor;
+  }
+
+  &__calendarCell {
+    position: relative;
+    border-top: $vbMinimum solid $vbBaseColor2;
+    border-right: $vbMinimum solid $vbBaseColor2;
+    box-sizing: border-box;
+    padding: 0;
+    width: $vbDatePickerCellSize;
+    height: $vbDatePickerCellSize;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    transition-property: background-color, color;
+
+    &:last-of-type {
+      border-right: 0;
+    }
+
+    &--disabled {
+      background-color: $vbColumnColor;
+      color: $vbBaseColor3;
+      cursor: not-allowed;
+      outline: none;
+    }
+
+    &--selected {
+      background: $vbPrimaryColor;
+      color: #fff;
+    }
+
+    &--otherMonth {
+      background: $vbColumnColor;
+    }
+
+    &:hover:not(&--disabled):not(&--selected) {
+      background: $vbBaseColor2;
+    }
+  }
+
+  &__dateButton {
+    &::before {
+      // クリック可能域を増やすためのもの
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+
+  &__dateNumber {
+    &--today {
+      font-weight: bold;
+    }
+  }
+}

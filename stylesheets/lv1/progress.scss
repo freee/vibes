@@ -1,0 +1,80 @@
+@use 'sass:math';
+$vbProgressbar__indeterminateBarWidth: 40%;
+
+@keyframes keyframes__vb-progressBar__indeterminateBar {
+  0% {
+    transform: translate(-100%, 0);
+  }
+
+  100% {
+    // 「いちばん右まで行って隠れ切る」をバーの横幅を使って表現すると↓になる
+    transform: translate(
+      #{'#{100 * math.div(100%, $vbProgressbar__indeterminateBarWidth)}%'},
+      0
+    );
+  }
+}
+
+.vb-progressBar {
+  height: 0.5rem;
+  width: 11rem;
+  position: relative;
+  border-radius: $vbFullBorderRadius;
+  display: inline-block;
+  background-color: $vbColorsS03;
+  overflow: hidden;
+
+  &--widthLarge {
+    width: 24rem;
+  }
+
+  &--widthSmall {
+    width: 7rem;
+  }
+
+  &--widthXSmall {
+    width: 4rem;
+  }
+
+  &--widthFull {
+    width: 100%;
+  }
+
+  &--progressing {
+    background-color: $vbColorsP02;
+  }
+
+  &__valueBar,
+  &__indeterminateBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: $vbColorsP05;
+    border-radius: $vbFullBorderRadius;
+
+    &--complete {
+      background-color: $vbColorsP04;
+    }
+  }
+
+  &__indeterminateBar {
+    width: $vbProgressbar__indeterminateBarWidth;
+    border-radius: $vbFullBorderRadius;
+    animation-name: keyframes__vb-progressBar__indeterminateBar;
+    animation-duration: 1.6s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+
+    @at-root {
+      // OSの設定で動きを減らしたときに、indeterminateBarの動きを止める
+      @media (prefers-reduced-motion) {
+        & {
+          animation-name: none;
+        }
+      }
+    }
+  }
+}

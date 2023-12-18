@@ -1,0 +1,418 @@
+/** @define materialIcon */
+.vb-materialIcon {
+  width: $vbLargeSize;
+  height: $vbLargeSize;
+  color: $vbBlackColor;
+
+  &--small {
+    width: $vbBasicSize;
+    height: $vbBasicSize;
+  }
+
+  &--pointerEventsNone {
+    pointer-events: none;
+  }
+
+  &--colorInherit {
+    color: inherit;
+  }
+
+  &--colorWhite {
+    color: #fff;
+  }
+
+  &--colorP1 {
+    color: $vbColorsP01;
+  }
+
+  &--colorP2 {
+    color: $vbColorsP02;
+  }
+
+  &--colorP3 {
+    color: $vbColorsP03;
+  }
+
+  &--colorP4 {
+    color: $vbColorsP04;
+  }
+
+  &--colorP5 {
+    color: $vbColorsP05;
+  }
+
+  &--colorP6 {
+    color: $vbColorsP06;
+  }
+
+  &--colorP7 {
+    color: $vbColorsP07;
+  }
+
+  &--colorP8 {
+    color: $vbColorsP08;
+  }
+
+  &--colorP9 {
+    color: $vbColorsP09;
+  }
+
+  &--colorP10 {
+    color: $vbColorsP10;
+  }
+
+  &--colorS1 {
+    color: $vbColorsS01;
+  }
+
+  &--colorS2 {
+    color: $vbColorsS02;
+  }
+
+  &--colorS3 {
+    color: $vbColorsS03;
+  }
+
+  &--colorS4 {
+    color: $vbColorsS04;
+  }
+
+  &--colorS5 {
+    color: $vbColorsS05;
+  }
+
+  &--colorS6 {
+    color: $vbColorsS06;
+  }
+
+  &--colorS7 {
+    color: $vbColorsS07;
+  }
+
+  &--colorS8 {
+    color: $vbColorsS08;
+  }
+
+  &--colorS9 {
+    color: $vbColorsS09;
+  }
+
+  &--colorS10 {
+    color: $vbColorsS10;
+  }
+
+  &--colorRE2 {
+    color: $vbColorsRE02;
+  }
+
+  &--colorRE4 {
+    color: $vbColorsRE04;
+  }
+
+  &--colorRE5 {
+    color: $vbColorsRE05;
+  }
+
+  &--colorRE7 {
+    color: $vbColorsRE07;
+  }
+
+  &--colorRE10 {
+    color: $vbColorsRE10;
+  }
+
+  &--colorOR2 {
+    color: $vbColorsOR02;
+  }
+
+  &--colorOR4 {
+    color: $vbColorsOR04;
+  }
+
+  &--colorOR5 {
+    color: $vbColorsOR05;
+  }
+
+  &--colorOR7 {
+    color: $vbColorsOR07;
+  }
+
+  &--colorOR10 {
+    color: $vbColorsOR10;
+  }
+
+  &--colorYE2 {
+    color: $vbColorsYE02;
+  }
+
+  &--colorYE4 {
+    color: $vbColorsYE04;
+  }
+
+  &--colorYE5 {
+    color: $vbColorsYE05;
+  }
+
+  &--colorYE7 {
+    color: $vbColorsYE07;
+  }
+
+  &--colorYE10 {
+    color: $vbColorsYE10;
+  }
+
+  &--colorYG2 {
+    color: $vbColorsYG02;
+  }
+
+  &--colorYG4 {
+    color: $vbColorsYG04;
+  }
+
+  &--colorYG5 {
+    color: $vbColorsYG05;
+  }
+
+  &--colorYG7 {
+    color: $vbColorsYG07;
+  }
+
+  &--colorYG10 {
+    color: $vbColorsYG10;
+  }
+
+  &--colorGR2 {
+    color: $vbColorsGR02;
+  }
+
+  &--colorGR4 {
+    color: $vbColorsGR04;
+  }
+
+  &--colorGR5 {
+    color: $vbColorsGR05;
+  }
+
+  &--colorGR7 {
+    color: $vbColorsGR07;
+  }
+
+  &--colorGR10 {
+    color: $vbColorsGR10;
+  }
+
+  &--colorBG2 {
+    color: $vbColorsBG02;
+  }
+
+  &--colorBG4 {
+    color: $vbColorsBG04;
+  }
+
+  &--colorBG5 {
+    color: $vbColorsBG05;
+  }
+
+  &--colorBG7 {
+    color: $vbColorsBG07;
+  }
+
+  &--colorBG10 {
+    color: $vbColorsBG10;
+  }
+
+  &--colorPU2 {
+    color: $vbColorsPU02;
+  }
+
+  &--colorPU4 {
+    color: $vbColorsPU04;
+  }
+
+  &--colorPU5 {
+    color: $vbColorsPU05;
+  }
+
+  &--colorPU7 {
+    color: $vbColorsPU07;
+  }
+
+  &--colorPU10 {
+    color: $vbColorsPU10;
+  }
+
+  &--colorGY1 {
+    color: $vbColorsGY01;
+  }
+
+  &--colorGY2 {
+    color: $vbColorsGY02;
+  }
+
+  &--colorGY4 {
+    color: $vbColorsGY04;
+  }
+
+  &--colorGY5 {
+    color: $vbColorsGY05;
+  }
+
+  &--colorGY7 {
+    color: $vbColorsGY07;
+  }
+
+  &--colorGY10 {
+    color: $vbColorsGY10;
+  }
+}
+
+%icon-base {
+  display: inline-block;
+  min-width: 2.375rem;
+  box-sizing: border-box;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  vertical-align: middle;
+  border-radius: $vbMiniPaddingBorderRadius;
+}
+
+%icon-border-face {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+  border: 1px solid $vbBaseColor3;
+  background-color: #fff;
+}
+
+%icon-fill-face {
+  color: #fff;
+}
+
+/** @define statusIcon */
+.vb-statusIcon {
+  @extend %icon-base;
+
+  &--done {
+    @extend %icon-border-face;
+
+    border-color: $vbBaseColor3;
+    color: $vbBurntColor;
+  }
+
+  &--success {
+    @extend %icon-border-face;
+
+    border-color: $vbPrimaryColor;
+    color: $vbPrimaryColor;
+  }
+
+  &--progress {
+    @extend %icon-border-face;
+
+    border-color: $vbNoticeColor;
+    // 文字色のコントラスト比を上げるため、 $vbNoticeColorより濃い色を使用する
+    color: $vbColorsYE10;
+
+    @if not $use2021Style {
+      color: #ad5c0c;
+    }
+  }
+
+  &--required {
+    @extend %icon-border-face;
+
+    border-color: $vbAlertColor;
+    color: $vbAlertColor;
+  }
+
+  &--disabled {
+    @extend %icon-fill-face;
+
+    background-color: $vbBurntColor;
+  }
+
+  &--emphasis {
+    @extend %icon-fill-face;
+
+    background-color: $vbPrimaryColor;
+  }
+
+  &--warning {
+    @extend %icon-fill-face;
+
+    // 文字色のコントラスト比を上げるため、 $vbNoticeColorより濃い色を使用する
+    background-color: $vbColorsYE10;
+
+    @if not $use2021Style {
+      background-color: #ad5c0c;
+    }
+  }
+
+  &--error {
+    @extend %icon-fill-face;
+
+    background-color: $vbAlertColor;
+  }
+}
+
+.vb-avatar {
+  width: $vbXLargeSize;
+  height: $vbXLargeSize;
+  font-size: $vbXLargeSize;
+  line-height: $vbXLargeSize;
+  display: inline-block;
+  box-sizing: border-box;
+
+  &__background {
+    fill: $vbBaseColor1;
+  }
+
+  &__placeholderIcon {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: $vbBaseColor3;
+  }
+
+  &--small {
+    width: $vbLargeSize;
+    height: $vbLargeSize;
+    font-size: $vbLargeSize;
+    line-height: $vbLargeSize;
+  }
+
+  &--large {
+    width: $vbXXLargeSize;
+    height: $vbXXLargeSize;
+    font-size: $vbXXLargeSize;
+    line-height: $vbXXLargeSize;
+  }
+
+  &--xLarge {
+    width: $vbXXLargeSize * 2;
+    height: $vbXXLargeSize * 2;
+    font-size: $vbXXLargeSize * 2;
+    line-height: $vbXXLargeSize * 2;
+  }
+}
+
+.vb-requiredIcon {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  box-sizing: border-box;
+  // 和文の文字は vertical-align: middleだとやや下寄りになるので、少しpadding-bottomを付けて上寄りに表示する
+  padding-bottom: 0.125em;
+
+  &__content {
+    background-color: $vbColorsRE02;
+    color: $vbColorsRE07;
+    font-size: $vbSmallestIconFontSize;
+    display: block;
+    border-radius: $vbFullBorderRadius;
+    padding: 0.125rem 0.25rem;
+    line-height: 1;
+  }
+}

@@ -1,0 +1,45 @@
+.vb-hierarchicalTable {
+  &__table {
+    width: 100%;
+    border: none;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: #fff;
+  }
+}
+
+.vb-hierarchicalTableRowHeaderCell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  @for $i from 1 through 5 {
+    &--level#{$i} {
+      margin-left: #{($i - 1) * 2}rem;
+    }
+
+    &--foldable {
+      &--level#{$i} {
+        margin-left: #{$i * 2}rem;
+      }
+    }
+  }
+
+  &__button {
+    cursor: pointer;
+    color: $vbLinkColor;
+    display: inline;
+    border: 0;
+    background: none;
+    padding: 0;
+
+    &:hover {
+      color: darken($vbLinkColor, 12%);
+    }
+  }
+
+  &__icon {
+    width: $vbLargeSize;
+    height: $vbLargeSize;
+  }
+}

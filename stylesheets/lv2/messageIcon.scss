@@ -1,0 +1,57 @@
+.vb-messageIcon {
+  position: relative;
+  display: inline-block;
+  width: $vbLargeSize;
+  min-height: 1em;
+
+  &__control {
+    cursor: pointer;
+    width: $vbLargeSize;
+    height: $vbLargeSize;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__icon {
+    width: $vbLargeSize;
+    height: $vbLargeSize;
+    color: $vbBaseColor3;
+    display: inline-block;
+    vertical-align: middle;
+
+    &--error {
+      color: $vbAlertColor;
+    }
+
+    &--notice {
+      color: $vbNoticeColor;
+    }
+
+    &--success {
+      color: $vbPrimaryColor;
+    }
+  }
+
+  &--small {
+    .vb-messageIcon__icon {
+      width: $vbBasicSize;
+      height: $vbBasicSize;
+    }
+  }
+}
+
+.vb-messageIconMessageWrapper {
+  &--hidden {
+    display: none;
+  }
+}
+
+.vb-messageIconMessage {
+  position: relative;
+  width: $vbLargeSize;
+}

@@ -1,0 +1,622 @@
+%button-disabled-face {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+
+  &:hover {
+    cursor: not-allowed;
+  }
+}
+
+%button-base {
+  display: inline-block;
+  margin: 0;
+  padding: 0 $vbBasicSize;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  border-radius: $vbFontBorderRadius;
+  border: 0;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  transition-property: background-color, color, box-shadow, border-color;
+  font-family: $vbFontFamily;
+  font-size: $vbNormalFontSize;
+  height: $vbFormControlHeight;
+  vertical-align: middle;
+  white-space: nowrap;
+  line-height: calc(#{$vbFormControlHeight} - #{$vbMinimum * 2});
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: $vbFocusHighlightShadow;
+  }
+}
+
+%button-small-base {
+  height: $vbFormControlSmallHeight;
+  padding: 0 $vbSmallSize;
+  font-size: $vbCaptionFontSize;
+  line-height: calc(#{$vbFormControlSmallHeight} - #{$vbMinimum * 2});
+}
+
+%button-large-base {
+  height: $vbFormControlLargeHeight;
+  padding: 0 $vbBasicSize;
+  font-size: $vbHeadline2FontSize;
+  line-height: calc(#{$vbFormControlLargeHeight} - #{$vbMinimum * 2});
+}
+
+%button-face {
+  background-color: #fff;
+  color: $vbBlackColor;
+  border: $vbMinimum solid $vbColorsGY02;
+  font-weight: bold;
+
+  @if not $use2021Style {
+    color: $vbLinkColor;
+    border-color: $vbBaseColor3;
+  }
+
+  &:hover {
+    color: $vbColorsP08;
+    background-color: $vbColorsP02;
+    border-color: $vbColorsP08;
+  }
+}
+
+%tab-button-face {
+  background-color: $vbBaseColor1;
+  color: $vbBlackColor;
+  font-weight: normal;
+
+  &:hover {
+    background-color: darken($vbBaseColor1, 9%);
+  }
+}
+
+%button-primary-face {
+  border: 0;
+  background-color: $vbPrimaryColor;
+  color: #fff;
+  font-weight: bold;
+
+  &:hover {
+    background-color: $vbColorsP09;
+  }
+
+  &:hover,
+  &:focus {
+    // 読み込みプロダクト内のグローバル定義側で:hover, :focus時にボタン文字色が意図せず変更されるケースを防止する
+    color: #fff;
+  }
+}
+
+%button-danger-face {
+  border: 0;
+  background-color: $vbAlertColor;
+  color: #fff;
+  font-weight: bold;
+
+  &:hover {
+    background-color: $vbColorsRE07;
+  }
+}
+
+%button-current-face {
+  border: 0;
+  background-color: $vbPrimaryColor;
+  color: #fff;
+  font-weight: bold;
+  cursor: default;
+
+  &:hover {
+    background-color: $vbPrimaryColor;
+  }
+}
+
+%button-icon-base {
+  width: 1.5em;
+  height: 1.5em;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+%leftIconButton {
+  padding-left: 2.75em;
+  position: relative;
+  text-align: left;
+
+  &__icon {
+    @extend %button-icon-base;
+
+    left: 0.625em;
+  }
+}
+
+%rightIconButton {
+  padding-right: 2.75em;
+  position: relative;
+  text-align: left;
+
+  &__icon {
+    @extend %button-icon-base;
+
+    right: 0.625em;
+  }
+}
+
+/** @define button */
+.vb-button {
+  @extend %button-base;
+
+  &--small {
+    @extend %button-small-base;
+  }
+
+  &--large {
+    @extend %button-large-base;
+  }
+
+  &--disabled {
+    @extend %button-disabled-face;
+  }
+
+  &--leftIcon {
+    padding-left: 2.75em;
+    position: relative;
+    text-align: left;
+  }
+
+  &--rightIcon {
+    padding-right: 2.75em;
+    position: relative;
+    text-align: left;
+  }
+
+  &__icon {
+    @extend %button-icon-base;
+
+    &--left {
+      left: 0.625em;
+    }
+
+    &--right {
+      right: 0.625em;
+    }
+  }
+
+  &--appearancePrimary {
+    @extend %button-primary-face;
+  }
+
+  @at-root #{selector-append(#{&}--appearancePrimary, #{&}--danger)} {
+    @extend %button-danger-face;
+  }
+
+  &--appearanceSecondary {
+    @extend %button-face;
+  }
+
+  @at-root #{selector-append(#{&}--appearanceSecondary, #{&}--danger)} {
+    color: $vbAlertColor;
+
+    &:hover {
+      border-color: $vbColorsRE07;
+      color: $vbColorsRE07;
+      background-color: $vbColorsRE02;
+    }
+  }
+
+  &--widthFull {
+    width: 100%;
+  }
+
+  &--hasMinWidth {
+    min-width: 6rem;
+  }
+
+  &#{&}--hasMinWidth#{&}--small {
+    min-width: 5rem;
+  }
+
+  &#{&}--hasMinWidth#{&}--large {
+    min-width: 11rem;
+  }
+
+  &--appearanceTertiary {
+    min-width: auto;
+    background-color: transparent;
+    color: $vbBlackColor;
+    font-weight: bold;
+    border: $vbMinimum solid transparent;
+
+    @if not $use2021Style {
+      color: $vbLinkColor;
+    }
+
+    &:hover {
+      color: $vbColorsP08;
+      background-color: add-transparency($vbColorsP02, 0.3);
+    }
+  }
+
+  // Tertiaryボタンの左側にアイコンがないときはpaddingを詰める
+  @at-root #{selector-append(#{&}--appearanceTertiary, "#{&}:not(#{&}--leftIcon)")} {
+    padding-left: $vbSmallSize;
+  }
+
+  // Tertiaryボタンの右側にアイコンがないときはpaddingを詰める
+  @at-root #{selector-append(#{&}--appearanceTertiary, "#{&}:not(#{&}--rightIcon)",)} {
+    padding-right: $vbSmallSize;
+  }
+
+  @at-root #{selector-append(#{&}--appearanceTertiary, #{&}--danger)} {
+    color: $vbAlertColor;
+
+    &:hover {
+      color: $vbColorsRE07;
+      background-color: add-transparency($vbColorsRE02, 0.3);
+    }
+  }
+}
+
+/** @define textButton */
+.vb-textButton {
+  display: inline-block;
+  font-family: $vbFontFamily;
+  $block: &;
+
+  & &__icon {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: $vbXSmallSize;
+    fill: $vbBlackColor;
+    vertical-align: middle;
+
+    &--right {
+      margin-right: 0;
+      margin-left: $vbXSmallSize;
+    }
+  }
+
+  &__link {
+    text-decoration: underline;
+    color: $vbLinkColor;
+    font-weight: bold;
+    vertical-align: middle;
+    transition-duration: 0.2s;
+    transition-property: color;
+  }
+
+  &__button {
+    text-decoration: underline;
+    color: $vbLinkColor;
+    font-weight: bold;
+    vertical-align: middle;
+    transition-duration: 0.2s;
+    transition-property: color;
+  }
+
+  &--noBorder &__link,
+  &--noBorder &__button {
+    text-decoration: none;
+  }
+
+  &:not(&--disabled) &__link:hover,
+  &:not(&--disabled) &__button:hover {
+    color: $vbAccentColor;
+    cursor: pointer;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--small {
+    font-size: $vbCaptionFontSize;
+  }
+}
+
+.vb-globalNaviButton {
+  font-weight: bold;
+  font-family: $vbFontFamily;
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  padding: $vbBasicSize;
+  transition-duration: 0.2s;
+  transition-property: background-color, color;
+
+  @if $use2021Style {
+    box-sizing: border-box;
+    color: $vbBlackColor;
+    padding: 0 $vbBasicSize;
+    height: calc(#{$vbXXLargeSize} - #{$vbMinimum});
+    line-height: calc(#{$vbXXLargeSize - $vbXSmallSize} - #{$vbMinimum});
+  }
+
+  &__icon {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: 0.375em;
+    vertical-align: middle;
+  }
+
+  & &__text {
+    vertical-align: middle;
+  }
+
+  &:not(&--current):hover {
+    background-color: rgba(255, 255, 255, 0.1);
+
+    @if $use2021Style {
+      background-color: $vbColorsP01;
+      color: $vbPrimaryColor;
+    }
+  }
+
+  &--current {
+    background-color: rgba(0, 0, 0, 0.15);
+
+    @if $use2021Style {
+      color: $vbPrimaryColor;
+      background-color: #fff;
+      border-bottom: $vbXSmallSize solid $vbColorsP05;
+    }
+  }
+}
+
+/** @define jumpButton */
+%jumpButton {
+  background: #fff;
+  border: $vbMinimum solid $vbPrimaryColor;
+  color: $vbPrimaryColor;
+  text-align: left;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.vb-jumpButton,
+.vb-backwardButton {
+  display: inline-block;
+  padding: 0;
+}
+
+/** @define tabButton */
+.vb-tabButton {
+  @extend %button-base;
+  @extend %tab-button-face;
+
+  //color: $vbBurntColor;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
+  &:hover:not(.vb-tabButton--current) {
+    color: $vbBlackColor;
+  }
+
+  &#{&}--current {
+    @extend %button-current-face;
+
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    cursor: default;
+  }
+
+  &#{&}--small {
+    min-width: 7rem;
+    padding: 0.5rem;
+    font-size: $vbCaptionFontSize;
+  }
+}
+
+/** @define pagerButton */
+.vb-pagerButton {
+  @extend %button-face;
+
+  padding: 0 $vbSmallSize;
+  box-sizing: border-box;
+  min-width: $vbXLargeSize;
+  height: $vbXLargeSize;
+  border-radius: $vbFontBorderRadius;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  font-size: $vbNormalFontSize;
+  font-family: $vbFontFamily;
+
+  &#{&}--current {
+    @extend %button-current-face;
+
+    font-size: $vbHeadline2FontSize;
+    cursor: default;
+    outline: 0;
+  }
+
+  &#{&}--small {
+    height: $vbLargeSize;
+    min-width: $vbLargeSize;
+    font-size: $vbCaptionFontSize;
+  }
+
+  &--disabled {
+    @extend %button-disabled-face;
+  }
+}
+
+/** @define iconOnlyButton */
+.vb-iconOnlyButton {
+  padding: 0;
+  box-sizing: border-box;
+  width: $vbFormControlHeight;
+  height: $vbFormControlHeight;
+  border-radius: $vbFontBorderRadius;
+  text-align: center;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  transition-property: background-color, color, border;
+  font-size: $vbLargeSize;
+  display: inline-block;
+
+  & &__icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &--appearancePrimary {
+    @extend %button-primary-face;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  @at-root #{selector-append(#{&}--appearancePrimary, #{&}--danger)} {
+    @extend %button-danger-face;
+  }
+
+  &--appearanceSecondary {
+    @extend %button-face;
+  }
+
+  @at-root #{selector-append(#{&}--appearanceSecondary, #{&}--danger)} {
+    color: $vbAlertColor;
+
+    &:hover {
+      border-color: $vbColorsRE07;
+      color: $vbColorsRE07;
+      background-color: $vbColorsRE02;
+    }
+  }
+
+  &--appearanceTertiary {
+    background-color: transparent;
+    color: $vbBlackColor;
+    border: $vbMinimum solid transparent;
+
+    @if not $use2021Style {
+      color: $vbLinkColor;
+    }
+
+    &:hover {
+      color: $vbColorsP08;
+      background-color: add-transparency($vbColorsP02, 0.3);
+    }
+  }
+
+  @at-root #{selector-append(#{&}--appearanceTertiary, #{&}--danger)} {
+    color: $vbAlertColor;
+
+    &:hover {
+      background-color: add-transparency($vbColorsRE02, 0.3);
+    }
+  }
+
+  &--small {
+    height: $vbFormControlSmallHeight;
+    width: $vbFormControlSmallHeight;
+    font-size: $vbBasicSize;
+  }
+
+  &--large {
+    height: $vbFormControlLargeHeight;
+    width: $vbFormControlLargeHeight;
+    font-size: $vbXLargeSize;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &--disabled {
+    @extend %button-disabled-face;
+  }
+}
+
+.vb-listButton {
+  @extend %button-base;
+
+  display: block;
+  width: 100%;
+  border-radius: 0;
+  background-color: $vbColumnColor;
+  font-weight: bold;
+  text-align: left;
+  color: inherit;
+  word-break: keep-all;
+
+  &:hover:not([aria-selected]) {
+    background-color: $vbBaseColor1;
+  }
+
+  &--selected {
+    cursor: default;
+    color: $vbBurntColor;
+  }
+
+  &--bgTransparent {
+    background-color: transparent;
+  }
+
+  &__leftIcon {
+    margin-right: 0.375em;
+  }
+
+  &__farRightIcon {
+    float: right;
+  }
+}
+
+.vb-inlineLink {
+  transition-duration: 0.2s;
+  transition-property: color, background-color;
+  display: inline;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-size: 1em;
+  font-family: $vbFontFamily;
+  color: $vbLinkColor;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: $vbColorsP09;
+  }
+
+  &__iconWrapper {
+    height: 1em;
+    width: 1.5em;
+    vertical-align: middle;
+    display: inline-block;
+    position: relative;
+    line-height: 1;
+  }
+
+  &__icon {
+    font-size: 1.5em;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -50%;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}

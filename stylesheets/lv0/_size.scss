@@ -1,0 +1,112 @@
+$vbMinimum: 1px;
+
+$vbXSmallSize: 0.25rem; // 4dp
+$vbSmallSize: 0.5rem; // 8dp
+$vbBasicSize: 1rem; // 16dp
+$vbLargeSize: 1.5rem; // 24dp
+$vbXLargeSize: 2rem; // 32dp
+$vbXXLargeSize: 3rem; // 48dp
+
+$vbContainerSize: 70rem; // 1120dp
+
+$vbFormControlHeight: 2.25rem; //36dp
+$vbFormControlSmallHeight: 1.5rem; // 24dp
+$vbFormControlLargeHeight: 3rem; // 48dp
+
+// type-scale
+// design-token （各コンポーネントの実装に直接使わないでください）
+$vbFontSize0625: 0.625rem; // 10dp
+$vbFontSize0750: 0.75rem; // 12dp
+$vbFontSize0875: 0.875rem; // 14dp
+$vbFontSize1000: 1rem; // 16dp
+$vbFontSize1500: 1.5rem; // 24dp
+
+// semantic-token （各componentでfont-sizeを扱うときにはこちらを利用）
+$vbSmallestIconFontSize: $vbFontSize0625; // 10dp
+$vbCaptionFontSize: $vbFontSize0750; // 12dp
+$vbNormalFontSize: $vbFontSize0875; // 14dp
+$vbHeadline3FontSize: $vbFontSize0875; // 14dp
+$vbHeadline2FontSize: $vbFontSize1000; // 16dp
+$vbHeadline1FontSize: $vbFontSize1500; // 24dp
+
+$vbMobileHeadline3FontSize: $vbFontSize0875; // 14dp
+$vbMobileHeadline2FontSize: $vbFontSize0875; // 14dp
+$vbMobileHeadline1FontSize: $vbFontSize1000; // 16dp
+
+$vbOverlayZIndex: 100;
+$vbFormActionsZIndex: 200;
+$vbFloatingZIndex: 500;
+$vbFullScreenZIndex: 700;
+$vbModalZIndex: 1000;
+$vbMessageModalZIndex: 1500;
+$vbPopupZIndex: 2000;
+$vbPopupMessageZIndex: 3000;
+$vbFixedMessageZIndex: 4000;
+$vbMaxZIndex: 2147483647;
+
+// モバイルを想定した横幅の閾値(320 ~ 768px)
+$vbMobileBoundaryWidth: 48rem;
+
+// フォントの設定はサイズが絡むのでfonts.scssじゃなくてこのファイルに書いてるよ
+$vbFontFamily: '-apple-system', BlinkMacSystemFont, 'Helvetica Neue',
+  'ヒラギノ角ゴ ProN', Hiragino Kaku Gothic ProN, Arial, 'メイリオ', Meiryo,
+  sans-serif;
+
+$vbLineHeight: 1.5;
+
+// 地の文
+$vbNormalFont: normal #{$vbNormalFontSize}/#{$vbLineHeight} $vbFontFamily;
+
+// キャプション（地の文よりも小さめ）
+$vbCaptionFont: normal #{$vbCaptionFontSize}/#{$vbLineHeight} $vbFontFamily;
+
+// フォームのラベルや表の見出し（キャプションと同じ内容だが目的が違うので分けている）
+$vbItemNameFont: normal #{$vbCaptionFontSize}/#{$vbLineHeight} $vbFontFamily;
+
+// 見出し最大
+$vbHeadlineFont1: bold #{$vbHeadline1FontSize}/#{$vbLineHeight} $vbFontFamily;
+
+// 見出し中間
+$vbHeadlineFont2: bold #{$vbHeadline2FontSize}/#{$vbLineHeight} $vbFontFamily;
+
+// 見出し最小
+$vbHeadlineFont3: bold #{$vbNormalFontSize}/#{$vbLineHeight} $vbFontFamily;
+
+// 見出し最大 (モバイル)
+$vbMobileHeadlineFont1: bold #{$vbMobileHeadline1FontSize}/#{$vbLineHeight}
+  $vbFontFamily;
+
+// 見出し中間 (モバイル)
+$vbMobileHeadlineFont2: bold #{$vbMobileHeadline2FontSize}/#{$vbLineHeight}
+  $vbFontFamily;
+
+// 見出し最小 (モバイル)
+$vbMobileHeadlineFont3: bold #{$vbMobileHeadline3FontSize}/#{$vbLineHeight}
+  $vbFontFamily;
+
+// border-radius-size
+// design-token （各コンポーネントの実装に直接使わないでください）
+$vbBorderRadius0250: 0.25rem; // 4dp
+$vbBorderRadius0500: 0.5rem; // 8dp
+$vbBorderRadius0750: 0.75rem; // 12dp
+$vbBorderRadius1000: 1rem; // 16dp
+$vbBorderRadius1500: 1.5rem; // 24dp
+$vbBorderRadius9900: 99rem; // 円形にするための大きい数字
+
+// semantic-token （各コンポーネントの実装に原則直接使わないでください）
+$vbXSmallBorderRadius: $vbBorderRadius0250; // 4dp
+$vbSmallBorderRadius: $vbBorderRadius0500; // 8dp
+$vbMediumBorderRadius: $vbBorderRadius0750; // 12dp
+$vbLargeBorderRadius: $vbBorderRadius1000; // 16dp
+$vbXLargeBorderRadius: $vbBorderRadius1500; // 24dp
+$vbFullBorderRadius: $vbBorderRadius9900; // この変数のみ単体で利用可能
+
+// alias-token（各componentでborder-radiusを扱うときにはこちらを利用）
+$vbBaseBorderRadius: $vbSmallBorderRadius; // Base系コンポーネント
+$vbCardBorderRadius: $vbMediumBorderRadius; // Card系コンポーネント
+$vbFloatingBorderRadius: $vbLargeBorderRadius; // Floating系コンポーネント
+$vbPopupBorderRadius: $vbLargeBorderRadius; // Popup系コンポーネント
+$vbDialogBorderRadius: $vbXLargeBorderRadius; // Dialog系コンポーネント
+$vbFontBorderRadius: $vbSmallBorderRadius; // Button,Inputなどテキストを含むコンポーネント
+$vbMiniPaddingBorderRadius: $vbXSmallBorderRadius; // テキストを含むコンポーネントの中でもPaddingが小さいコンポーネント
+$vbFocusHighlightBorderRadius: $vbXSmallBorderRadius; // フォーカスハイライト系コンポーネント

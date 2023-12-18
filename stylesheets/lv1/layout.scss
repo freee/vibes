@@ -1,0 +1,121 @@
+.vb-withSideContent {
+  display: flex;
+  justify-content: space-between;
+
+  &--alignTop {
+    align-items: flex-start;
+  }
+
+  &--alignMiddle {
+    align-items: center;
+  }
+
+  &--alignBottom {
+    align-items: flex-end;
+  }
+
+  &__content {
+    flex-grow: 1;
+  }
+
+  &__sideContent {
+    flex-shrink: 0;
+  }
+}
+
+.vb-withDescriptionContent {
+  display: flex;
+  flex-direction: column-reverse;
+
+  &--horizontal {
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+
+  // 先にreverseじゃないほうを作ったので、flex-directionのreverseと逆になってる。わかりにくいけどゆるして。
+  &--verticalReverse {
+    flex-direction: column;
+  }
+
+  &__content {
+    flex-grow: 0;
+  }
+
+  &__description {
+    flex-grow: 1;
+  }
+}
+
+.vb-stack {
+  display: flex;
+
+  > * {
+    flex-shrink: 0;
+  }
+
+  &--inline {
+    display: inline-flex;
+  }
+
+  &--directionVertical {
+    flex-direction: column;
+  }
+
+  &--directionHorizontal {
+    flex-direction: row;
+  }
+
+  &--directionVerticalReverse {
+    flex-direction: column-reverse;
+  }
+
+  &--directionHorizontalReverse {
+    flex-direction: row-reverse;
+  }
+
+  @each $i in (0.25, 0.5, 1, 1.5, 2, 3) {
+    &--gap#{$i * 100} {
+      gap: #{$i}rem;
+    }
+  }
+
+  &--justifyContentStart {
+    justify-content: start;
+  }
+
+  &--justifyContentEnd {
+    justify-content: end;
+  }
+
+  &--justifyContentCenter {
+    justify-content: center;
+  }
+
+  &--justifyContentSpaceBetween {
+    justify-content: space-between;
+  }
+
+  &--alignItemsStrech {
+    align-items: stretch;
+  }
+
+  &--alignItemsCenter {
+    align-items: center;
+  }
+
+  &--alignItemsStart {
+    align-items: start;
+  }
+
+  &--alignItemsEnd {
+    align-items: end;
+  }
+
+  &--wrapWrap {
+    flex-wrap: wrap;
+  }
+
+  &--wrapNowrap {
+    flex-wrap: nowrap;
+  }
+}

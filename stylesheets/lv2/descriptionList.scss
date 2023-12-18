@@ -1,0 +1,48 @@
+.vb-descriptionList {
+  &__table {
+    width: 100%;
+    border: none;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: #fff;
+  }
+
+  &__header {
+    // スタイルはVisuallyHiddenと同じなのだが、table要素直下に置く都合でVisuallyHiddenコンポーネントを使わず再定義している
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    clip: rect(1px 1px 1px 1px);
+  }
+
+  &__row {
+    height: 3.25rem;
+
+    &--spacingCompact {
+      height: 2rem;
+    }
+
+    &:nth-child(2n + 1) {
+      background-color: $vbColumnColor;
+    }
+
+    &:nth-child(2n):last-child {
+      border-bottom: 1px solid $vbBaseColor2;
+    }
+  }
+
+  $base: &;
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      display: block;
+      width: 100%;
+
+      #{$base}__row {
+        height: auto;
+        display: block;
+      }
+    }
+  }
+}

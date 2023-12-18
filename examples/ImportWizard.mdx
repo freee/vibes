@@ -1,0 +1,48 @@
+import { Story, Canvas } from '@storybook/addon-docs/blocks';
+
+# インポートウィザード
+
+インポートによってオブジェクトの新規追加を行う画面の例です。
+
+- スクリーンリーダーのユーザーがページが切り変わったことに気付けるよう、ステップを移動するたびPageTitleにフォーカスが移動するようになっています。
+- ウィザードとして実装してあり、グローバルナビ等を配置しない想定になっています。
+
+<Canvas>
+  {/* Container を使っているとinlineでは見辛いので、inline={false} にしている */}
+  <Story id="examples-importwizard--import-walkthrough" inline={false} height={800} />
+</Canvas>
+
+## ファイルの準備ステップ
+
+テンプレートファイルのダウンロード導線と、アップロードのUIを配置します。アップロードすることで次のステップに進めます。
+
+<Canvas>
+  <Story id="examples-importwizard--upload-step" />
+</Canvas>
+
+## 内容確認ステップ
+
+アップロードされたファイルの内容から、インポート後の状態を表示しています。エラーがある場合には MessageIcon で表現してください。
+
+<Canvas>
+  <Story id="examples-importwizard--confirm-step" />
+</Canvas>
+
+
+## 実行中ステップ
+
+インポート作業を実行中のステップです。前のステップには戻れなくなっています。ポーリング等を使って現在の状態を取得し、完了していたら次のステップに遷移する想定です。
+
+実行中・完了済みのインポートがいつでも確認できるようになっていれば、ここからウィザードを抜ける導線を用意しても問題ありません。
+
+<Canvas>
+  <Story id="examples-importwizard--execution-step" />
+</Canvas>
+
+## 完了ステップ
+
+インポートによって作成されたデータを示し、一覧または再実行への導線を示します。
+
+<Canvas>
+  <Story id="examples-importwizard--completed-step" />
+</Canvas>

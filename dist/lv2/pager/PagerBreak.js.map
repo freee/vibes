@@ -1,0 +1,1 @@
+{"version":3,"file":"PagerBreak.js","sourceRoot":"","sources":["../../../src/lv2/pager/PagerBreak.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAC;AAC/B,OAAO,EAAE,WAAW,EAAE,MAAM,gBAAgB,CAAC;AAE7C,IAAM,UAAU,GAAa;IAC3B,OAAO,CACL,6BAAK,SAAS,EAAC,iBAAiB;QAC9B,oBAAC,WAAW,kBAAY,cAAI,GAAG,CAC3B,CACP,CAAC;AACJ,CAAC,CAAC;AAEF,eAAe,UAAU,CAAC"}

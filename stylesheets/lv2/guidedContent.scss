@@ -1,0 +1,23 @@
+/**  @define GuidContent */
+.vb-guidedContent {
+  display: grid;
+  grid-template-columns: auto min-content;
+  grid-template-rows: auto;
+
+  &__title {
+    grid-column: 1/-1;
+  }
+
+  &__guide {
+    grid-column: 3/-1;
+    grid-row: span 2;
+  }
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      .vb-guidedContent__guide {
+        grid-column: 1/-1;
+      }
+    }
+  }
+}

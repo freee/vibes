@@ -1,0 +1,154 @@
+version: 2.1
+executors:
+  node:
+    docker:
+      - image: cimg/node:18.16.1
+
+defaults: &defaults
+  working_directory: ~/repo
+  parallelism: 1
+  executor:
+    name: node
+
+aliases:
+  - &restore_npm_cache
+    restore_cache:
+      keys:
+        - npm-v7-dependency-{{ checksum "package-lock.json" }}
+        - npm-v7-dependency-
+
+jobs:
+  build:
+    <<: *defaults
+
+    steps:
+      - checkout
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - repo
+
+      - *restore_npm_cache
+
+      - run:
+          name: install node dependencies
+          command: |
+            npm install
+
+      - run:
+          name: build package
+          command: |
+            npm run build
+
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: npm-v7-dependency-{{ checksum "package-lock.json" }}
+
+  eslint_flow:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: ~/
+
+      - *restore_npm_cache
+
+      - run:
+          name: lint check for javascript
+          command: |
+            npm run lint --max-warnings=0
+
+      - store_test_results:
+          path: ./tmp/eslint
+
+  stylelint:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: ~/
+
+      - *restore_npm_cache
+
+      - run:
+          name: stylelint
+          command: |
+            npm run stylelint
+
+      - store_test_results:
+          path: ./tmp/stylelint
+
+  build_storybook:
+    <<: *defaults
+    resource_class: medium+
+
+    steps:
+      - attach_workspace:
+          at: ~/
+
+      - *restore_npm_cache
+
+      - run:
+          name: build
+          command: |
+            mkdir -p /tmp/storybook
+            npm run build-storybook -- -o /tmp/storybook
+
+      - store_artifacts:
+          path: /tmp/storybook
+
+      - run:
+          name: comment to pr
+          command: |
+            # PR トリガーではない場合はスキップ
+            if [ -z "$CIRCLE_PR_NUMBER" ]; then exit 0; fi
+
+            # https://support.circleci.com/hc/en-us/articles/5034956515355-How-to-Programmatically-Construct-the-URLs-for-Artifacts
+            index_html_url="https://output.circle-artifacts.com/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/${CIRCLE_NODE_INDEX}/tmp/storybook/index.html"
+
+            # https://docs.github.com/en/rest/issues/comments?apiVersion=2022-11-28#create-an-issue-comment
+            curl \
+              -X POST \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/issues/${CIRCLE_PR_NUMBER}/comments \
+              -d '{"body":"### Storybook\n'${index_html_url}'"}'
+
+  test:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: ~/
+
+      - *restore_npm_cache
+
+      - run:
+          name: test
+          command: npm test
+
+      - store_test_results:
+          path: ./tmp/test
+
+workflows:
+  version: 2
+  integration:
+    jobs:
+      - build
+      - eslint_flow:
+          requires:
+            - build
+      - stylelint:
+          requires:
+            - build
+      - build_storybook:
+          context:
+            - github_token_sushi_bot
+          requires:
+            - build
+      - test:
+          requires:
+            - build

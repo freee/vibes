@@ -1,0 +1,1380 @@
+// @flow
+
+import * as React from 'react';
+// eslint-disable-next-line import/no-unresolved
+import * as Utilities from './utilities';
+
+type MarginClassProps = {|
+  marginTop?: boolean,
+  marginLeft?: boolean,
+  marginRight?: boolean,
+  marginBottom?: boolean,
+  marginSize?: 'xSmall' | 'small' | 'large' | 'xLarge' | 'xxLarge',
+|};
+
+type CommonProps = typeof Utilities.CommonProps;
+
+type FormHandlers<T = Element> = {|
+  onChange?: (e: SyntheticInputEvent<T>) => void | Promise<void>,
+  onInput?: (e: SyntheticInputEvent<T>) => void | Promise<void>,
+  onFocus?: (e: SyntheticFocusEvent<T>) => void | Promise<void>,
+  onBlur?: (e: SyntheticFocusEvent<T>) => void | Promise<void>,
+  onKeyDown?: (e: SyntheticKeyboardEvent<T>) => void | Promise<void>,
+  onKeyUp?: (e: SyntheticKeyboardEvent<T>) => void | Promise<void>,
+|};
+
+type AutocompleteAttribute =
+  | 'off'
+  | 'on'
+  | 'name'
+  | 'honorific-prefix'
+  | 'given-name'
+  | 'additional-name'
+  | 'family-name'
+  | 'honorific-suffix'
+  | 'nickname'
+  | 'email'
+  | 'username'
+  | 'new-password'
+  | 'current-password'
+  | 'one-time-code'
+  | 'organization-title'
+  | 'organization'
+  | 'street-address'
+  | 'address-line1'
+  | 'address-line2'
+  | 'address-line3'
+  | 'address-level4'
+  | 'address-level3'
+  | 'address-level2'
+  | 'address-level1'
+  | 'country'
+  | 'country-name'
+  | 'postal-code'
+  | 'cc-name'
+  | 'cc-given-name'
+  | 'cc-additional-name'
+  | 'cc-family-name'
+  | 'cc-number'
+  | 'cc-exp'
+  | 'cc-exp-month'
+  | 'cc-exp-year'
+  | 'cc-csc'
+  | 'cc-type'
+  | 'transaction-currency'
+  | 'transaction-amount'
+  | 'language'
+  | 'bday'
+  | 'bday-day'
+  | 'bday-month'
+  | 'bday-year'
+  | 'sex'
+  | 'tel'
+  | 'tel-country-code'
+  | 'tel-national'
+  | 'tel-area-code'
+  | 'tel-local'
+  | 'tel-local-prefix'
+  | 'tel-local-suffix'
+  | 'tel-extension'
+  | 'impp'
+  | 'url'
+  | 'photo';
+
+type StatusType =
+  | 'done'
+  | 'success'
+  | 'progress'
+  | 'required'
+  | 'disabled'
+  | 'emphasis'
+  | 'warning'
+  | 'error';
+
+type Size = 'half' | 'oneThird' | 'twoThirds' | 'oneQuarter' | 'threeQuarters';
+
+type TimeRecord = {
+  type: 'TimeRecord',
+  date: string,
+  status?: 'alert' | 'notice' | 'success',
+  dateLabel?: string,
+  openingTime: string,
+  endingTime: string,
+};
+type AriaExpandedT = boolean;
+type AriaPressedT = boolean | 'mixed';
+type AriaControlsT = string;
+type AriaOwnsT = string;
+type AriaHaspopupT = boolean | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
+type AriaDescribedbyT = string;
+type AriaNumberValueT = number;
+type AriaLevelT = number;
+type AriaSetSizeT = number;
+type AriaPosinsetT = number;
+
+type ButtonAriaProps = {|
+  'aria-expanded'?: AriaExpandedT,
+  'aria-pressed'?: AriaPressedT,
+  'aria-controls'?: AriaControlsT,
+  'aria-owns'?: AriaOwnsT,
+  'aria-haspopup'?: AriaHaspopupT,
+  'aria-describedby'?: AriaDescribedbyT,
+|};
+
+type LinkAriaProps = {|
+  'aria-expanded'?: AriaExpandedT,
+  'aria-controls'?: AriaControlsT,
+  'aria-owns'?: AriaOwnsT,
+  'aria-haspopup'?: AriaHaspopupT,
+  'aria-describedby'?: AriaDescribedbyT,
+|};
+
+type NumberInputAriaProps = {|
+  'aria-valuemin'?: AriaNumberValueT,
+  'aria-valuemax'?: AriaNumberValueT,
+  'aria-valuenow'?: AriaNumberValueT,
+|};
+
+type TableRowAriaProps = {|
+  'aria-level'?: AriaLevelT,
+  'aria-setsize'?: AriaSetSizeT,
+  'aria-posinset'?: AriaPosinsetT,
+  'aria-expanded'?: AriaExpandedT,
+|};
+
+/**
+ * lv1/a11y
+ */
+class VisuallyHidden extends React.Component<{|
+  id?: string,
+  children?: React.Node,
+  autoRead?: boolean,
+  assertive?: boolean,
+  ...CommonProps,
+|}> {}
+
+type FocusHighlight = React.StatelessFunctionalComponent<{|
+  children?: React.Node,
+  inline?: boolean,
+  highlightStyle?: 'inset' | 'outset',
+  cornerStyle?: 'round' | 'sharp',
+  ...CommonProps,
+|}>;
+
+/**
+ * lv1/bases
+ */
+
+type Balloon = React.AbstractComponent<
+  {|
+    children?: React.Node,
+    small?: boolean,
+    border?: 'default' | 'alert' | 'notice' | 'success',
+    position?: 'left' | 'right' | 'center',
+    verticalPosition?: 'top' | 'bottom',
+    ...MarginClassProps,
+    ...CommonProps,
+  |},
+  HTMLDivElement
+>;
+
+class ColumnBase extends React.Component<{|
+  children?: React.Node,
+  rounded?: boolean,
+  small?: boolean,
+  border?: 'default' | 'alert' | 'notice' | 'success',
+  inline?: boolean,
+  overflowHidden?: boolean,
+  paddingSize?: 'small' | 'medium' | 'large' | 'zero',
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class Container extends React.Component<{|
+  children: React.Node,
+  width?: 'normal' | 'narrow' | 'wide',
+  responsive?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class ContentsBase extends React.Component<{|
+  children: React.Node,
+  paddingSize?: 'small' | 'large',
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class DialogBase extends React.Component<{|
+  children?: React.Node,
+  small?: boolean,
+  border?: 'default' | 'alert' | 'notice' | 'success',
+  inline?: boolean,
+  message?: boolean,
+  paddingSize?: 'small' | 'medium' | 'large' | 'zero',
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class FloatingBase extends React.Component<{|
+  children?: React.Node,
+  small?: boolean,
+  border?: 'default' | 'alert' | 'notice' | 'success',
+  inline?: boolean,
+  fitContent?: boolean,
+  paddingSize?: 'small' | 'medium' | 'large' | 'zero',
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class MarginBase extends React.Component<{|
+  children?: React.Node,
+  fitContent?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class PopupBase extends React.Component<{|
+  children?: React.Node,
+  small?: boolean,
+  border?: 'default' | 'alert' | 'notice' | 'success',
+  inline?: boolean,
+  fitContent?: boolean,
+  paddingSize?: 'small' | 'medium' | 'large' | 'zero',
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class CardBase extends React.Component<{|
+  children?: React.Node,
+  paddingSize?: 'small' | 'medium' | 'large' | 'zero',
+  small?: boolean,
+  inline?: boolean,
+  clickable?: boolean,
+  url?: string,
+  target?: string,
+  rel?: string,
+  onClick?: (e: SyntheticMouseEvent<>) => void | Promise<void>,
+  overflowHidden?: boolean,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class ScrimBase extends React.Component<{|
+  children?: React.Node,
+  small?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class NegativeMarginBase extends React.Component<{|
+  children?: React.Node,
+  marginSize?: 'small' | 'medium' | 'large',
+  top?: boolean,
+  left?: boolean,
+  right?: boolean,
+  bottom?: boolean,
+  ...CommonProps,
+|}> {}
+
+type ScrollableBase = React.StatelessFunctionalComponent<{|
+  scrollableX?: boolean,
+  scrollableY?: boolean,
+  children?: React.Node,
+  ...CommonProps,
+|}>;
+class ZebraBase extends React.Component<{|
+  children?: React.Node,
+  paddingSize?: 'small' | 'medium' | 'large' | 'zero',
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+/**
+ * lv1/buttons
+ */
+type Button = React.AbstractComponent<
+  {|
+    appearance?: 'primary' | 'secondary' | 'tertiary',
+    children?: React.Node,
+    primary?: boolean,
+    danger?: boolean,
+    disabled?: boolean,
+    small?: boolean,
+    large?: boolean,
+    href?: string,
+    target?: string,
+    rel?: string,
+    download?: boolean | string,
+    type?: 'button' | 'submit' | 'reset',
+    iconPosition?: 'left' | 'right',
+    IconComponent?: React.ComponentType<*>,
+    width?: 'default' | 'full',
+    hasMinWidth?: boolean,
+    onClick?: (e: SyntheticMouseEvent<>) => void | Promise<void>,
+    onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+    onKeyDown?: (
+      e: SyntheticKeyboardEvent<HTMLButtonElement | HTMLAnchorElement>
+    ) => void | Promise<void>,
+    onFocus?: (
+      e: SyntheticFocusEvent<HTMLButtonElement | HTMLAnchorElement>
+    ) => void | Promise<void>,
+    onBlur?: (
+      e: SyntheticFocusEvent<HTMLButtonElement | HTMLAnchorElement>
+    ) => void | Promise<void>,
+    ...LinkAriaProps,
+    ...ButtonAriaProps,
+    ...MarginClassProps,
+    ...CommonProps,
+  |},
+  HTMLAnchorElement | HTMLButtonElement
+>;
+
+class GlobalNaviButton extends React.Component<{|
+  children?: React.Node,
+  IconComponent?: React.ComponentType<*>,
+  href?: string,
+  current?: boolean,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class IconOnlyButton extends React.Component<{|
+  IconComponent: React.ComponentType<*>,
+  primary?: boolean,
+  danger?: boolean,
+  disabled?: boolean,
+  small?: boolean,
+  large?: boolean,
+  label?: string,
+  type?: 'button' | 'submit' | 'reset',
+  href?: string,
+  target?: string,
+  rel?: string,
+  download?: boolean | string,
+  appearance?: 'primary' | 'secondary' | 'tertiary',
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  onClick?: (e: SyntheticEvent<HTMLButtonElement | HTMLAnchorElement>) => any,
+  onKeyDown?: (
+    e: SyntheticKeyboardEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => void | Promise<void>,
+  onFocus?: (
+    e: SyntheticFocusEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => void | Promise<void>,
+  onBlur?: (
+    e: SyntheticFocusEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => void | Promise<void>,
+  ...MarginClassProps,
+  ...CommonProps,
+  ...ButtonAriaProps,
+  ...LinkAriaProps,
+|}> {}
+
+type IconOnlyJumpButton = React.StatelessFunctionalComponent<{|
+  buttonLabel: string,
+  url?: string,
+  appearance?: 'primary' | 'secondary' | 'tertiary',
+  danger?: boolean,
+  disabled?: boolean,
+  small?: boolean,
+  large?: boolean,
+  target?: string,
+  type?: 'button' | 'submit' | 'reset',
+  onClick?: (e: SyntheticEvent<HTMLButtonElement>) => any,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  rel?: string,
+  ...CommonProps,
+|}>;
+
+type IconOnlyBackwardButton = React.StatelessFunctionalComponent<{|
+  buttonLabel: string,
+  url?: string,
+  appearance?: 'primary' | 'secondary' | 'tertiary',
+  danger?: boolean,
+  disabled?: boolean,
+  small?: boolean,
+  large?: boolean,
+  target?: string,
+  type?: 'button' | 'submit' | 'reset',
+  onClick?: (e: SyntheticEvent<HTMLButtonElement>) => any,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  rel?: string,
+  ...CommonProps,
+|}>;
+
+type InlineLink = React.StatelessFunctionalComponent<{|
+  href?: string,
+  target?: string,
+  disabled?: boolean,
+  rel?: string,
+  children?: React.Node,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  onClick?: (
+    event: SyntheticEvent<HTMLAnchorElement | HTMLButtonElement>
+  ) => void | Promise<void>,
+  ...ButtonAriaProps,
+  ...LinkAriaProps,
+  ...CommonProps,
+|}>;
+
+class JumpButton extends React.Component<{|
+  children?: React.Node,
+  url?: string,
+  appearance?: 'primary' | 'secondary' | 'tertiary',
+  danger?: boolean,
+  disabled?: boolean,
+  small?: boolean,
+  large?: boolean,
+  target?: string,
+  type?: 'button' | 'submit' | 'reset',
+  onClick?: (e: SyntheticEvent<HTMLButtonElement>) => any,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  rel?: string,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class BackwardButton extends React.Component<{|
+  children?: React.Node,
+  url?: string,
+  appearance?: 'primary' | 'secondary' | 'tertiary',
+  danger?: boolean,
+  disabled?: boolean,
+  small?: boolean,
+  large?: boolean,
+  type?: 'button' | 'submit' | 'reset',
+  onClick?: (e: SyntheticEvent<HTMLButtonElement>) => any,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  rel?: string,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class LeftIconButton extends React.Component<{|
+  children?: React.Node,
+  IconComponent: React.ComponentType<*>,
+  primary?: boolean,
+  danger?: boolean,
+  disabled?: boolean,
+  small?: boolean,
+  type?: 'button' | 'submit' | 'reset',
+  onClick?: (e: SyntheticEvent<HTMLButtonElement>) => any,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class ListButton extends React.Component<{|
+  selectableItemIndex?: number,
+  children?: React.Node,
+  selected?: boolean,
+  href?: string,
+  target?: string,
+  rel?: string,
+  statusIconText?: string,
+  statusIconType?: StatusType,
+  actionButton?: boolean,
+  LeftIconComponent?: React.ComponentType<*>,
+  FarRightIconComponent?: React.ComponentType<*>,
+  bgTransparent?: boolean,
+  onClick?: (e: SyntheticEvent<HTMLButtonElement>) => any,
+  selectableItemRef?: React.Ref<'a' | 'button'>,
+  onKeyDown?: (
+    e: SyntheticKeyboardEvent<HTMLAnchorElement | HTMLButtonElement>,
+    selectableItemIndex: number
+  ) => void | Promise<void>,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class PagerButton extends React.Component<{|
+  children?: React.Node,
+  current?: boolean,
+  disabled?: boolean,
+  onClick?: (e: SyntheticEvent<HTMLButtonElement>) => void | Promise<void>,
+  small?: boolean,
+  label?: string,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class RightIconButton extends React.Component<{|
+  children?: React.Node,
+  IconComponent: React.ComponentType<*>,
+  primary?: boolean,
+  danger?: boolean,
+  disabled?: boolean,
+  small?: boolean,
+  type?: 'button' | 'submit' | 'reset',
+  onClick?: (e: SyntheticEvent<HTMLButtonElement>) => any,
+  ...MarginClassProps,
+  ...CommonProps,
+  ...ButtonAriaProps,
+|}> {}
+
+class TabButton extends React.Component<{|
+  children?: React.Node,
+  current?: boolean,
+  small?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class TextButton extends React.Component<{|
+  children?: React.Node,
+  IconComponent?: React.ComponentType<*>,
+  iconPosition?: 'left' | 'right',
+  id?: string,
+  url?: string,
+  target?: string,
+  rel?: string,
+  noBorder?: boolean,
+  disabled?: boolean,
+  small?: boolean,
+  onClick?: (
+    e: SyntheticEvent<HTMLSpanElement | HTMLAnchorElement>
+  ) => void | Promise<void>,
+  ...LinkAriaProps,
+  ...ButtonAriaProps,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv1/forms
+ */
+class CheckBox extends React.Component<{|
+  children?: React.Node,
+  name?: string,
+  value?: string,
+  checked?: boolean,
+  required?: boolean,
+  autofocus?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  ...FormHandlers<HTMLInputElement>,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class RadioButton extends React.Component<{|
+  children?: React.Node,
+  name?: string,
+  value?: string,
+  checked?: boolean,
+  required?: boolean,
+  autofocus?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  ...FormHandlers<HTMLInputElement>,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+type ReadOnlyField = React.StatelessFunctionalComponent<{|
+  id?: string,
+  label?: string,
+  labelledby?: string,
+  name?: string,
+  value?: string,
+  valueText?: string,
+  small?: boolean,
+  large?: boolean,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  ...CommonProps,
+|}>;
+
+class SearchField extends React.Component<{|
+  label?: string,
+  labelledby?: string,
+  placeholder?: string,
+  name?: string,
+  value?: string,
+  required?: boolean,
+  autofocus?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  large?: boolean,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  maxLength?: number,
+  borderless?: boolean,
+  ...FormHandlers<HTMLInputElement>,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+export type SelectBoxOption = {|
+  name: string,
+  value?: string,
+  disabled?: boolean,
+|};
+export type SelectBoxOptionGroup = {|
+  name: string,
+  options: SelectBoxOption[],
+  disabled?: boolean,
+|};
+class SelectBox extends React.Component<{|
+  label?: string,
+  labelledby?: string,
+  id?: string,
+  options?: Array<SelectBoxOption | SelectBoxOptionGroup>,
+  value?: string,
+  defaultValue?: string,
+  name?: string,
+  required?: boolean,
+  autofocus?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  large?: boolean,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  autoComplete?: AutocompleteAttribute,
+  ...FormHandlers<HTMLSelectElement>,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class TextArea extends React.Component<{|
+  id?: string,
+  label?: string,
+  labelledby?: string,
+  placeholder?: string,
+  name?: string,
+  value?: string,
+  defaultValue?: string,
+  required?: boolean,
+  autofocus?: boolean,
+  autoResize?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  large?: boolean,
+  autoComplete?: AutocompleteAttribute,
+  maxLength?: number,
+  resize?: 'none' | 'horizontal' | 'vertical' | 'both',
+  width?: 'small' | 'medium' | 'large' | 'full',
+  height?: number,
+  ...FormHandlers<HTMLTextAreaElement>,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+type TextFieldType = 'text' | 'email' | 'password' | 'number' | 'tel';
+
+type NumberInputProps = {|
+  min?: number,
+  max?: number,
+  step?: number,
+|};
+
+type TextField = React.AbstractComponent<
+  {|
+    id?: string,
+    type?: TextFieldType,
+    label?: string,
+    labelledby?: string,
+    placeholder?: string,
+    name?: string,
+    value?: string,
+    required?: boolean,
+    autofocus?: boolean,
+    disabled?: boolean,
+    error?: boolean,
+    small?: boolean,
+    large?: boolean,
+    alignCenter?: boolean,
+    alignRight?: boolean,
+    maxLength?: number,
+    autoComplete?: AutocompleteAttribute,
+    suffix?: string,
+    borderless?: boolean,
+    width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+    loading?: boolean,
+    IconComponent?: React.ComponentType<*>,
+    iconLabel?: string,
+    onIconClick?: (e: SyntheticMouseEvent<>) => void | Promise<void>,
+    onIconFocus?: (e: SyntheticFocusEvent<>) => void | Promise<void>,
+    onIconBlur?: (e: SyntheticFocusEvent<>) => void | Promise<void>,
+    iconAriaProps?: ButtonAriaProps,
+    ...FormHandlers<HTMLInputElement>,
+    ...NumberInputProps,
+    ...NumberInputAriaProps,
+    ...MarginClassProps,
+    ...CommonProps,
+  |},
+  HTMLInputElement
+>;
+
+type ToggleButton = React.StatelessFunctionalComponent<{|
+  children?: React.Node,
+  type: 'checkbox' | 'radio',
+  name?: string,
+  value?: string,
+  toggled?: boolean,
+  small?: boolean,
+  disabled?: boolean,
+  ...FormHandlers<HTMLInputElement>,
+  ...CommonProps,
+|}>;
+
+type OptionButton = React.StatelessFunctionalComponent<{|
+  children?: React.Node,
+  id?: string,
+  checked: boolean,
+  size?: 'small' | 'medium' | 'large' | 'none',
+  width?: 'default' | 'full',
+  ...CommonProps,
+|}>;
+
+class FormControlLabel extends React.Component<{|
+  children?: React.Node,
+  id?: string,
+  htmlFor?: string,
+  required?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class NumeralField extends React.Component<{|
+  id?: string,
+  type?: TextFieldType,
+  label?: string,
+  labelledby?: string,
+  placeholder?: string,
+  name?: string,
+  value?: number,
+  required?: boolean,
+  autofocus?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  large?: boolean,
+  maxLength?: number,
+  autoComplete?: AutocompleteAttribute,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  ...FormHandlers<HTMLInputElement>,
+  ...NumberInputProps,
+  ...NumberInputAriaProps,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv1/grids
+ */
+class GridBlock extends React.Component<{|
+  children?: React.Node,
+  size: Size,
+  ...CommonProps,
+|}> {}
+
+class GridWrapper extends React.Component<{|
+  children?: React.Node,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv1/headlines
+ */
+class Note extends React.Component<{|
+  children?: React.Node,
+  inline?: boolean,
+  textAlign?: 'left' | 'center' | 'right',
+  ellipsis?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class PageTitle extends React.Component<{|
+  children?: React.Node,
+  id?: string,
+  inline?: boolean,
+  textAlign?: 'left' | 'center' | 'right',
+  headlineLevel?: 1 | 2 | 3 | 4 | 5 | 6 | -1,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class Paragraph extends React.Component<{|
+  children?: React.Node,
+  inline?: boolean,
+  textAlign?: 'left' | 'center' | 'right',
+  ellipsis?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class SectionTitle extends React.Component<{|
+  children?: React.Node,
+  id?: string,
+  inline?: boolean,
+  textAlign?: 'left' | 'center' | 'right',
+  headlineLevel?: 1 | 2 | 3 | 4 | 5 | 6 | -1,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class SubSectionTitle extends React.Component<{|
+  children?: React.Node,
+  id?: ?string,
+  inline?: boolean,
+  textAlign?: 'left' | 'center' | 'right',
+  headlineLevel?: 1 | 2 | 3 | 4 | 5 | 6 | -1,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+type Text = React.StatelessFunctionalComponent<{|
+  children?: React.Node,
+  size?: 0.75 | 0.875 | 1 | 1.5,
+  weight?: 'normal' | 'bold',
+  color?:
+    | 'black'
+    | 'burnt'
+    | 'link'
+    | 'alert'
+    | 'notice'
+    | 'white'
+    | 'GY7'
+    | 'S9'
+    | 'P7'
+    | 'P5'
+    | 'RE5'
+    | 'YE10',
+  ellipsis?: boolean,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv1/icons
+ */
+
+type Avatar = React.StatelessFunctionalComponent<{|
+  imageUrl?: string,
+  size?: 'small' | 'medium' | 'large' | 'xLarge',
+  ...CommonProps,
+|}>;
+class MaterialIcon extends React.Component<{|
+  label?: string,
+  small?: boolean,
+  error?: boolean,
+  notice?: boolean,
+  success?: boolean,
+  pointerEvents?: 'auto' | 'none',
+  IconComponent: React.ComponentType<any>,
+  color?:
+    | 'inherit'
+    | 'white'
+    | 'P1'
+    | 'P2'
+    | 'P3'
+    | 'P4'
+    | 'P5'
+    | 'P6'
+    | 'P7'
+    | 'P8'
+    | 'P9'
+    | 'P10'
+    | 'S1'
+    | 'S2'
+    | 'S3'
+    | 'S4'
+    | 'S5'
+    | 'S6'
+    | 'S7'
+    | 'S8'
+    | 'S9'
+    | 'S10'
+    | 'RE2'
+    | 'RE4'
+    | 'RE5'
+    | 'RE7'
+    | 'RE10'
+    | 'OR2'
+    | 'OR4'
+    | 'OR5'
+    | 'OR7'
+    | 'OR10'
+    | 'YE2'
+    | 'YE4'
+    | 'YE5'
+    | 'YE7'
+    | 'YE10'
+    | 'YG2'
+    | 'YG4'
+    | 'YG5'
+    | 'YG7'
+    | 'YG10'
+    | 'GR2'
+    | 'GR4'
+    | 'GR5'
+    | 'GR7'
+    | 'GR10'
+    | 'BG2'
+    | 'BG4'
+    | 'BG5'
+    | 'BG7'
+    | 'BG10'
+    | 'PU2'
+    | 'PU4'
+    | 'PU5'
+    | 'PU7'
+    | 'PU10'
+    | 'GY1'
+    | 'GY2'
+    | 'GY4'
+    | 'GY5'
+    | 'GY7'
+    | 'GY10',
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+type RequiredIcon = React.StatelessFunctionalComponent<CommonProps>;
+
+class StatusIcon extends React.Component<{|
+  children?: React.Node,
+  type?: StatusType,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv1/images
+ */
+
+class AlertSwallow extends React.Component<{|
+  size?: 'medium' | 'fit-width' | 'fit-height',
+  ...CommonProps,
+  ...MarginClassProps,
+|}> {}
+
+class AppStoreBadge extends React.Component<{|
+  ...CommonProps,
+  ...MarginClassProps,
+|}> {}
+
+class CloudSkeletonIllust extends React.Component<{|
+  ...CommonProps,
+  ...MarginClassProps,
+|}> {}
+
+class CloudUploadIllust extends React.Component<{|
+  ...CommonProps,
+  ...MarginClassProps,
+|}> {}
+
+class CsvUploadIllust extends React.Component<{|
+  ...CommonProps,
+  ...MarginClassProps,
+|}> {}
+
+class FileUploadIllust extends React.Component<{|
+  ...CommonProps,
+  ...MarginClassProps,
+|}> {}
+
+type FinishTaskIllust = React.StatelessFunctionalComponent<{|
+  ...CommonProps,
+|}>;
+
+class GooglePlayBadge extends React.Component<{|
+  ...CommonProps,
+  ...MarginClassProps,
+|}> {}
+
+class ImageUploadIllust extends React.Component<{|
+  ...CommonProps,
+  ...MarginClassProps,
+|}> {}
+
+class NoDataIllust extends React.Component<{|
+  size?: 'medium' | 'fit-width' | 'fit-height',
+  ...CommonProps,
+  ...MarginClassProps,
+|}> {}
+
+class NoSearchResultsIllust extends React.Component<{|
+  size?: 'medium' | 'fit-width' | 'fit-height',
+  ...CommonProps,
+  ...MarginClassProps,
+|}> {}
+
+class NotFoundSwallow extends React.Component<{|
+  size?: 'medium' | 'fit-width' | 'fit-height',
+  ...CommonProps,
+  ...MarginClassProps,
+|}> {}
+
+class DiscoveryIllust extends React.Component<{|
+  animationDelay?: number,
+  ...CommonProps,
+  ...MarginClassProps,
+|}> {}
+
+/**
+ * lv1/interactiveParts
+ */
+class CalendarDate extends React.Component<{|
+  date: string,
+  dateLabel?: string,
+  today?: boolean,
+  disabled?: boolean,
+  secondaryHoliday?: boolean,
+  primaryHoliday?: boolean,
+  nationalHoliday?: boolean,
+  content?: ?TimeRecord,
+  onClickDate?: (date: string) => void | Promise<void>,
+  selectableDateRef?: (el: HTMLDivElement) => void | Promise<void>,
+  onKeyDown?: (
+    e: SyntheticKeyboardEvent<HTMLDivElement>,
+    date: string,
+    onClickDate?: (date: string) => void | Promise<void>
+  ) => void | Promise<void>,
+  ...CommonProps,
+|}> {}
+
+class SegmentControlButton extends React.Component<{|
+  children?: React.Node,
+  current?: boolean,
+  small?: boolean,
+  large?: boolean,
+  href?: string,
+  target?: string,
+  rel?: string,
+  onClick?: (e: SyntheticEvent<HTMLButtonElement>) => any,
+  IconComponent?: React.ComponentType<*>,
+  ...CommonProps,
+|}> {}
+
+type StepNumber = React.StatelessFunctionalComponent<{|
+  number?: string,
+  current?: boolean,
+  done?: boolean,
+  disabled?: boolean,
+  small?: boolean,
+  ...CommonProps,
+|}>;
+class StepBlock extends React.Component<{|
+  number?: string,
+  children?: React.Node,
+  current?: boolean,
+  done?: boolean,
+  disabled?: boolean,
+  small?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class StepBorder extends React.Component<{|
+  done?: boolean,
+  separator?: boolean,
+  ...CommonProps,
+|}> {}
+
+class Tab extends React.Component<{|
+  children?: React.Node,
+  current?: boolean,
+  small?: boolean,
+  selected?: boolean,
+  onClick?: (SyntheticEvent<HTMLButtonElement>) => any,
+  onBlur?: (SyntheticEvent<HTMLButtonElement>) => any,
+  notification?: string,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv1/layouts
+ */
+type WithDescriptionContent = React.StatelessFunctionalComponent<{|
+  position?: 'horizontal' | 'vertical' | 'vertical-reverse',
+  renderContent: (descriptionContentId: string) => React.Node,
+  renderDescriptionContent: () => React.Node,
+  ...CommonProps,
+|}>;
+type WithSideContent = React.StatelessFunctionalComponent<{
+  children?: React.Node,
+  sideContent: React.Node,
+  verticalAlign?: 'top' | 'bottom' | 'middle',
+  ...CommonProps,
+}>;
+
+type Gap = 0 | 0.25 | 0.5 | 1 | 1.5 | 2 | 3;
+type JustifyContent = 'start' | 'end' | 'center' | 'space-between';
+type AlignItems = 'stretch' | 'center' | 'start' | 'end';
+type FlexWrap = 'nowrap' | 'wrap';
+
+type Stack = React.StatelessFunctionalComponent<{
+  children?: React.Node,
+  direction?:
+    | 'vertical'
+    | 'horizontal'
+    | 'vertical-reverse'
+    | 'horizontal-reverse',
+  gap?: Gap,
+  justifyContent?: JustifyContent,
+  alignItems?: AlignItems,
+  wrap?: FlexWrap,
+  inline?: boolean,
+  ...CommonProps,
+}>;
+
+type HStack = React.StatelessFunctionalComponent<{
+  children?: React.Node,
+  gap?: Gap,
+  justifyContent?: JustifyContent,
+  alignItems?: AlignItems,
+  wrap?: FlexWrap,
+  inline?: boolean,
+  ...CommonProps,
+}>;
+
+type VStack = React.StatelessFunctionalComponent<{
+  children?: React.Node,
+  gap?: Gap,
+  justifyContent?: JustifyContent,
+  alignItems?: AlignItems,
+  wrap?: FlexWrap,
+  inline?: boolean,
+}>;
+
+/**
+ * lv1/lists
+ */
+class BorderTableListCell extends React.Component<{|
+  children?: React.Node,
+  small?: boolean,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  onClick?: () => any,
+  status?: 'alert' | 'notice' | 'success',
+  rowHeader?: boolean,
+  fixedRowHeader?: boolean,
+  fixedRowHeaderLeft?: number,
+  rowSpan?: number,
+  ...CommonProps,
+|}> {}
+
+type CheckBoxCell = React.StatelessFunctionalComponent<{|
+  header: boolean,
+  name?: string,
+  value?: string,
+  checked?: boolean,
+  disabled?: boolean,
+  'aria-label'?: string,
+  onChange?: (e: SyntheticInputEvent<HTMLInputElement>) => void | Promise<void>,
+  ...CommonProps,
+|}>;
+
+type DescriptionListCell = React.StatelessFunctionalComponent<{
+  children?: React.Node,
+  ...CommonProps,
+}>;
+class DescriptionListHeadCell extends React.Component<{|
+  children?: React.Node,
+  minWidth?: number,
+  spacing?: 'normal' | 'compact',
+  ...CommonProps,
+|}> {}
+
+class TableListCell extends React.Component<{|
+  children?: React.Node,
+  url?: string,
+  small?: boolean,
+  alignBottom?: boolean,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  alignTop?: boolean,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  colSpan?: number,
+  indentLevel?: number,
+  ...CommonProps,
+|}> {}
+
+class TableListHead extends React.Component<{|
+  children?: React.Node,
+  fixedHeader?: boolean,
+  fixedHeaderOffset?: number | string,
+  ...CommonProps,
+|}> {}
+
+class TableListHeadCell extends React.Component<{|
+  children?: React.Node,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  ordering?: 'asc' | 'desc' | 'init',
+  onClick?: () => any,
+  width?: number,
+  minWidth?: number,
+  maxWidth?: number,
+  noWrap?: boolean,
+  rowHeader?: boolean,
+  fixedRowHeader?: boolean,
+  fixedRowHeaderLeft?: number,
+  ...CommonProps,
+|}> {}
+
+type TableListRow = React.AbstractComponent<
+  {|
+    children?: React.Node,
+    url?: string,
+    onClick?: () => any,
+    onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+    ...CommonProps,
+    ...TableRowAriaProps,
+  |},
+  HTMLTableRowElement
+>;
+
+type TreeFoldingButtonCell = React.StatelessFunctionalComponent<{|
+  folded: boolean,
+  onToggleFolded: (folded: boolean) => void | Promise<void>,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv1/messages
+ */
+class Message extends React.Component<{|
+  children?: React.Node,
+  error?: boolean,
+  notice?: boolean,
+  success?: boolean,
+  info?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+type ProgressBar = React.StatelessFunctionalComponent<{|
+  value?: number,
+  maxValue?: number,
+  indeterminate?: boolean,
+  width?: 'default' | 'full' | 'large' | 'small' | 'xSmall',
+  ...CommonProps,
+|}>;
+
+type Loading = React.StatelessFunctionalComponent<
+  | {|
+      coverAll: true,
+      children?: React.Node,
+      isLoading: boolean,
+      message?: React.Node,
+      inline?: boolean,
+      ...CommonProps,
+    |}
+  | {|
+      coverAll?: false,
+      children: React.Node,
+      isLoading: boolean,
+      message?: React.Node,
+      inline?: boolean,
+      ...CommonProps,
+    |}
+>;
+
+type InlineSpinner = React.StatelessFunctionalComponent<{|
+  isLoading: boolean,
+  large?: boolean,
+  ...CommonProps,
+|}>;
+
+declare module.exports: {
+  VisuallyHidden: typeof VisuallyHidden,
+  FocusHighlight: FocusHighlight,
+  Balloon: Balloon,
+  ColumnBase: typeof ColumnBase,
+  Container: typeof Container,
+  ContentsBase: typeof ContentsBase,
+  DialogBase: typeof DialogBase,
+  FloatingBase: typeof FloatingBase,
+  MarginBase: typeof MarginBase,
+  PopupBase: typeof PopupBase,
+  CardBase: typeof CardBase,
+  ScrimBase: typeof ScrimBase,
+  NegativeMarginBase: typeof NegativeMarginBase,
+  ScrollableBase: ScrollableBase,
+  ZebraBase: typeof ZebraBase,
+  Button: Button,
+  GlobalNaviButton: typeof GlobalNaviButton,
+  IconOnlyButton: typeof IconOnlyButton,
+  IconOnlyJumpButton: IconOnlyJumpButton,
+  IconOnlyBackwardButton: IconOnlyBackwardButton,
+  InlineLink: InlineLink,
+  JumpButton: typeof JumpButton,
+  BackwardButton: typeof BackwardButton,
+  LeftIconButton: typeof LeftIconButton,
+  ListButton: typeof ListButton,
+  PagerButton: typeof PagerButton,
+  RightIconButton: typeof RightIconButton,
+  TabButton: typeof TabButton,
+  TextButton: typeof TextButton,
+  CheckBox: typeof CheckBox,
+  NumeralField: typeof NumeralField,
+  RadioButton: typeof RadioButton,
+  ReadOnlyField: ReadOnlyField,
+  SearchField: typeof SearchField,
+  SelectBox: typeof SelectBox,
+  TextArea: typeof TextArea,
+  TextField: TextField,
+  ToggleButton: ToggleButton,
+  OptionButton: OptionButton,
+  FormControlLabel: typeof FormControlLabel,
+  GridBlock: typeof GridBlock,
+  GridWrapper: typeof GridWrapper,
+  Note: typeof Note,
+  PageTitle: typeof PageTitle,
+  Paragraph: typeof Paragraph,
+  SectionTitle: typeof SectionTitle,
+  SubSectionTitle: typeof SubSectionTitle,
+  Text: Text,
+  Avatar: Avatar,
+  MaterialIcon: typeof MaterialIcon,
+  RequiredIcon: RequiredIcon,
+  StatusIcon: typeof StatusIcon,
+  AlertSwallow: typeof AlertSwallow,
+  AppStoreBadge: typeof AppStoreBadge,
+  CloudSkeletonIllust: typeof CloudSkeletonIllust,
+  CloudUploadIllust: typeof CloudUploadIllust,
+  CsvUploadIllust: typeof CsvUploadIllust,
+  FileUploadIllust: typeof FileUploadIllust,
+  FinishTaskIllust: FinishTaskIllust,
+  GooglePlayBadge: typeof GooglePlayBadge,
+  ImageUploadIllust: typeof ImageUploadIllust,
+  NoDataIllust: typeof NoDataIllust,
+  NoSearchResultsIllust: typeof NoSearchResultsIllust,
+  NotFoundSwallow: typeof NotFoundSwallow,
+  DiscoveryIllust: typeof DiscoveryIllust,
+  CalendarDate: typeof CalendarDate,
+  SegmentControlButton: typeof SegmentControlButton,
+  StepNumber: StepNumber,
+  StepBlock: typeof StepBlock,
+  StepBorder: typeof StepBorder,
+  Tab: typeof Tab,
+  WithDescriptionContent: WithDescriptionContent,
+  WithSideContent: WithSideContent,
+  Stack: Stack,
+  HSTack: HStack,
+  VSTack: VStack,
+  BorderTableListCell: typeof BorderTableListCell,
+  CheckBoxCell: CheckBoxCell,
+  DescriptionListCell: DescriptionListCell,
+  DescriptionListHeadCell: typeof DescriptionListHeadCell,
+  TableListCell: typeof TableListCell,
+  TableListHead: typeof TableListHead,
+  TableListHeadCell: typeof TableListHeadCell,
+  TableListRow: TableListRow,
+  TreeFoldingButtonCell: TreeFoldingButtonCell,
+  Message: typeof Message,
+  ProgressBar: ProgressBar,
+  Loading: Loading,
+  InlineSpinner: InlineSpinner,
+};

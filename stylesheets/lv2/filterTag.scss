@@ -1,0 +1,62 @@
+.vb-filterTag {
+  &__block {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 0.5rem;
+    border-radius: $vbCardBorderRadius;
+    height: 1.5rem;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    transition-property: background-color, color, border;
+
+    .vb-filterTag__icon {
+      width: 1rem;
+      height: 1rem;
+      margin-left: 0.5rem;
+      transition-duration: 0.2s;
+      transition-property: fill;
+      fill: $vbColorsS10;
+    }
+
+    // デフォルト時のカラー
+    color: $vbColorsS10;
+    background-color: #fff;
+    border: 1px solid $vbColorsS08;
+
+    // ホバー時のカラー
+    &:hover {
+      background-color: $vbColorsS02;
+    }
+
+    &:active {
+      background-color: $vbColorsS03;
+    }
+
+    // 選択中のカラー
+    &.active {
+      color: $vbColorsP07;
+      background-color: $vbColorsP01;
+      border-color: $vbColorsP07;
+
+      .vb-filterTag__icon {
+        fill: $vbColorsP07;
+      }
+
+      &:hover {
+        background-color: $vbColorsP02;
+      }
+
+      &:active {
+        background-color: $vbColorsP03;
+      }
+    }
+  }
+
+  &__body {
+    font-size: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

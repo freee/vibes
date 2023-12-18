@@ -1,0 +1,21 @@
+@use 'sass:math';
+
+.vb-message {
+  display: inline-flex;
+  vertical-align: middle;
+
+  &__icon {
+    flex-shrink: 0;
+  }
+
+  &__content {
+    display: inline-block;
+    font-size: $vbNormalFontSize;
+    line-height: 1.5;
+
+    // $vbLargeSize = 1.5rem = 24px のアイコンと $vbNormalFontSize = 0.875rem = 14px (line-hight 1.5 * 0.875rem = 1.3125rem = 21px) のメッセージ文を並べて中央を揃えたい。
+    // ただしメッセージを2行以上にしたときにアイコンはメッセージ（複数行）の中央ではなく、あくまで1行目の位置に揃えたい。
+    // そのため1.5rem と 1.3125rem の差を 2 で割ったものを計算している
+    padding-top: math.div($vbLargeSize - $vbNormalFontSize * 1.5, 2);
+  }
+}

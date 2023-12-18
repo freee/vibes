@@ -1,0 +1,54 @@
+.vb-withTOC {
+  display: flex;
+  gap: 0 1rem;
+
+  &__toc {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 11rem;
+
+    &__container {
+      position: sticky;
+      top: 0;
+      overflow-y: auto;
+      max-height: 100vh;
+      margin: -1rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    &__link {
+      display: block;
+      margin: 1rem 0;
+      padding: 0.25rem 1rem;
+      text-decoration: none;
+      font: $vbHeadlineFont2;
+      color: $vbBlackColor;
+      border-radius: $vbMiniPaddingBorderRadius;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $vbColorsS01;
+      }
+
+      &--current {
+        background-color: $vbColorsP01;
+        color: $vbColorsP05;
+
+        &:hover {
+          background-color: $vbColorsP01;
+        }
+      }
+    }
+  }
+
+  &__contents {
+    flex-grow: 1;
+
+    &__section {
+      // Preventing child margins to pierce through which may confuse scrolling spy.
+      overflow-y: hidden;
+      outline: none;
+    }
+  }
+}

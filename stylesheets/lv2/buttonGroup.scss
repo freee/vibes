@@ -1,0 +1,69 @@
+.vb-buttonGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__topPair {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:not(:last-child) {
+      margin: 0 1rem 0 0;
+    }
+  }
+
+  &--alignLeft {
+    justify-content: flex-start;
+  }
+
+  &__topItem:not(:last-child),
+  &__item:not(:last-child) {
+    margin: 0 1rem 0 0;
+  }
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      flex-direction: column;
+      width: 100%;
+
+      .vb-buttonGroup__topPair {
+        flex-direction: column;
+        margin-right: 0;
+
+        &:not(:last-child) {
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      .vb-buttonGroup__topPair--mobileButtonLayoutRow {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+
+        &:not(:last-child) {
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      .vb-buttonGroup__topItem--mobileButtonLayoutRow {
+        flex-grow: 1;
+      }
+
+      .vb-buttonGroup__item,
+      .vb-buttonGroup__topItem:not(.vb-buttonGroup__topItem--mobileButtonLayoutRow) {
+        margin: 0 auto 0.5rem;
+        min-width: 10rem;
+        text-align: center;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .vb-button:not(.vb-button--appearanceTertiary) {
+        width: 100%;
+      }
+    }
+  }
+}

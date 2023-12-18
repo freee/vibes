@@ -1,0 +1,38 @@
+.vb-withPopup {
+  display: inline-block;
+
+  &__contentWrapper {
+    display: block;
+  }
+
+  &__popupWrapper {
+    position: relative;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+  }
+
+  &__popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &--rightAligned {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  &__animation {
+    &-enter {
+      opacity: 0;
+    }
+
+    &-enter-active {
+      opacity: 1;
+    }
+
+    &-exit {
+      opacity: 0;
+    }
+  }
+}

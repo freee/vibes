@@ -1,0 +1,16 @@
+.vb-tabBar {
+  border-bottom: 1px solid $vbBaseColor2;
+  padding: 0 $vbLargeSize;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  &__buttonGroup {
+    margin-left: $vbBasicSize;
+
+    button {
+      margin-left: $vbSmallSize;
+    }
+  }
+}

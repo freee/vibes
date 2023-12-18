@@ -1,0 +1,27 @@
+/** @define bulletedList */
+.vb-bulletedList {
+  font-size: $vbNormalFontSize;
+
+  &__list {
+    list-style-type: disc;
+    padding: 0 0 0 1.5em;
+    margin: 0;
+
+    &--decimal {
+      list-style-type: decimal;
+    }
+
+    &__listItem {
+      margin: 0 0 0.5em;
+      line-height: 1.5;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &--small {
+    font-size: $vbCaptionFontSize;
+  }
+}

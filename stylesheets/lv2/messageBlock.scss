@@ -1,0 +1,169 @@
+@use 'sass:math';
+@use '../container_query' as *;
+
+.vb-messageBlock {
+  container-type: inline-size;
+  width: 100%;
+
+  &--hover {
+    box-shadow: $vbPopupShadow;
+    border-radius: $vbBaseBorderRadius;
+    z-index: $vbFloatingZIndex;
+  }
+
+  &__inner {
+    border: $vbMinimum solid $vbColorsS05;
+    background-color: $vbColorsS01;
+    border-radius: $vbBaseBorderRadius;
+    box-sizing: border-box;
+    display: grid;
+    display: -ms-grid;
+    grid-template-columns: 1fr auto;
+    -ms-grid-columns: 1fr auto;
+    padding: $vbBasicSize;
+
+    &--responsive {
+      @media (max-width: $vbMobileBoundaryWidth) {
+        padding: $vbSmallSize;
+        display: block;
+      }
+    }
+
+    @include at-container('max-width:' $vbMobileBoundaryWidth) {
+      padding: $vbSmallSize;
+      display: block;
+    }
+
+    &--alert {
+      border: $vbMinimum solid $vbAlertColor;
+      background-color: $vbColorsRE02;
+    }
+
+    &--notice {
+      border: $vbMinimum solid $vbNoticeColor;
+      background-color: $vbColorsYE02;
+    }
+
+    &--success,
+    &--assistance,
+    &--discovery {
+      border: $vbMinimum solid $vbPrimaryColor;
+      background-color: $vbColorsP02;
+    }
+  }
+
+  &__message {
+    -ms-grid-column: 1;
+    grid-column: 1 / 2;
+  }
+
+  &__buttons {
+    -ms-grid-column: 2;
+    grid-column: 2 / 3;
+    // ボタンの高さがMessage部分と合わないため、引き算して中央に配置している
+    margin-top: math.div($vbLargeSize - $vbFormControlHeight, 2);
+    height: $vbLargeSize;
+
+    &--responsive {
+      @media (max-width: $vbMobileBoundaryWidth) {
+        margin-top: $vbXSmallSize;
+        margin-left: $vbBasicSize;
+        height: auto;
+      }
+    }
+
+    @include at-container('max-width:' $vbMobileBoundaryWidth) {
+      margin-top: $vbXSmallSize;
+      margin-left: $vbBasicSize;
+      height: auto;
+    }
+  }
+
+  &__linkButton,
+  &__closeButton {
+    display: inline-block;
+    white-space: nowrap;
+    // ボタンの高さがMessage部分と合わないため、引き算して中央に配置している
+    margin-top: math.div($vbLargeSize - $vbFormControlHeight, 2);
+    height: $vbLargeSize;
+  }
+}
+
+.vb-messageBlockInternalMessage {
+  &__inner {
+    display: flex;
+    flex: 1 auto;
+    align-items: flex-start;
+  }
+
+  &__icon {
+    display: inline-block;
+    margin-right: $vbSmallSize;
+    font-size: $vbLargeSize;
+    min-width: $vbLargeSize;
+
+    &--alert {
+      color: $vbAlertColor;
+    }
+
+    &--notice {
+      color: $vbNoticeColor;
+    }
+
+    &--success,
+    &--assistance,
+    &--discovery {
+      color: $vbPrimaryColor;
+    }
+
+    &--explanatory,
+    &--info {
+      color: $vbBaseColor3;
+    }
+  }
+
+  &__content {
+    display: inline-block;
+    font-size: $vbNormalFontSize;
+    line-height: 1.5;
+    // align-items: flex-start;とした際に、アイコンと中央に並んで見えるように調整
+    margin-top: math.div($vbLargeSize - $vbNormalFontSize * 1.5, 2);
+  }
+}
+
+.vb-floatingMessageBlockPortal {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: $vbFixedMessageZIndex;
+}
+
+.vb-floatingMessageBlock {
+  box-shadow: $vbPopupShadow;
+  border-radius: $vbFloatingBorderRadius;
+  margin: auto;
+  min-width: 16rem;
+  max-width: calc(100vw - 3rem);
+  width: 50rem;
+  transition-property: opacity;
+  transition-duration: 0.3s;
+
+  & .vb-messageBlock__inner {
+    border-radius: $vbFloatingBorderRadius;
+  }
+
+  &__animation {
+    &-enter {
+      opacity: 0;
+    }
+
+    &-enter-active {
+      opacity: 1;
+    }
+
+    &-exit {
+      opacity: 0;
+    }
+  }
+}

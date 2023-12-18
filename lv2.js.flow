@@ -1,0 +1,2201 @@
+// @flow
+
+import * as React from 'react';
+// eslint-disable-next-line import/no-unresolved
+import * as Utilities from './utilities';
+
+type AutocompleteAttribute =
+  | 'off'
+  | 'on'
+  | 'name'
+  | 'honorific-prefix'
+  | 'given-name'
+  | 'additional-name'
+  | 'family-name'
+  | 'honorific-suffix'
+  | 'nickname'
+  | 'email'
+  | 'username'
+  | 'new-password'
+  | 'current-password'
+  | 'one-time-code'
+  | 'organization-title'
+  | 'organization'
+  | 'street-address'
+  | 'address-line1'
+  | 'address-line2'
+  | 'address-line3'
+  | 'address-level4'
+  | 'address-level3'
+  | 'address-level2'
+  | 'address-level1'
+  | 'country'
+  | 'country-name'
+  | 'postal-code'
+  | 'cc-name'
+  | 'cc-given-name'
+  | 'cc-additional-name'
+  | 'cc-family-name'
+  | 'cc-number'
+  | 'cc-exp'
+  | 'cc-exp-month'
+  | 'cc-exp-year'
+  | 'cc-csc'
+  | 'cc-type'
+  | 'transaction-currency'
+  | 'transaction-amount'
+  | 'language'
+  | 'bday'
+  | 'bday-day'
+  | 'bday-month'
+  | 'bday-year'
+  | 'sex'
+  | 'tel'
+  | 'tel-country-code'
+  | 'tel-national'
+  | 'tel-area-code'
+  | 'tel-local'
+  | 'tel-local-prefix'
+  | 'tel-local-suffix'
+  | 'tel-extension'
+  | 'impp'
+  | 'url'
+  | 'photo';
+
+type MarginClassProps = {|
+  marginTop?: boolean,
+  marginLeft?: boolean,
+  marginRight?: boolean,
+  marginBottom?: boolean,
+  marginSize?: 'xSmall' | 'small' | 'large' | 'xLarge' | 'xxLarge',
+|};
+
+type CommonProps = typeof Utilities.CommonProps;
+
+/**
+ * lv2/accordionPanel
+ */
+class AccordionPanel extends React.Component<{|
+  title: React.Node,
+  children?: React.Node,
+  open?: boolean,
+  border?: 'both' | 'bottom' | 'top',
+  small?: boolean,
+  onClick: () => any,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/basicTable
+ */
+type Order = 'asc' | 'desc' | 'init';
+
+export type TableHeader = {|
+  value: React.Node,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  ordering?: Order,
+  onClick?: (rowIndex: number) => any,
+  width?: number,
+  minWidth?: number,
+  maxWidth?: number,
+  noWrap?: boolean,
+  'data-test'?: string,
+|};
+
+export type TableRow = {|
+  onClick?: (rowIndex: number) => any,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  url?: string,
+  cells: Array<TableCell>,
+  checked?: boolean,
+  onChangeCheckBox?: (
+    SyntheticInputEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  checkBoxName?: string,
+  checkBoxValue?: string,
+  'data-test'?: string,
+  ref?: { current: HTMLTableRowElement | null },
+|};
+
+export type TableCell = {|
+  value: React.Node,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  alignTop?: boolean,
+  small?: boolean,
+  colSpan?: number,
+  'data-masking'?: boolean,
+  'data-test'?: string,
+|};
+
+/**
+ * lv2/breadcrumbs
+ */
+export type BreadcrumbsLink = {|
+  title: string,
+  url?: string,
+  onClickNavigator?: () => void | Promise<void>,
+  loading?: boolean,
+|};
+class Breadcrumbs extends React.Component<{|
+  links: Array<BreadcrumbsLink>,
+  label?: string,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/bulletedList
+ */
+export type BulletListContent = {|
+  value: React.Node,
+  url?: string,
+  target?: string,
+  rel?: string,
+  'data-guide'?: string,
+  'data-test'?: string,
+  'data-tracking'?: string,
+  'data-masking'?: boolean,
+|};
+
+type BulletedList = React.StatelessFunctionalComponent<{|
+  listContents?: Array<BulletListContent>,
+  listStyleType?: 'decimal' | 'disc',
+  small?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/calendar
+ */
+type TimeRecord = {
+  type: 'timeRecord',
+  date: string,
+  status?: 'alert' | 'notice' | 'success',
+  dateLabel?: string,
+  openingTime: string,
+  endingTime: string,
+};
+
+class Calendar extends React.Component<{|
+  year: string,
+  month: string,
+  contents?: Array<TimeRecord>,
+  startFromMonday?: boolean,
+  nationalHolidays?: Array<string>,
+  onClickDate?: (date: string) => void | Promise<void>,
+  ...CommonProps,
+|}> {}
+
+class DatePicker extends React.Component<{|
+  date?: string | Date,
+  onDateClick: (string) => any,
+  minDate?: string,
+  maxDate?: string,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/comboBox
+ */
+
+export type ComboBoxOption = {|
+  label: string,
+  id: string | number,
+  keywords?: string[],
+  disabled?: boolean,
+|};
+
+export type SingleComboBoxOption = {|
+  ...ComboBoxOption,
+  subLabel?: string,
+|};
+
+type ComboboxFixedItem = {|
+  onSelect: (fieldValue: string) => any,
+  isVisible?: (
+    fieldValue: string,
+    filteredOptions: ComboBoxOption[]
+  ) => boolean,
+  label?: (fieldValue: string) => string,
+|};
+
+class SingleComboBox extends React.Component<{|
+  value?: ComboBoxOption | SingleComboBoxOption,
+  options: ComboBoxOption[] | SingleComboBoxOption[],
+  id?: string,
+  label?: string,
+  labelledby?: string,
+  placeholder?: string,
+  name?: string,
+  required?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  large?: boolean,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  listWidth?: 'xSmall' | 'small' | 'medium' | 'large',
+  emptyMessage?: React.Node,
+  isLoading?: boolean,
+  borderless?: boolean,
+  onChange?: (val?: ComboBoxOption) => void | Promise<void>,
+  onInput?: (e: SyntheticInputEvent<*>) => void | Promise<void>,
+  onFocus?: (e: SyntheticFocusEvent<*>) => void | Promise<void>,
+  onBlur?: (e: SyntheticFocusEvent<*>) => void | Promise<void>,
+  onKeyDown?: (e: SyntheticKeyboardEvent<*>) => void | Promise<void>,
+  trailingItem?: {
+    onSelect: (fieldValue: string) => any,
+    isVisible?: (fieldValue: string) => boolean,
+    render: (fieldValue: string) => React.Node,
+    selectIfOnly?: boolean,
+    isMoreOption?: boolean,
+  },
+  fixedItems?: [ComboboxFixedItem] | [ComboboxFixedItem, ComboboxFixedItem],
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+type ComboBoxFetchParams = { name: string, page: number };
+
+export type ApiMetaData = {
+  limit: number,
+  currentPage: number,
+  totalPages: number,
+  totalCount: number,
+};
+
+type useApiComboBox = <T>(params: {
+  createOptions: (items: T[]) => ComboBoxOption[],
+  fetchItems: (params: ComboBoxFetchParams) => Promise<any>,
+  fetchOnInit?: boolean,
+  initialName?: string,
+  responseAdapter?: (response: any) => { items: T[], meta: ApiMetaData },
+}) => {
+  createOptions: (items: T[]) => ComboBoxOption[],
+  fetchItems: (params: ComboBoxFetchParams) => Promise<void>,
+  isLoading: boolean,
+  items: T[],
+  meta: ApiMetaData,
+  onFocus: (
+    e: SyntheticFocusEvent<*>,
+    fetchParams: ComboBoxFetchParams,
+    value?: ComboBoxOption
+  ) => void,
+  options: ComboBoxOption[],
+  setItems: (newItems: T[]) => void,
+  setMeta: (newMeta: ApiMetaData) => void,
+};
+
+class ApiComboBox extends React.Component<{|
+  fetchItems: (params: ComboBoxFetchParams) => Promise<any>,
+  meta: ApiMetaData,
+  createNewItem?: (fieldValue: string) => void,
+  value?: ComboBoxOption,
+  options: ComboBoxOption[],
+  id?: string,
+  label?: string,
+  labelledby?: string,
+  placeholder?: string,
+  name?: string,
+  required?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  large?: boolean,
+  borderless?: boolean,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  listWidth?: 'xSmall' | 'small' | 'medium' | 'large',
+  emptyMessage?: React.Node,
+  isLoading?: boolean,
+  onChange?: (option?: ComboBoxOption) => void | Promise<void>,
+  onInput?: (e: SyntheticInputEvent<*>) => void | Promise<void>,
+  onFocus?: (
+    e: SyntheticFocusEvent<*>,
+    fetchParams: ComboBoxFetchParams,
+    value?: ComboBoxOption
+  ) => void | Promise<void>,
+  onBlur?: (
+    e: SyntheticFocusEvent<*>,
+    fetchParams: ComboBoxFetchParams,
+    value?: ComboBoxOption
+  ) => void | Promise<void>,
+  onKeyDown?: (e: SyntheticKeyboardEvent<*>) => void | Promise<void>,
+  createOptions?: (items: any[]) => ComboBoxOption[],
+  items?: any[],
+  setItems?: (newItems: any[]) => void,
+  setMeta?: (newMeta: ApiMetaData) => void,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+export type MultiComboBoxOption = {|
+  ...ComboBoxOption,
+  color?: 'RE' | 'OR' | 'YE' | 'YG' | 'GR' | 'BG' | 'PU' | 'GY',
+  type?: string,
+|};
+
+type MultiComboBox = React.AbstractComponent<
+  {|
+    id?: string,
+    label?: string,
+    labelledby?: string,
+    placeholder?: string,
+    name?: string,
+    required?: boolean,
+    disabled?: boolean,
+    error?: boolean,
+    width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+    borderless?: boolean,
+    onChange?: (val: MultiComboBoxOption[]) => void | Promise<void>,
+    onInput?: (
+      e: SyntheticInputEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    onFocus?: (
+      e: SyntheticFocusEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    onBlur?: (e: SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+    onKeyDown?: (
+      e: SyntheticKeyboardEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    values?: MultiComboBoxOption[],
+    options: MultiComboBoxOption[],
+    maxSelectionCount?: number,
+    listWidth?: 'xSmall' | 'small' | 'medium' | 'large',
+    emptyMessage?: React.Node,
+    isLoading?: boolean,
+    ...CommonProps,
+  |},
+  HTMLInputElement
+>;
+
+type useApiMultiComboBox = <T>(params: {
+  createOptions: (items: T[]) => MultiComboBoxOption[],
+  fetchItems: (params: ComboBoxFetchParams) => Promise<any>,
+  fetchOnInit?: boolean,
+  responseAdapter?: (response: any) => { items: T[], meta: ApiMetaData },
+}) => {
+  createOptions: (items: T[]) => MultiComboBoxOption[],
+  fetchItems: (params: ComboBoxFetchParams) => Promise<void>,
+  isLoading: boolean,
+  items: T[],
+  meta: ApiMetaData,
+  onFocus: (
+    e: SyntheticFocusEvent<*>,
+    fetchParams: ComboBoxFetchParams,
+    values?: MultiComboBoxOption[]
+  ) => void,
+  options: MultiComboBoxOption[],
+  setItems: (newItems: T[]) => void,
+  setMeta: (newMeta: ApiMetaData) => void,
+};
+
+class ApiMultiComboBox extends React.Component<{|
+  fetchItems: (params: ComboBoxFetchParams) => Promise<any>,
+  meta: ApiMetaData,
+  createNewItem?: (fieldValue: string) => void,
+  values?: MultiComboBoxOption[],
+  options: MultiComboBoxOption[],
+  maxSelectionCount?: number,
+  id?: string,
+  label?: string,
+  labelledby?: string,
+  placeholder?: string,
+  name?: string,
+  required?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  large?: boolean,
+  borderless?: boolean,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  listWidth?: 'xSmall' | 'small' | 'medium' | 'large',
+  emptyMessage?: React.Node,
+  isLoading?: boolean,
+  onChange?: (options?: MultiComboBoxOption[]) => void | Promise<void>,
+  onInput?: (e: SyntheticInputEvent<*>) => void | Promise<void>,
+  onFocus?: (
+    e: SyntheticFocusEvent<*>,
+    fetchParams: ComboBoxFetchParams,
+    values?: MultiComboBoxOption[]
+  ) => void | Promise<void>,
+  onBlur?: (
+    e: SyntheticFocusEvent<*>,
+    fetchParams: ComboBoxFetchParams,
+    values?: MultiComboBoxOption[]
+  ) => void | Promise<void>,
+  onKeyDown?: (e: SyntheticKeyboardEvent<*>) => void | Promise<void>,
+  createOptions?: (items: any[]) => MultiComboBoxOption[],
+  items?: any[],
+  setItems?: (newItems: any[]) => void,
+  setMeta?: (newMeta: ApiMetaData) => void,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/cardNavigation
+ */
+type CardNavigationContent = {|
+  title: React.Node,
+  text?: React.Node,
+  url?: string,
+  IconComponent?: React.ElementType,
+|};
+class CardNavigation extends React.Component<{|
+  navigationContents: Array<CardNavigationContent>,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/descriptionList
+ */
+type DescriptionListContent = {|
+  title: React.Node,
+  value?: React.Node,
+|};
+class DescriptionList extends React.Component<{|
+  listContents: Array<DescriptionListContent>,
+  headCellMinWidth?: number,
+  spacing?: 'normal' | 'compact',
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/dialogs
+ */
+class MessageDialog extends React.Component<{|
+  isOpen: boolean,
+  elementFocusAfterClose?: HTMLElement,
+  title: React.Node,
+  children: React.Node,
+  onRequestClose: (SyntheticEvent<*>) => any,
+  closeButtonLabel: string,
+  closeButtonAppearance?: 'primary' | 'secondary' | 'tertiary',
+  responsive?: boolean,
+  id?: string,
+  contentAlign?: 'left',
+  contentRef?: (element: HTMLDivElement) => void,
+  ...CommonProps,
+|}> {}
+
+class MessageDialogConfirm extends React.Component<{|
+  isOpen: boolean,
+  elementFocusAfterClose?: HTMLElement,
+  title: React.Node,
+  children: React.Node,
+  onConfirm: (SyntheticEvent<*>) => any,
+  onRequestClose: (SyntheticEvent<*>) => any,
+  confirmButtonLabel: string,
+  confirmButtonHref?: string,
+  confirmButtonTarget?: string,
+  confirmButtonIconPosition?: 'left' | 'right',
+  confirmButtonIconComponent?: React.ComponentType<*>,
+  closeButtonLabel: string,
+  disabled?: boolean,
+  suspend?: boolean,
+  danger?: boolean,
+  responsive?: boolean,
+  id?: string,
+  contentAlign?: 'left',
+  contentRef?: (element: HTMLDivElement) => void,
+  mobileButtonLayout?: 'row' | 'column',
+  ...CommonProps,
+|}> {}
+
+class TaskDialog extends React.Component<{|
+  isOpen: boolean,
+  elementFocusAfterClose?: HTMLElement,
+  title: React.Node,
+  children: React.Node,
+  onPrimaryAction?: (SyntheticEvent<*>) => any,
+  onRequestClose: (SyntheticEvent<*>) => any,
+  primaryButtonLabel?: string,
+  closeButtonLabel: string,
+  danger?: boolean,
+  disabled?: boolean,
+  suspend?: boolean,
+  shouldCloseOnOverlayClickOrEsc?: boolean,
+  responsive?: boolean,
+  mobileButtonLayout?: 'row' | 'column',
+  headerSideContent?: React.Node,
+  footerOptionalContent?: React.Node,
+  footerSideContent?: React.Node,
+  id?: string,
+  contentLabel?: string,
+  contentRef?: (element: HTMLDivElement) => void,
+  ...CommonProps,
+|}> {}
+
+type GuideDialog = React.StatelessFunctionalComponent<{|
+  isOpen: boolean,
+  elementFocusAfterClose?: HTMLElement,
+  title: string,
+  type?: 'start' | 'step',
+  children: React.Node,
+  stepCount?: number,
+  totalStepCount?: number,
+  onRequestBackward?: (SyntheticMouseEvent<>) => void | Promise<void>,
+  backwardButtonLabel?: string,
+  onRequestForward?: (SyntheticMouseEvent<>) => void | Promise<void>,
+  forwardButtonLabel?: string,
+  onRequestClose: (SyntheticMouseEvent<>) => void | Promise<void>,
+  closeButtonLabel: string,
+  image?: {|
+    src: string,
+    width?: string,
+    height?: string,
+    alt: string,
+  |},
+  id?: string,
+  contentRef?: (element: HTMLDivElement) => void,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/modals
+ */
+class FullScreenModal extends React.Component<{|
+  id?: string,
+  isOpen: boolean,
+  contentLabel?: string,
+  title: React.Node,
+  children: React.Node,
+  onRequestClose: (SyntheticEvent<*>) => any,
+  disabled?: boolean,
+  shouldCloseOnEsc?: boolean,
+  contentRef?: (element: HTMLDivElement) => void,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/dropdown
+ */
+export type DropdownContent =
+  | {
+      type: 'rule',
+    }
+  | {
+      type: 'textOnly',
+      text: string | React.Node,
+      unread?: boolean,
+      'data-guide'?: string,
+      'data-test'?: string,
+      'data-tracking'?: string,
+      'data-masking'?: boolean,
+    }
+  | {
+      type: 'checkbox',
+      text: React.Node,
+      value?: string,
+      name?: string,
+      onChange?: (
+        e: SyntheticInputEvent<HTMLInputElement>
+      ) => void | Promise<void>,
+      checked?: boolean,
+      disabled?: boolean,
+      'data-guide'?: string,
+      'data-test'?: string,
+      'data-tracking'?: string,
+      'data-masking'?: boolean,
+    }
+  | {
+      type: 'selectable',
+      text: string | React.Node,
+      ariaLabel?: string,
+      onClick?: (e: SyntheticEvent<>) => void | Promise<void>,
+      unread?: boolean,
+      disabled?: boolean,
+      danger?: boolean,
+      url?: string,
+      target?: string,
+      rel?: string,
+      onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+      'data-guide'?: string,
+      'data-test'?: string,
+      'data-tracking'?: string,
+      'data-masking'?: boolean,
+    };
+
+class Dropdown extends React.Component<{|
+  contents: Array<DropdownContent>,
+  firstSelectableItemRef?: (
+    el: ?React.ElementRef<'button' | 'a' | 'input'>
+  ) => void | Promise<void>,
+  onRequestClose?: () => void | Promise<void>,
+  align?: 'left' | 'right',
+  positionRelative?: boolean,
+  ...CommonProps,
+|}> {}
+
+type DropdownMenuContent = React.StatelessFunctionalComponent<{|
+  contents: Array<DropdownContent>,
+  firstSelectableItemRef?: (
+    el: ?React.ElementRef<'button' | 'a' | 'input'>
+  ) => void | Promise<void>,
+  onRequestClose?: () => void | Promise<void>,
+  onFocusOut?: (direction: 'upward' | 'downward') => void | Promise<void>,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/dropdownButton
+ */
+
+class DropdownButton extends React.Component<{|
+  buttonLabel: string,
+  disabled?: boolean,
+  small?: boolean,
+  large?: boolean,
+  dropdownContents: Array<DropdownContent>,
+  appearance?: 'primary' | 'secondary' | 'tertiary',
+  iconOnly?: boolean,
+  iconPosition?: 'left' | 'right',
+  contentsFixed?: boolean,
+  IconOnlyComponent?: React.ComponentType<*>,
+  onOpen?: () => void,
+  onClose?: () => void,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/emptyStates
+ */
+
+class NoDataCreated extends React.Component<{|
+  actionWord?: string,
+  objectName?: string,
+  image?: {
+    src: string,
+    width: string,
+    height: string,
+  },
+  mainText?: React.Node,
+  subText?: React.Node,
+  children?: React.Node,
+  size?: 'medium' | 'fit-width' | 'fit-height',
+  ...CommonProps,
+|}> {}
+
+class NoSearchResults extends React.Component<{|
+  objectName?: string,
+  image?: {
+    src: string,
+    width: string,
+    height: string,
+  },
+  mainText?: React.Node,
+  subText?: React.Node,
+  size?: 'medium' | 'fit-width' | 'fit-height',
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/fileUploader
+ */
+export type FileType =
+  | 'text/csv'
+  | 'text/tab-separated-values'
+  | 'image/jpeg'
+  | 'image/png'
+  | 'image/gif'
+  | 'application/pdf'
+  | 'application/vnd.ms-excel'
+  | 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  | 'application/msword'
+  | 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  | 'application/vnd.ms-powerpoint'
+  | 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+  | 'application/zip';
+
+export type FileUploaderStatus =
+  | 'default'
+  | 'selected'
+  | 'uploading'
+  | 'processing';
+/** @deprecated Use `FileUploadedStatus` type instead. */
+export type FileStatus = FileUploaderStatus;
+
+class FileUploader extends React.Component<{|
+  onFileSelect: (Array<File>) => any,
+  acceptFileTypes?: Array<FileType>,
+  isUploading?: boolean,
+  fileLabel: string,
+  fileName?: string,
+  multiple?: boolean,
+  status?: FileUploaderStatus,
+  processingMessage?: string,
+  width?: 'medium' | 'full',
+  type?: 'normal' | 'compact',
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class FileDropArea extends React.Component<{|
+  children: React.ChildrenArray<null | boolean | React.Element<any>>,
+  onFileSelect: (Array<File>) => any,
+  acceptFileTypes?: Array<FileType>,
+  isUploading?: boolean,
+  fileLabel: string,
+  fileName?: string,
+  multiple?: boolean,
+  status?: FileUploaderStatus,
+  processingMessage?: string,
+  disabled?: boolean,
+  disabledMessage?: string,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/filterableDropdownButton
+ */
+
+export type FilterableDropdownContent =
+  | {
+      type: 'checkbox',
+      text: React.Node,
+      value?: string,
+      name?: string,
+      onChange?: (
+        e: SyntheticInputEvent<HTMLInputElement>
+      ) => void | Promise<void>,
+      checked?: boolean,
+      disabled?: boolean,
+      keywords?: string[],
+    }
+  | {
+      type: 'selectable',
+      text: string | React.Node,
+      ariaLabel?: string,
+      onClick?: (e: SyntheticEvent<>) => void | Promise<void>,
+      unread?: boolean,
+      disabled?: boolean,
+      url?: string,
+      target?: string,
+      rel?: string,
+      onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+      keywords?: string[],
+      disableOnRequestClose?: boolean,
+    };
+type FilterableDropdownButton = React.StatelessFunctionalComponent<{|
+  buttonLabel: string,
+  disabled?: boolean,
+  small?: boolean,
+  large?: boolean,
+  dropdownContents: FilterableDropdownContent[],
+  appearance?: 'primary' | 'secondary' | 'tertiary',
+  iconOnly?: boolean,
+  iconPosition?: 'right' | 'left',
+  IconComponent?: React.ComponentType<*>,
+  onFilterChange?: (
+    e: SyntheticInputEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  onOpen?: () => void,
+  isLoading?: boolean,
+  noResultsMessage?: React.Node,
+  noDataMessage?: React.Node,
+  renderDropdownBottomContent?: (
+    requestClose: () => void | Promise<void>
+  ) => React.Node,
+  fixedItems?: {
+    disableOnRequestClose?: boolean,
+    isVisible: (filterValue: string) => boolean,
+    label: React.Node | ((filterValue: string) => React.Node),
+    onSelect: (filterValue: string) => any,
+  }[],
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/filterTag
+ */
+
+class FilterTag extends React.Component<{
+  renderPopup?: (
+    requestClose: () => void | Promise<void>,
+    firstSelectableItemRef: { current: HTMLElement | null }
+  ) => React.Node,
+  label: string,
+  value?: string,
+  ...MarginClassProps,
+}> {}
+
+/**
+ * lv2/footer
+ */
+class Footer extends React.Component<{|
+  links?: Array<{|
+    title: string,
+    url: string,
+  |}>,
+  AppStoreUrl?: string,
+  GooglePlayUrl?: string,
+  disableAppStoreBadge?: boolean,
+  disableGooglePlayBadge?: boolean,
+  copyright?: string,
+  sectionNode?: React.Node,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/formBlock
+ */
+
+class DateField extends React.Component<{|
+  selectedDate: string | null,
+  startDate: string,
+  endDate: string,
+  small?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  required?: boolean,
+  autoComplete?: 'off' | 'bday',
+  nullable?: boolean,
+  wareki?: boolean,
+  onChange?: (date: string | null) => void | Promise<void>,
+  onInput?: (date: string | null) => void | Promise<void>,
+  onFocus?: (date: string | null) => void | Promise<void>,
+  onBlur?: (date: string | null) => void | Promise<void>,
+  onKeyDown?: (date: string | null) => void | Promise<void>,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+type FormActions = React.StatelessFunctionalComponent<{|
+  fixed?: boolean,
+  position?: 'static' | 'fixed' | 'sticky',
+  responsive?: boolean,
+  children?: React.Node,
+  align?: 'left' | 'center',
+  width?: 'normal' | 'wide' | 'narrow',
+  ...CommonProps,
+|}>;
+
+class FormControl extends React.Component<{|
+  children: React.ChildrenArray<null | boolean | React.Element<any>>,
+  label?: React.Node,
+  required?: boolean,
+  fieldId?: string,
+  id?: string,
+  help?: React.Node,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class FormControlGroup extends React.Component<{|
+  children: React.ChildrenArray<
+    | null
+    | boolean
+    | React.Element<typeof FormControl>
+    | React.Element<(props: any) => React.Element<typeof FormControl>>
+    | React.Element<React.AbstractComponent<any, mixed>>
+  >,
+  ...CommonProps,
+|}> {}
+
+type PhoneNumberKey = 'a' | 'b' | 'c';
+class PhoneNumberField extends React.Component<{|
+  phoneNumberA?: string,
+  phoneNumberB?: string,
+  phoneNumberC?: string,
+  placeholderA?: string,
+  placeholderB?: string,
+  placeholderC?: string,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  autoComplete?: 'off' | 'tel',
+  onChange?: (
+    key: PhoneNumberKey,
+    e: SyntheticInputEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  onInput?: (
+    key: PhoneNumberKey,
+    e: SyntheticInputEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  onFocus?: (
+    key: PhoneNumberKey,
+    e: SyntheticFocusEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  onBlur?: (
+    key: PhoneNumberKey,
+    e: SyntheticFocusEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  onKeyDown?: (
+    key: PhoneNumberKey,
+    e: SyntheticKeyboardEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+class DateDurationField extends React.Component<{|
+  required?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  startDate?: Date | string,
+  startDateId?: string,
+  startDateName?: string,
+  startDateLabel?: string,
+  startDateLabelledby?: string,
+  startDatePlaceholder?: string,
+  endDate?: Date | string,
+  endDateId?: string,
+  endDateName?: string,
+  endDateLabel?: string,
+  endDateLabelledby?: string,
+  endDatePlaceholder?: string,
+  small?: boolean,
+  minDate?: string,
+  maxDate?: string,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  onChange?: (duration: [string, string]) => void | Promise<void>,
+  onFocus?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+  onBlur?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+  onInput?: (SyntheticInputEvent<HTMLInputElement>) => void | Promise<void>,
+  onKeyDown?: (
+    SyntheticKeyboardEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+|}> {}
+
+class AmountRangeField extends React.Component<{|
+  required?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  minAmount?: number | null,
+  minAmountId?: string,
+  minAmountName?: string,
+  minAmountLabel?: string,
+  minAmountLabelledby?: string,
+  minAmountPlaceholder?: string,
+  maxAmount?: number | null,
+  maxAmountId?: string,
+  maxAmountName?: string,
+  maxAmountLabel?: string,
+  maxAmountLabelledby?: string,
+  maxAmountPlaceholder?: string,
+  small?: boolean,
+  nullable?: boolean,
+  onChange?: (range: [number | null, number | null]) => void | Promise<void>,
+  onFocus?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+  onBlur?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+  onInput?: (SyntheticInputEvent<HTMLInputElement>) => void | Promise<void>,
+  onKeyDown?: (
+    SyntheticKeyboardEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+|}> {}
+
+/**
+ * lv2/formFields
+ */
+
+class DigitsInput extends React.Component<{
+  value?: number | null,
+  nullable?: boolean,
+  id?: string,
+  label?: string,
+  labelledby?: string,
+  placeholder?: string,
+  name?: string,
+  required?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  borderless?: boolean,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  onChange?: (number | null) => any,
+  onFocus?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+  onBlur?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+  onInput?: (SyntheticInputEvent<HTMLInputElement>) => void | Promise<void>,
+  onKeyDown?: (
+    SyntheticKeyboardEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  ...MarginClassProps,
+}> {}
+
+class DateInput extends React.Component<
+  {|
+    value?: Date | string,
+    id?: string,
+    label?: string,
+    labelledby?: string,
+    placeholder?: string,
+    name?: string,
+    required?: boolean,
+    autofocus?: boolean,
+    disabled?: boolean,
+    error?: boolean,
+    small?: boolean,
+    minDate?: string,
+    maxDate?: string,
+    width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+    onChange?: (string) => void,
+    onFocus?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+    onBlur?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+    onInput?: (SyntheticInputEvent<HTMLInputElement>) => void | Promise<void>,
+    onKeyDown?: (
+      SyntheticKeyboardEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    ...MarginClassProps,
+    ...CommonProps,
+  |},
+  HTMLInputElement
+> {}
+
+type DecimalInput = React.StatelessFunctionalComponent<{|
+  id?: string,
+  label?: string,
+  labelledby?: string,
+  placeholder?: string,
+  name?: string,
+  required?: boolean,
+  autofocus?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  large?: boolean,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  onInput?: (SyntheticInputEvent<HTMLInputElement>) => void | Promise<void>,
+  onFocus?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+  onBlur?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+  onKeyDown?: (
+    SyntheticKeyboardEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  onKeyUp?: (SyntheticKeyboardEvent<HTMLInputElement>) => void | Promise<void>,
+  min?: number,
+  max?: number,
+  hideSpinner?: boolean,
+  nullable?: boolean,
+  onChange?: (value: number | null) => void | Promise<void>,
+  step?: number,
+  places?: number,
+  value?: number | null,
+  ...CommonProps,
+|}>;
+
+type FormattedTextInput = React.AbstractComponent<
+  {|
+    id?: string,
+    label?: string,
+    labelledby?: string,
+    placeholder?: string,
+    name?: string,
+    value?: string,
+    required?: boolean,
+    autofocus?: boolean,
+    disabled?: boolean,
+    error?: boolean,
+    small?: boolean,
+    large?: boolean,
+    alignCenter?: boolean,
+    alignRight?: boolean,
+    autoComplete?: AutocompleteAttribute,
+    suffix?: string,
+    borderless?: boolean,
+    width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+    loading?: boolean,
+    onChange?: (value: string) => void | Promise<void>,
+    onInput?: (
+      e: SyntheticInputEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    onFocus?: (
+      e: SyntheticFocusEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    onBlur?: (e: SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+    onKeyDown?: (
+      e: SyntheticKeyboardEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    onKeyUp?: (
+      e: SyntheticKeyboardEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    preset?:
+      | 'postalCode'
+      | 'corporateNumber'
+      | 'invoiceRegistrationCompanyNumber',
+    formatter?: {|
+      preprocess?: (string) => string,
+      format: (string) => string,
+    |},
+    onChangePreprocessedValue?: (string) => any,
+    onChangeFormattedValue?: (string) => any,
+    ...MarginClassProps,
+    ...CommonProps,
+  |},
+  HTMLInputElement
+>;
+
+type NumeralCodeInput = React.AbstractComponent<
+  {|
+    id?: string,
+    type?: 'text' | 'tel',
+    label?: string,
+    labelledby?: string,
+    placeholder?: string,
+    name?: string,
+    value?: string,
+    required?: boolean,
+    autofocus?: boolean,
+    disabled?: boolean,
+    error?: boolean,
+    small?: boolean,
+    large?: boolean,
+    alignCenter?: boolean,
+    alignRight?: boolean,
+    maxLength?: number,
+    autoComplete?: AutocompleteAttribute,
+    width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+    onChange?: (value: string) => void | Promise<void>,
+    onInput?: (
+      e: SyntheticInputEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    onFocus?: (
+      e: SyntheticFocusEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    onBlur?: (e: SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+    onKeyDown?: (
+      e: SyntheticKeyboardEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    onKeyUp?: (
+      e: SyntheticKeyboardEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    ...CommonProps,
+  |},
+  HTMLInputElement
+>;
+
+type PasswordField = React.AbstractComponent<
+  {|
+    id?: string,
+    label?: string,
+    labelledby?: string,
+    placeholder?: string,
+    name?: string,
+    value?: string,
+    required?: boolean,
+    autofocus?: boolean,
+    disabled?: boolean,
+    error?: boolean,
+    small?: boolean,
+    large?: boolean,
+    alignCenter?: boolean,
+    alignRight?: boolean,
+    autoComplete?: 'current-password' | 'new-password' | 'off',
+    suffix?: string,
+    borderless?: boolean,
+    width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+    loading?: boolean,
+    onChange?: (
+      e: SyntheticInputEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    onInput?: (
+      e: SyntheticInputEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    onFocus?: (
+      e: SyntheticFocusEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    onBlur?: (e: SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+    onKeyDown?: (
+      e: SyntheticKeyboardEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    onKeyUp?: (
+      e: SyntheticKeyboardEvent<HTMLInputElement>
+    ) => void | Promise<void>,
+    ...MarginClassProps,
+    ...CommonProps,
+  |},
+  HTMLInputElement
+>;
+
+type TimeInput = React.StatelessFunctionalComponent<{|
+  id?: string,
+  label?: string,
+  labelledby?: string,
+  placeholder?: string,
+  name?: string,
+  value?: string | null,
+  required?: boolean,
+  autofocus?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  large?: boolean,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  onChange?: (value: string | null) => void | Promise<void>,
+  onInput?: (SyntheticInputEvent<HTMLInputElement>) => void | Promise<void>,
+  onFocus?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+  onBlur?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+  onKeyDown?: (
+    SyntheticKeyboardEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  onKeyUp?: (SyntheticKeyboardEvent<HTMLInputElement>) => void | Promise<void>,
+  nullable?: boolean,
+  ...CommonProps,
+|}>;
+
+type TimeLengthInput = React.StatelessFunctionalComponent<{|
+  id?: string,
+  label?: string,
+  labelledby?: string,
+  placeholder?: string,
+  name?: string,
+  value?: number | null,
+  required?: boolean,
+  autofocus?: boolean,
+  disabled?: boolean,
+  error?: boolean,
+  small?: boolean,
+  large?: boolean,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  onChange?: (value: number | null) => void | Promise<void>,
+  onInput?: (SyntheticInputEvent<HTMLInputElement>) => void | Promise<void>,
+  onFocus?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+  onBlur?: (SyntheticFocusEvent<HTMLInputElement>) => void | Promise<void>,
+  onKeyDown?: (
+    SyntheticKeyboardEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  onKeyUp?: (SyntheticKeyboardEvent<HTMLInputElement>) => void | Promise<void>,
+  nullable?: boolean,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/globalNavi
+ */
+export type LinkContent = {|
+  title: string,
+  url: string,
+  IconComponent?: React.ComponentType<*>,
+  current?: boolean,
+  'data-guide'?: string,
+  'data-test'?: string,
+  'data-tracking'?: string,
+  'data-masking'?: boolean,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+|};
+
+class GlobalNavi extends React.Component<{|
+  disableGutters?: boolean,
+  label?: string,
+  links?: Array<LinkContent>,
+  searchUrl?: string,
+  hideHelpForm?: boolean,
+  searchQueryParams?: { [key: string]: string },
+  sectionNode?: React.Node,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/header
+ */
+
+type SectionData = {|
+  type?: 'plan' | 'link' | 'button' | 'text' | 'dropdown',
+  text: string,
+  url?: string,
+  IconComponent?: React.ComponentType<*>,
+  iconType?: 'default' | 'alert' | 'notice',
+  dropdownContents?: Array<DropdownContent>,
+  hasBadge?: boolean,
+  onClick?: () => any,
+|};
+
+class Header extends React.Component<{|
+  disableGutters?: boolean,
+  logo: React.Node,
+  sectionDataList?: Array<SectionData>,
+  sectionNode?: React.Node,
+  logoUrl?: string,
+  children?: React.Node,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/headlineArea
+ */
+export type StatusType =
+  | 'done'
+  | 'success'
+  | 'progress'
+  | 'required'
+  | 'disabled'
+  | 'emphasis'
+  | 'warning'
+  | 'error';
+
+class HeadlineArea extends React.Component<{|
+  pageTitle: string,
+  children?: React.Node,
+  loading?: boolean,
+  statusIconType?: StatusType,
+  statusIconText?: string,
+  relatedMenus?: React.Node,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/lineSeparatedList
+ */
+export type LineSeparatedListContent = {|
+  value: React.Node,
+|};
+
+type LineSeparatedList = React.StatelessFunctionalComponent<{|
+  listContents?: Array<LineSeparatedListContent>,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/listButtons
+ */
+type buttonProps = {|
+  label: React.Node,
+  selected?: boolean,
+  href?: string,
+  target?: string,
+  rel?: string,
+  statusIconText?: string,
+  statusIconType?: StatusType,
+  bgTransparent?: boolean,
+  onClick?: (e: SyntheticEvent<HTMLButtonElement>) => any,
+|};
+
+class ListButtons extends React.Component<{|
+  buttons: Array<buttonProps>,
+  selectableItemRef?: React.Ref<'a' | 'button'>,
+  onKeyDown?: (
+    e: SyntheticKeyboardEvent<HTMLAnchorElement | HTMLButtonElement>,
+    itemIndex: number
+  ) => void | Promise<void>,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/messageBlock
+ */
+type MessageTypes = {|
+  error?: boolean,
+  notice?: boolean,
+  success?: boolean,
+  info?: boolean,
+|};
+
+type MessageChildren = {| children: React.Node |} | {| message: React.Node |};
+
+class MessageBlock extends React.Component<{|
+  assistance?: boolean,
+  discovery?: boolean,
+  explanatory?: boolean,
+  linkTitle?: string,
+  linkUrl?: string,
+  linkTarget?: string,
+  linkRel?: string,
+  onLinkClick?: () => any,
+  onRequestClose?: () => any,
+  hover?: boolean,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  ...MessageChildren,
+  ...MessageTypes,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+type FloatingMessageBlock = React.StatelessFunctionalComponent<{|
+  linkTitle?: string,
+  linkUrl?: string,
+  linkTarget?: string,
+  linkRel?: string,
+  onClose?: (autoClose: boolean) => void | Promise<void>,
+  onLinkClick?: () => any,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  ...MessageChildren,
+  ...MessageTypes,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/GuidanceMessage
+ */
+class GuidanceMessage extends React.Component<{|
+  children?: React.Node,
+  renderCloseButton?: (
+    CloseButton?: React.StatelessFunctionalComponent<{|
+      onClick: () => any,
+      ...CommonProps,
+    |}>
+  ) => React.Node,
+  IconComponent?: React.ComponentType<*>,
+  inline?: boolean,
+  small?: boolean,
+  verticalAlign?: 'top' | 'middle',
+  width?: 'fit-content' | 'full',
+  url?: string,
+  target?: string,
+  rel?: string,
+  onClick?: (
+    e: SyntheticMouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => void | Promise<void>,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/messageBlock
+ */
+class MessageIcon extends React.Component<{|
+  children?: React.Node,
+  label: string,
+  error?: boolean,
+  notice?: boolean,
+  success?: boolean,
+  small?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/numericTable
+ */
+type NumericTableHeader = {|
+  value?: React.Node,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  ordering?: Order,
+  width?: number,
+  minWidth?: number,
+  maxWidth?: number,
+  noWrap?: boolean,
+  onClick?: (rowIndex: number) => any,
+  'data-test'?: string,
+|};
+
+type NumericTableRow = {|
+  cells: Array<NumericTableCell>,
+  checkBoxDisabled?: boolean,
+  onChangeCheckBox?: (
+    SyntheticInputEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  checkBoxName?: string,
+  checkBoxValue?: string,
+  'data-test'?: string,
+|};
+
+type NumericTableCell = {|
+  value: React.Node,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  small?: boolean,
+  breakWord?: boolean,
+  noWrap?: boolean,
+  onClick?: (rowIndex: number) => any,
+  status?: 'alert' | 'notice' | 'success',
+  'data-masking'?: boolean,
+  'data-test'?: string,
+|};
+
+class NumericTable extends React.Component<{|
+  headers: Array<NumericTableHeader>,
+  rows: Array<NumericTableRow>,
+  withCheckBox?: boolean,
+  onChangeCheckBox?: (
+    SyntheticInputEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  fixedHeader?: boolean,
+  fixedHeaderOffset?: number | string,
+  hasRowHeader?: boolean,
+  rowHeaderCount?: number,
+  fixedRowHeader?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/pagination
+ */
+class Pagination extends React.Component<{|
+  rowsPerPageOptions: {
+    value: string,
+    name?: string,
+  }[],
+  rowsPerPageValue?: number,
+  defaultRowsPerPageValue?: number,
+  currentPage: number,
+  rowCount?: number,
+  displayRowCount?: string,
+  currentPageRowCount?: number,
+  selectBoxWidth?: 'xSmall' | 'small' | 'medium' | 'large',
+  disabled?: boolean,
+  onChange?: (
+    e: SyntheticInputEvent<HTMLSelectElement>
+  ) => void | Promise<void>,
+  onFocus?: (e: SyntheticFocusEvent<HTMLSelectElement>) => void | Promise<void>,
+  onBlur?: (e: SyntheticFocusEvent<HTMLSelectElement>) => void | Promise<void>,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/pager
+ */
+class Pager extends React.Component<{|
+  currentPage: number,
+  onPageChange: (page: number) => void | Promise<void>,
+  pageCount: number,
+  pageRange?: number,
+  sidePageRange?: number,
+  small?: boolean,
+  disabled?: boolean,
+|}> {}
+
+/**
+ * lv2/pageSelector
+ */
+class PageSelector extends React.Component<{|
+  prevDisabled?: boolean,
+  nextDisabled?: boolean,
+  onClickPrev: () => any,
+  onClickNext: () => any,
+  onClickTitle?: () => any,
+  children: React.Node,
+  renderPopup?: (
+    requestClose: () => void | Promise<void>,
+    firstSelectableItemRef: { current: HTMLElement | null }
+  ) => React.Node,
+  hasDropdown?: boolean,
+  isExpanded?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/popupProgressBar
+ */
+class PopupProgressBar extends React.Component<{|
+  status: 'doing' | 'done' | 'error',
+  message: string,
+  progressValue?: number,
+  progressMaxValue?: number,
+  onClose: () => void,
+  ...CommonProps,
+|}> {}
+
+type ProgressState = {
+  status: 'doing' | 'done' | 'error',
+  message: string,
+  progressValue?: number,
+  progressMaxValue?: number,
+};
+
+/**
+ * lv2/popupProgressBarPortal
+ */
+class PopupProgressBarPortal extends React.Component<{|
+  progressStates: Array<ProgressState>,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/stackedBarChart
+ */
+type StackedBarChart = React.StatelessFunctionalComponent<{|
+  items: Array<StackedBarChartItem>,
+  onClickItem: (number) => void,
+  ...CommonProps,
+|}>;
+
+type StackedBarChartItem = {
+  color: 'RE' | 'OR' | 'YE' | 'YG' | 'GR' | 'BG' | 'PU' | 'GY',
+  label: string,
+  value: number,
+  valueLabel: string,
+};
+
+/**
+ * lv2/stepper
+ */
+class Stepper extends React.Component<{|
+  steps: Array<React.Node>,
+  currentStepIndex: number,
+  disabledStepIndex: Array<number>,
+  small?: boolean,
+  ...CommonProps,
+|}> {}
+
+type VerticalSteps = React.StatelessFunctionalComponent<{|
+  currentStepIndex: number,
+  steps: Array<{
+    title: React.Node,
+    content?: React.Node,
+    actions?: React.Node,
+    contentSummary?: React.Node,
+  }>,
+  stepHeadlineLevel?: 1 | 2 | 3 | 4 | 5 | 6 | -1,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/tabbar
+ */
+type TabElement = Array<
+  | string
+  | {
+      name: React.Node,
+      notification?: string,
+      'data-guide'?: string,
+      'data-test'?: string,
+      'data-tracking'?: string,
+      'data-masking'?: boolean,
+    }
+>;
+class TabBar extends React.Component<{|
+  tabs: TabElement,
+  currentTabIndex: number,
+  small?: boolean,
+  onClickTab: (number) => any,
+  renderButtons?: () => React.ChildrenArray<
+    null | boolean | React.Element<any>
+  >,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/TagBox
+ */
+type TagBoxMaxWidth = 'small' | 'medium' | 'large';
+type TagBoxColor = 'success' | 'error' | AccentColor;
+type AccentColor = 'RE' | 'OR' | 'YE' | 'YG' | 'GR' | 'BG' | 'PU' | 'GY';
+class TagBox extends React.Component<{|
+  children?: string,
+  type?: string,
+  removable?: boolean,
+  disabledRemoveButton?: boolean,
+  maxWidth?: TagBoxMaxWidth,
+  onRemove?: () => any,
+  color?: TagBoxColor,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+type MiniTag = React.StatelessFunctionalComponent<{|
+  children: string,
+  type?: string,
+  removable?: boolean,
+  onRemove?: () => void,
+  color?: 'RE' | 'OR' | 'YE' | 'YG' | 'GR' | 'BG' | 'PU' | 'GY',
+  removeButtonTabIndex?: 0 | -1,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/PersonTag
+ */
+type PersonTagColor = 'success' | 'error' | AccentColor;
+class PersonTag extends React.Component<{|
+  children?: string,
+  type?: string,
+  removable?: boolean,
+  disabledRemoveButton?: boolean,
+  onRemove?: () => any,
+  color?: PersonTagColor,
+  imageUrl: string,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/nameField
+ */
+type NameKey = 'lastName' | 'firstName';
+class NameField extends React.Component<{|
+  lastName?: string,
+  firstName?: string,
+  lastNamePlaceholder?: string,
+  firstNamePlaceholder?: string,
+  label?: string,
+  labelledby?: string,
+  disabled?: boolean,
+  required?: boolean,
+  error?: boolean,
+  small?: boolean,
+  autoComplete?: 'off' | 'name',
+  onChange?: (
+    key: NameKey,
+    e: SyntheticInputEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  onInput?: (
+    key: NameKey,
+    e: SyntheticInputEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  onFocus?: (
+    key: NameKey,
+    e: SyntheticFocusEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  onBlur?: (
+    key: NameKey,
+    e: SyntheticFocusEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  onKeyDown?: (
+    key: NameKey,
+    e: SyntheticKeyboardEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/listButtonSelector
+ */
+class ListButtonSelector extends React.Component<{|
+  selectedLabel: string,
+  selectorLabel: string,
+  withActionButton?: boolean,
+  actionLabel?: string,
+  action?: () => any,
+  ActionIconComponent?: React.ComponentType<*>,
+  buttons: Array<buttonProps>,
+  disabled?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/ListCard
+ */
+type ListCard = React.StatelessFunctionalComponent<{|
+  title?: React.Node,
+  url?: string,
+  onClick?: (SyntheticEvent<HTMLButtonElement>) => void | Promise<void>,
+  children?: React.Node,
+  actions?: React.Node,
+  target?: string,
+  rel?: string,
+  thumbnail?: React.Node,
+  thumbnailSize?: 'default' | 'large',
+  disabled?: boolean,
+  current?: boolean,
+  IconComponent?: React.ElementType,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/ListTable
+ */
+type ListTable = React.StatelessFunctionalComponent<{|
+  margins?: MarginClassProps,
+  headers: Array<TableHeader>,
+  rows: Array<TableRow>,
+  withCheckBox?: boolean,
+  onChangeHeaderCheckBox?: (
+    SyntheticInputEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  fixedHeader?: boolean,
+  fixedHeaderOffset?: number | string,
+  fitContent?: boolean,
+  ...CommonProps,
+|}>;
+export type TableRowGroup = {
+  rows: TableRow[],
+  summaryCells: TableCell[],
+  onClick?: () => void | Promise<void>,
+  onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
+  url?: string,
+  onChangeCheckBox?: (
+    SyntheticInputEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  checkBoxName?: string,
+  checkBoxValue?: string,
+  folded?: boolean,
+  onToggleFolded?: (fold: boolean) => void | Promise<void>,
+  'data-test'?: string,
+};
+type GroupedListTable = React.StatelessFunctionalComponent<{|
+  headers: TableHeader[],
+  rowGroups: TableRowGroup[],
+  withCheckBox?: boolean,
+  onChangeHeaderCheckBox?: (
+    SyntheticInputEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  foldable?: boolean,
+  fitContent?: boolean,
+  ...CommonProps,
+|}>;
+/**
+ * lv2/ButtonGroup
+ */
+class ButtonGroup extends React.Component<{|
+  children: React.ChildrenArray<null | boolean | React.Element<any>>,
+  align?: 'left' | 'center',
+  responsive?: boolean,
+  mobileButtonLayout?: 'row' | 'column',
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+/**
+ * lv2/selectableButton
+ */
+
+class SelectableButton extends React.Component<{
+  selected: boolean,
+  label: string,
+  onClick?: () => void,
+  dropdownContents?: Array<DropdownContent>,
+  badge?: number,
+  ...MarginClassProps,
+}> {}
+
+/**
+ * lv2/withAccordionContent
+ */
+type WithAccordionContent = React.StatelessFunctionalComponent<{|
+  renderAccordionButtonArea: (
+    AccordionButton: React.StatelessFunctionalComponent<{|
+      contentId: string,
+      children?: React.Node,
+      appearance?: 'primary' | 'secondary' | 'tertiary',
+      open: boolean,
+      small?: boolean,
+      large?: boolean,
+      onClick: () => any,
+      ...CommonProps,
+    |}>,
+    contentId: string
+  ) => React.Node,
+  isOpen: boolean,
+  children: React.Node,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/withBalloon
+ */
+type WithBalloon = React.StatelessFunctionalComponent<{|
+  border?: 'default' | 'alert' | 'notice' | 'success',
+  renderBalloonContent?: (isVisible: boolean) => React.Node,
+  balloonContent?: React.Node,
+  children?: React.Node,
+  renderContent?: (balloonId: string) => React.Node,
+  balloonDisabled?: boolean,
+  ...CommonProps,
+|}>;
+
+type WithDropdown = React.StatelessFunctionalComponent<{|
+  renderButton: (
+    dropdownId: string,
+    isOpen: boolean,
+    buttonRef: { current: HTMLElement | null }
+  ) => React.Node,
+  disabled?: boolean,
+  contentsFixed?: boolean,
+  dropdownContents: Array<DropdownContent>,
+  onOpen?: () => void,
+  onClose?: () => void,
+  ...CommonProps,
+|}>;
+
+type WithFilterableDropdown = React.StatelessFunctionalComponent<{|
+  render: (
+    popupId: string,
+    isOpen: boolean,
+    controlRef: { current: HTMLElement | null },
+    togglePopup: (open: boolean) => void | Promise<void>
+  ) => React.Node,
+  dropdownContents: FilterableDropdownContent[],
+  disabled?: boolean,
+  onFilterChange?: (
+    e: SyntheticInputEvent<HTMLInputElement>
+  ) => void | Promise<void>,
+  onOpen?: () => void,
+  isLoading?: boolean,
+  noResultsMessage?: React.Node,
+  noDataMessage?: React.Node,
+  renderDropdownBottomContent?: (
+    requestClose: () => void | Promise<void>
+  ) => React.Node,
+  fixedItems?: {
+    disableOnRequestClose?: boolean,
+    isVisible: (filterValue: string) => boolean,
+    label: React.Node | ((filterValue: string) => React.Node),
+    onSelect: (filterValue: string) => any,
+  }[],
+  ...CommonProps,
+|}>;
+
+type WithPopup = React.StatelessFunctionalComponent<{|
+  render: (
+    popupId: string,
+    isOpen: boolean,
+    controlRef: { current: HTMLElement | null },
+    togglePopup: (open: boolean) => void | Promise<void>
+  ) => React.Node,
+  renderPopup: (
+    requestClose: () => void | Promise<void>,
+    firstSelectableItemRef: { current: HTMLElement | null }
+  ) => React.Node,
+  onOpen?: () => void,
+  onClose?: () => void,
+  disabled?: boolean,
+  contentsFixed?: boolean,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/skeleton
+ */
+type SkeletonPageTitle = React.StatelessFunctionalComponent<{|
+  ...CommonProps,
+|}>;
+
+type SkeletonSectionTitle = React.StatelessFunctionalComponent<{|
+  ...CommonProps,
+|}>;
+
+type SkeletonParagraph = React.StatelessFunctionalComponent<{|
+  size?: 'small' | 'medium' | 'large',
+  ...CommonProps,
+|}>;
+
+type SkeletonRectangle = React.StatelessFunctionalComponent<{|
+  size?: 'default' | 'large',
+  ...CommonProps,
+|}>;
+
+type SkeletonBlock = React.StatelessFunctionalComponent<{|
+  size?: 'small' | 'medium' | 'large',
+  ...CommonProps,
+|}>;
+
+type SkeletonIcon = React.StatelessFunctionalComponent<{|
+  size?: 'small' | 'medium' | 'large',
+  ...CommonProps,
+|}>;
+
+type SkeletonCircle = React.StatelessFunctionalComponent<{|
+  size?: 'small' | 'medium' | 'large' | 'xlarge',
+  ...CommonProps,
+|}>;
+
+type SkeletonInput = React.StatelessFunctionalComponent<{|
+  small?: boolean,
+  large?: boolean,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  ...CommonProps,
+|}>;
+
+type SkeletonListTable = React.StatelessFunctionalComponent<{|
+  columnCount?: number,
+  rowCount?: number,
+  rowCells?: Array<TableCell>,
+  ...CommonProps,
+|}>;
+
+type SkeletonDescriptionList = React.StatelessFunctionalComponent<{|
+  rowCount?: number,
+  ...CommonProps,
+|}>;
+
+type SkeletonStackedBarChart = React.StatelessFunctionalComponent<{|
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/scrimCoveredContent
+ */
+type ScrimCoveredContent = React.StatelessFunctionalComponent<{|
+  children: React.Node,
+  inline?: boolean,
+  message?: React.Node,
+  ...CommonProps,
+|}>;
+
+/**
+ * lv2/withTOC
+ */
+type WithTOC = React.StatelessFunctionalComponent<{|
+  contents: Array<WithTOCContent>,
+  containerID?: string,
+  offsetTop?: number,
+  onNavigateTo?: (id: string) => void,
+  ...CommonProps,
+|}>;
+
+type WithTOCContent = {
+  id: string,
+  label: string,
+  content: React.Node,
+};
+
+/**
+ * lv2/hierarchicalTable
+ */
+type HierarchicalTableHeader = {|
+  value?: React.Node,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  ordering?: Order,
+  width?: number,
+  minWidth?: number,
+  maxWidth?: number,
+  noWrap?: boolean,
+  onClick?: () => any,
+|};
+
+type HierarchicalTableRow = {|
+  cells: Array<HierarchicalTableCell>,
+  childRows: Array<HierarchicalTableRow>,
+  ...CommonProps,
+|};
+
+type HierarchicalTableCell = {|
+  value: React.Node,
+  alignCenter?: boolean,
+  alignRight?: boolean,
+  small?: boolean,
+  breakWord?: boolean,
+  noWrap?: boolean,
+  onClick?: () => any,
+|};
+
+class HierarchicalTable extends React.Component<{|
+  headers: Array<HierarchicalTableHeader>,
+  rows: Array<HierarchicalTableRow>,
+  fixedHeader?: boolean,
+  fixedRowHeader?: boolean,
+  ...CommonProps,
+|}> {}
+
+class IndexSearchField extends React.Component<{|
+  id?: string,
+  label?: string,
+  labelledby?: string,
+  placeholder?: string,
+  name?: string,
+  value?: string,
+  required?: boolean,
+  autofocus?: boolean,
+  disabled?: boolean,
+  width?: 'xSmall' | 'small' | 'medium' | 'large' | 'full',
+  maxLength?: number,
+  onUpdate?: (searchWord?: string) => void,
+  searchTarget?: string[],
+  forceOpen?: boolean,
+  ...MarginClassProps,
+  ...CommonProps,
+|}> {}
+
+declare module.exports: {
+  AccordionPanel: typeof AccordionPanel,
+  BasicTable: ListTable,
+  BulletedList: BulletedList,
+  Breadcrumbs: typeof Breadcrumbs,
+  Calendar: typeof Calendar,
+  DatePicker: typeof DatePicker,
+  SingleComboBox: typeof SingleComboBox,
+  ApiComboBox: typeof ApiComboBox,
+  useApiComboBox: useApiComboBox,
+  MultiComboBox: MultiComboBox,
+  ApiMultiComboBox: typeof ApiMultiComboBox,
+  useApiMultiComboBox: useApiMultiComboBox,
+  CardNavigation: typeof CardNavigation,
+  DescriptionList: typeof DescriptionList,
+  MessageDialog: typeof MessageDialog,
+  MessageDialogConfirm: typeof MessageDialogConfirm,
+  TaskDialog: typeof TaskDialog,
+  GuideDialog: GuideDialog,
+  FullScreenModal: typeof FullScreenModal,
+  Dropdown: typeof Dropdown,
+  DropdownMenuContent: DropdownMenuContent,
+  DropdownButton: typeof DropdownButton,
+  NoDataCreated: typeof NoDataCreated,
+  NoSearchResults: typeof NoSearchResults,
+  FileUploader: typeof FileUploader,
+  FileDropArea: typeof FileDropArea,
+  FilterableDropdownButton: FilterableDropdownButton,
+  FilterTag: FilterTag,
+  Footer: typeof Footer,
+  DateField: typeof DateField,
+  FormActions: FormActions,
+  FormControl: typeof FormControl,
+  FormControlGroup: typeof FormControlGroup,
+  PhoneNumberField: typeof PhoneNumberField,
+  DateDurationField: typeof DateDurationField,
+  AmountRangeField: typeof AmountRangeField,
+  DigitsInput: typeof DigitsInput,
+  DateInput: typeof DateInput,
+  DecimalInput: DecimalInput,
+  FormattedTextInput: FormattedTextInput,
+  NumeralCodeInput: NumeralCodeInput,
+  PasswordField: PasswordField,
+  TimeInput: TimeInput,
+  TimeLengthInput: TimeLengthInput,
+  GlobalNavi: typeof GlobalNavi,
+  Header: typeof Header,
+  HeadlineArea: typeof HeadlineArea,
+  LineSeparatedList: LineSeparatedList,
+  ListButtons: typeof ListButtons,
+  MessageBlock: typeof MessageBlock,
+  FloatingMessageBlock: FloatingMessageBlock,
+  GuidanceMessage: typeof GuidanceMessage,
+  MessageIcon: typeof MessageIcon,
+  NumericTable: typeof NumericTable,
+  Pagination: typeof Pagination,
+  Pager: typeof Pager,
+  PageSelector: typeof PageSelector,
+  PopupProgressBar: typeof PopupProgressBar,
+  PopupProgressBarPortal: typeof PopupProgressBarPortal,
+  StackedBarChart: StackedBarChart,
+  StackedBarChartItem: StackedBarChartItem,
+  Stepper: typeof Stepper,
+  VerticalSteps: VerticalSteps,
+  TabElement: TabElement,
+  TabBar: typeof TabBar,
+  TagBox: typeof TagBox,
+  MiniTag: MiniTag,
+  PersonTag: typeof PersonTag,
+  NameField: typeof NameField,
+  ListButtonSelector: typeof ListButtonSelector,
+  ListCard: ListCard,
+  ListTable: ListTable,
+  GroupedListTable: GroupedListTable,
+  ButtonGroup: typeof ButtonGroup,
+  SelectableButton: SelectableButton,
+  WithAccordionContent: WithAccordionContent,
+  WithBalloon: WithBalloon,
+  WithDropdown: WithDropdown,
+  WithFilterableDropdown: WithFilterableDropdown,
+  WithPopup: WithPopup,
+  WithTOC: WithTOC,
+  HierarchicalTable: typeof HierarchicalTable,
+  FileTypes: { [key: string]: FileType },
+  SkeletonPageTitle: SkeletonPageTitle,
+  SkeletonSectionTitle: SkeletonSectionTitle,
+  SkeletonParagraph: SkeletonParagraph,
+  SkeletonRectangle: SkeletonRectangle,
+  SkeletonBlock: SkeletonBlock,
+  SkeletonIcon: SkeletonIcon,
+  SkeletonCircle: SkeletonCircle,
+  SkeletonInput: SkeletonInput,
+  SkeletonListTable: SkeletonListTable,
+  SkeletonStackedBarChart: SkeletonStackedBarChart,
+  SkeltonPageTitle: SkeletonPageTitle,
+  SkeltonSectionTitle: SkeletonSectionTitle,
+  SkeltonParagraph: SkeletonParagraph,
+  SkeltonRectangle: SkeletonRectangle,
+  SkeltonBlock: SkeletonBlock,
+  SkeltonIcon: SkeletonIcon,
+  SkeltonCircle: SkeletonCircle,
+  SkeltonListTable: SkeletonListTable,
+  SkeletonDescriptionList: SkeletonDescriptionList,
+  ScrimCoveredContent: ScrimCoveredContent,
+  IndexSearchField: IndexSearchField,
+};

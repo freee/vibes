@@ -1,0 +1,9 @@
+.vb-pageSelector {
+  display: inline-block;
+
+  &__currentPage {
+    font-weight: bold;
+    font-size: $vbNormalFontSize;
+    padding: 0 $vbSmallSize;
+  }
+}

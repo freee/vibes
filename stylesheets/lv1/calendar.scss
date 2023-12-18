@@ -1,0 +1,242 @@
+%calendar-date-base {
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid $vbBaseColor2;
+  position: relative;
+  background-color: #fff;
+  transition-duration: 0.2s;
+  transition-property: background-color, color;
+
+  &::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+}
+
+%calendar-date-face {
+  color: $vbBlackColor;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $vbBaseColor1;
+  }
+}
+
+%calendar-date-input-face {
+  background-color: $vbPrimaryColor;
+  color: #fff;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $vbAccentColor;
+  }
+}
+
+%calendar-date-secondary-holiday-face {
+  color: $vbBurntColor;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $vbBaseColor1;
+  }
+}
+
+%calendar-date-primary-holiday-face {
+  color: $vbAlertColor;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $vbBaseColor1;
+  }
+}
+
+%calendar-date-disabled-face {
+  background-color: $vbColumnColor;
+  color: $vbBaseColor3;
+  cursor: not-allowed;
+  outline: none;
+  pointer-events: none;
+}
+
+%calendar-date-number-base {
+  display: block;
+  font-size: $vbHeadline1FontSize;
+  line-height: 1;
+  position: absolute;
+  top: $vbBasicSize;
+  left: $vbBasicSize;
+}
+
+%calendar-date-number-today-face {
+  width: 2em;
+  height: 2em;
+  margin: -0.5em 0 0 -0.5em;
+  border-radius: $vbFullBorderRadius;
+  background-color: $vbPrimaryColor;
+  color: #fff;
+  font-size: 1em;
+  text-align: center;
+  line-height: 2em;
+}
+
+%calendar-date-number-today-input-face {
+  width: 2em;
+  height: 2em;
+  margin: -0.5em 0 0 -0.5em;
+  border-radius: $vbFullBorderRadius;
+  background-color: #fff;
+  color: $vbPrimaryColor;
+  font-size: 1em;
+  text-align: center;
+  line-height: 2em;
+}
+
+/** @define calendar */
+.vb-calendarDate {
+  @extend %calendar-date-base;
+  @extend %calendar-date-face;
+
+  &__inner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &--input {
+    @extend %calendar-date-input-face;
+  }
+
+  &--secondary-holiday {
+    @extend %calendar-date-secondary-holiday-face;
+  }
+
+  &--primary-holiday {
+    @extend %calendar-date-primary-holiday-face;
+  }
+
+  &--disabled {
+    @extend %calendar-date-disabled-face;
+  }
+
+  &__status {
+    &--alert {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0;
+        width: 0;
+        height: 0;
+        border: 0 solid transparent;
+        border-top-width: 0;
+        border-bottom-width: 2.7em;
+        border-right: 2.7em solid $vbAlertColor;
+      }
+    }
+
+    &--notice {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0;
+        width: 0;
+        height: 0;
+        border: 0 solid transparent;
+        border-top-width: 0;
+        border-bottom-width: 2.7em;
+        border-right: 2.7em solid $vbNoticeColor;
+      }
+    }
+
+    &--success {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0;
+        width: 0;
+        height: 0;
+        border: 0 solid transparent;
+        border-top-width: 0;
+        border-bottom-width: 2.7em;
+        border-right: 2.7em solid $vbAccentColor;
+      }
+    }
+  }
+
+  &__icon {
+    display: block;
+    position: absolute;
+    color: #fff;
+    top: 0.25em;
+    right: 0.25em;
+  }
+
+  &__number {
+    @extend %calendar-date-number-base;
+
+    &--today {
+      @extend %calendar-date-number-today-face;
+
+      &--input {
+        @extend %calendar-date-number-today-input-face;
+      }
+    }
+  }
+
+  &--disabled &__number--today {
+    color: #fff;
+    background: $vbBaseColor3;
+  }
+
+  &__type {
+    display: block;
+    font-size: $vbCaptionFontSize;
+    line-height: 1;
+    position: absolute;
+    top: $vbXXLargeSize;
+    left: $vbBasicSize;
+  }
+
+  &__time {
+    display: block;
+    font-size: $vbNormalFontSize;
+    text-align: right;
+    line-height: 1;
+    position: absolute;
+    right: $vbBasicSize;
+    bottom: $vbBasicSize;
+  }
+}
+
+.vb-calendarHead {
+  border-bottom: 1px solid $vbBaseColor2;
+
+  &__cell {
+    text-align: left;
+    font-weight: $vbNormalFontSize;
+    font-weight: normal;
+    padding: 0 0 1rem 1rem;
+
+    &--secondary-holiday {
+      color: #001478;
+    }
+
+    &--primary-holiday {
+      color: #c7423a;
+    }
+  }
+}

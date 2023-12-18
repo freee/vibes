@@ -1,0 +1,104 @@
+import { Story, Canvas } from '@storybook/addon-docs/blocks';
+
+# コレクション画面
+
+オブジェクトを一覧表示し、それぞれのオブジェクト個別の画面（シングル画面）に遷移させたり、フィルタやソートによってオブジェクトを検索させたりする画面をコレクション画面と呼びます。
+
+<Canvas>
+  {/* Container を使っているとinlineでは見辛いので、inline={false} にしている */}
+  <Story id="examples-collection--collection-page" inline={false} height={800} />
+</Canvas>
+
+## コレクション画面の構成
+
+コレクション画面は以下の3種類のエリアに分解されます
+
+1. フィルターされたオブジェクトの表示エリア
+2. フィルターされたオブジェクトに対する操作エリア
+3. オブジェクト全体に対する操作エリア
+
+### フィルターされたオブジェクトの表示エリア
+
+`ListTable` や `ListCard` を用いてデータを表示します。
+
+ユーザーが初めて機能を使う場合や、検索条件にマッチするオブジェクトが無い場合には 「検索条件に該当するオブジェクトが無いこと」を示したり、機能の説明をして使用を促したりするEmpty UIを用意してください。
+
+{/* TODO: Empty UIのサンプルを用意する */}
+
+#### `ListTable` を用いた表示
+
+* 可能なかぎりすべてのカラムをソート可能にしてください
+* 一括操作可能な場合には、左端にチェックボックスを表示します（`withCheckbox` propをつけるとチェックボックスが表示されます）
+  * ヘッダー行のチェックボックスは現在表示されている範囲のすべてのオブジェクトのチェックボックスを制御します
+  * データの表示条件（フィルタ、ソート、ページングなど）が変更された場合、チェックボックスを未選択状態に戻してください
+* 各行をクリックすることで、それぞれのオブジェクト個別の画面（シングル画面）に遷移させるか、シングルを表現するダイアログを開くことができます
+* 各オブジェクトに対して行えるアクションのショートカットボタンを行内に配置することができます。ただし、それらのアクションはシングル画面やダイアログでも実行可能にしてください。
+* リストの下には `Pager` を配置して、件数が多い場合に辿れるようにしてください。
+  * いわゆる「無限スクロール」にはしないでください
+
+<Canvas>
+  <Story id="examples-collection--list-table-with-check-box" />
+</Canvas>
+
+{/* TODO: ListTableのサンプルを用意する */}
+
+### フィルターされたオブジェクトに対する操作エリア
+
+検索機能によってフィルターされた範囲のデータに対する操作を行います。
+
+* 一括操作、表示件数の変更、フィルターされた範囲のエクスポートがおもに該当します。
+* フィルターされたオブジェクトの表示エリアで左端にチェックボックスを置いているため、チェックを入れたオブジェクトを対象とする一括操作は左端に配置しています
+
+<Canvas>
+  <Story id="examples-collection--filtered-objects-action-area" />
+</Canvas>
+
+
+
+### オブジェクト全体に対する操作エリア
+
+オブジェクトの新規作成やインポート、フィルターの操作をまとめるエリアです。
+
+<Canvas>
+  <Story id="examples-collection--all-objects-action-area" />
+</Canvas>
+
+## コレクション画面のバリエーション
+
+表示するオブジェクトの種類や、想定される使われ方によってコレクション表示を最適な状態にしてください。
+
+### 詳細なフィルタをもつコレクション
+
+詳細なフィルターによって絞り込み表示が可能となったコレクション表示です。一覧性を高めるために、フィルター部分の折り畳みを検討しても良いでしょう。
+
+<Canvas>
+  {/* Container を使っているとinlineでは見辛いので、inline={false} にしている */}
+  <Story id="examples-collection--with-complex-filter" inline={false} height={800} />
+</Canvas>
+
+### 一括操作なしのコレクション
+
+一括操作を可能としない場合にはチェックボックスを配置せず、フィルターされたオブジェクトに対する操作エリアを右に寄せることもできます。
+
+<Canvas>
+  {/* Container を使っているとinlineでは見辛いので、inline={false} にしている */}
+  <Story id="examples-collection--without-checkbox" inline={false} height={800} />
+</Canvas>
+
+### emptyStates（検索結果が空の場合）
+
+検索結果が空の場合にはemptyUIを表示します。vibesではemptyStates/ NoSearchResultsにデフォルトのemptyUIを用意しています。
+
+<Canvas>
+  {/* Container を使っているとinlineでは見辛いので、inline={false} にしている */}
+  <Story id="examples-collection--no-search-results-found" inline={false} height={800} />
+</Canvas>
+
+### emptyStates（データがまだ作成されていない場合）
+
+データがまだ作成されていない場合にはemptyUIを表示します。vibesではemptyStates/ NoDataCreatedにデフォルトのemptyUIを用意しています。
+
+<Canvas>
+  {/* Container を使っているとinlineでは見辛いので、inline={false} にしている */}
+  <Story id="examples-collection--no-data-created-yet" inline={false} height={800} />
+</Canvas>

@@ -1,0 +1,17 @@
+@import './lv0/colors';
+
+$basicFont: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+  'ヒラギノ角ゴ ProN', Hiragino Kaku Gothic ProN, Arial, 'メイリオ', Meiryo,
+  sans-serif;
+
+body {
+  background: $vbColorsP01;
+  color: $vbColorsGY07;
+  font-family: $basicFont;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: $vbColorsP07;
+}

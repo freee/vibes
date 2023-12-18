@@ -1,0 +1,18 @@
+node_modules
+*.log
+.DS_Store
+.idea/
+.cache
+.vscode
+storybook-static/
+dist/
+
+# docker
+docker/.build_timestamp
+
+# direnv / dotenv
+.envrc
+.env
+
+# eslint cache
+.eslintcache

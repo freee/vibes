@@ -1,0 +1,89 @@
+.vb-footer {
+  display: flex;
+  max-width: $vbContainerSize;
+  width: calc(100vw - 3rem);
+  margin-left: auto;
+  margin-right: auto;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+  @media (max-width: $vbMobileBoundaryWidth) {
+    width: calc(100vw - 1rem);
+    flex-direction: column;
+  }
+
+  &--widthWide {
+    max-width: 100rem;
+  }
+
+  &--widthNarrow {
+    max-width: 40rem;
+  }
+
+  &Links {
+    display: block;
+    padding: 0;
+    margin: 0 0 $vbBasicSize;
+    list-style: none;
+    overflow: hidden;
+
+    &__item {
+      display: block;
+      margin-right: $vbBasicSize;
+      float: left;
+      line-height: 1;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      > a {
+        color: $vbBlackColor;
+        font-size: $vbNormalFontSize;
+        font-weight: normal;
+        text-decoration: underline;
+        transition-duration: 0.2s;
+        transition-property: color;
+
+        &:hover {
+          color: $vbBurntColor;
+        }
+      }
+    }
+  }
+
+  &Copyright {
+    display: block;
+    font-size: $vbCaptionFontSize;
+    font-style: normal;
+    line-height: 1;
+  }
+
+  &Badges {
+    display: block;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    overflow: hidden;
+
+    @media (max-width: $vbMobileBoundaryWidth) {
+      margin-top: $vbLargeSize;
+    }
+
+    &__item {
+      display: block;
+      margin-right: $vbBasicSize;
+      float: left;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &Section {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      margin-top: $vbLargeSize;
+    }
+  }
+}

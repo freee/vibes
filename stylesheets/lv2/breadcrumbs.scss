@@ -1,0 +1,20 @@
+.vb-breadcrumbs {
+  &__list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    font-size: $vbNormalFontSize;
+  }
+
+  &__divider {
+    font-size: $vbHeadline1FontSize;
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 Chrome versions",
+            "last 2 Firefox versions",
+            "Firefox ESR",
+            "last 3 Safari versions",
+            "last 2 Edge versions",
+            "last 3 iOS versions",
+            "last 2 ChromeAndroid versions",
+            "last 2 FirefoxAndroid versions"
+          ]
+        }
+      }
+    ],
+    "@babel/preset-flow",
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-flow-strip-types"
+  ]
+}

@@ -1,0 +1,9 @@
+export const OverlayZIndex = '100';
+export const FormActionsZIndex = '200';
+export const FloatingZIndex = '500';
+export const ModalZIndex = '1000';
+export const MessageModalZIndex = '1500';
+export const PopupZIndex = '2000';
+export const PopupMessageZIndex = '3000';
+export const FixedMessageZIndex = '4000';
+export const MaxZIndex = '2147483647';

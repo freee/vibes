@@ -1,0 +1,145 @@
+/** @define statusSelector */
+.vb-statusSelector {
+  @extend %icon-base;
+
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-color: transparent;
+  background-color: transparent;
+  transition-duration: 0.2s;
+  transition-property: background-color;
+
+  &--disabled {
+    opacity: 0.5;
+  }
+
+  &__dropdownIcon {
+    width: $vbBasicSize;
+    height: $vbBasicSize;
+    margin-left: 0.25rem;
+    margin-right: -0.25rem;
+  }
+
+  &--typeDone {
+    @extend %icon-border-face;
+
+    border-color: $vbBaseColor3;
+    color: $vbBurntColor;
+
+    &__dropdownIcon {
+      fill: $vbBurntColor;
+    }
+
+    &:hover {
+      background-color: $vbColorsS02;
+    }
+  }
+
+  &--typeSuccess {
+    @extend %icon-border-face;
+
+    border-color: $vbPrimaryColor;
+    color: $vbPrimaryColor;
+
+    &__dropdownIcon {
+      fill: $vbPrimaryColor;
+    }
+
+    &:hover {
+      background-color: $vbColorsP02;
+    }
+  }
+
+  &--typeProgress {
+    @extend %icon-border-face;
+
+    border-color: $vbNoticeColor;
+    // 文字色のコントラスト比を上げるため、 $vbNoticeColorより濃い色を使用する
+    color: $vbColorsYE10;
+
+    &__dropdownIcon {
+      fill: $vbColorsYE10;
+    }
+
+    &:hover {
+      background-color: $vbColorsYE02;
+    }
+  }
+
+  &--typeRequired {
+    @extend %icon-border-face;
+
+    border-color: $vbAlertColor;
+    color: $vbAlertColor;
+
+    &__dropdownIcon {
+      fill: $vbAlertColor;
+    }
+
+    &:hover {
+      background-color: $vbColorsRE02;
+    }
+  }
+
+  &--typeDisabled {
+    @extend %icon-fill-face;
+
+    background-color: $vbBurntColor;
+    border-width: 0;
+
+    &__dropdownIcon {
+      fill: #fff;
+    }
+
+    &:hover {
+      background-color: darken($vbBurntColor, 12%);
+    }
+  }
+
+  &--typeEmphasis {
+    @extend %icon-fill-face;
+
+    background-color: $vbPrimaryColor;
+    border-width: 0;
+
+    &__dropdownIcon {
+      fill: #fff;
+    }
+
+    &:hover {
+      background-color: darken($vbPrimaryColor, 12%);
+    }
+  }
+
+  &--typeWarning {
+    @extend %icon-fill-face;
+
+    // 文字色のコントラスト比を上げるため、 $vbNoticeColorより濃い色を使用する
+    background-color: $vbColorsYE10;
+    border-width: 0;
+
+    &__dropdownIcon {
+      fill: #fff;
+    }
+
+    &:hover {
+      background-color: darken($vbColorsYE10, 12%);
+    }
+  }
+
+  &--typeError {
+    @extend %icon-fill-face;
+
+    background-color: $vbAlertColor;
+    border-width: 0;
+
+    &__dropdownIcon {
+      fill: #fff;
+    }
+
+    &:hover {
+      background-color: darken($vbAlertColor, 12%);
+    }
+  }
+}

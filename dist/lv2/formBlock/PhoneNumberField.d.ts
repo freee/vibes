@@ -1,0 +1,23 @@
+import * as React from 'react';
+import { MarginClassProps } from '../../utilities/marginClasses';
+import { CommonProps } from '../../utilities/commonProps';
+export declare type PhoneNumberKey = 'a' | 'b' | 'c';
+declare type Props = {
+    phoneNumberA?: string;
+    phoneNumberB?: string;
+    phoneNumberC?: string;
+    placeholderA?: string;
+    placeholderB?: string;
+    placeholderC?: string;
+    disabled?: boolean;
+    error?: boolean;
+    small?: boolean;
+    autoComplete?: 'off' | 'tel';
+    onChange?: (key: PhoneNumberKey, e: React.ChangeEvent<HTMLInputElement>) => void;
+    onInput?: (key: PhoneNumberKey, e: React.FormEvent<HTMLInputElement>) => void;
+    onFocus?: (key: PhoneNumberKey, e: React.FormEvent<HTMLInputElement>) => void;
+    onBlur?: (key: PhoneNumberKey, e: React.FormEvent<HTMLInputElement>) => void;
+    onKeyDown?: (key: PhoneNumberKey, e: React.KeyboardEvent<HTMLInputElement>) => void;
+} & MarginClassProps & CommonProps;
+declare const PhoneNumberField: React.FC<Props>;
+export default PhoneNumberField;

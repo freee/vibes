@@ -1,0 +1,186 @@
+// モーダルダイアログが開いているときにページ全体のスクロールを抑止する
+.vb-ReactModal__Body--open {
+  overflow: hidden;
+}
+
+// 開閉トランジションの追加
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.vb-messageDialog {
+  $componentClass: &;
+
+  max-width: 70rem;
+  min-width: 40rem;
+  max-height: calc(100vh - 2 * 1rem);
+
+  &__inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header,
+  &__footer {
+    padding: 1.5rem;
+  }
+
+  &__body {
+    padding: 0 1.5rem;
+
+    &--alignLeft {
+      text-align: left;
+    }
+  }
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      margin: 0 1rem;
+      // 最小幅を20rem = 320pxとして、そこからダイアログ外marginの1remを左右分（*2）引く
+      min-width: 20rem - 1rem * 2;
+
+      #{$componentClass} {
+        &__header,
+        &__footer {
+          padding: 1rem;
+        }
+
+        &__body {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+      }
+    }
+  }
+}
+
+.vb-taskDialog {
+  $componentClass: &;
+
+  max-width: 70rem;
+  min-width: 40rem;
+
+  &__inner {
+    overflow-y: auto;
+  }
+
+  &__flex {
+    display: flex;
+    flex-direction: column;
+    // 上下に1remアキをつくる
+    max-height: calc(100vh - 2 * 1rem); // fallback for safari14
+    max-height: calc(100svh - 2 * 1rem);
+    min-height: 12rem;
+  }
+
+  &__header,
+  &__footer {
+    background-color: #fff;
+    padding: 1.5rem;
+  }
+
+  &__body {
+    border-top: $vbMinimum solid $vbBaseColor2;
+    border-bottom: $vbMinimum solid $vbBaseColor2;
+    margin: 0;
+    padding: 1.5rem;
+    overflow: auto;
+    background-color: #fff;
+    min-height: 3rem;
+  }
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      margin: 0 1rem;
+      // 最小幅を20rem = 320pxとして、そこからダイアログ外marginの1remを左右分（*2）引く
+      min-width: 20rem - 1rem * 2;
+
+      #{$componentClass} {
+        &__header,
+        &__footer {
+          padding: 1rem;
+        }
+
+        &__body {
+          padding: 1rem;
+        }
+      }
+    }
+  }
+}
+
+.vb-guideDialog {
+  text-align: center;
+  width: 40rem;
+
+  @media (max-width: 40rem) {
+    margin: 0 1rem;
+    width: auto;
+    min-width: 10rem;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    // DialogBaseのpadding1.5rem + 1rem = 2.5remとして、上下に1remアキをつくる
+    max-height: calc(100vh - 2 * 2.5rem);
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__body {
+    overflow: auto;
+    background-color: #fff;
+    min-height: 3rem;
+  }
+
+  &__image {
+    width: 320px;
+    height: 240px;
+
+    @media (max-width: $vbMobileBoundaryWidth) {
+      width: 240px;
+      height: 180px;
+    }
+
+    margin-bottom: 1rem;
+  }
+
+  &__buttonBlock {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__closeButtonBlock {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
+}
+
+.vb-guideStepCount {
+  color: $vbBurntColor;
+
+  &__currentStep {
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,371 @@
+@use 'sass:math';
+
+.vb-tagBox {
+  display: inline-block;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 0 $vbSmallSize;
+  border: $vbMinimum solid $vbBaseColor3;
+  border-radius: $vbFullBorderRadius;
+  height: $vbLargeSize;
+  line-height: $vbLargeSize;
+  font-size: $vbLargeSize;
+
+  &--removable {
+    padding-right: $vbXSmallSize;
+  }
+
+  &--maxWidthSmall {
+    max-width: 10rem;
+  }
+
+  &--maxWidthMedium {
+    max-width: 20rem;
+  }
+
+  &--maxWidthLarge {
+    max-width: 30rem;
+  }
+
+  &--success {
+    border-color: $vbPrimaryColor;
+  }
+
+  &--error {
+    border-color: $vbAlertColor;
+  }
+
+  &--RE {
+    background-color: $vbColorsRE02;
+    border-color: $vbColorsRE02;
+  }
+
+  &--OR {
+    background-color: $vbColorsOR02;
+    border-color: $vbColorsOR02;
+  }
+
+  &--YE {
+    background-color: $vbColorsYE02;
+    border-color: $vbColorsYE02;
+  }
+
+  &--YG {
+    background-color: $vbColorsYG02;
+    border-color: $vbColorsYG02;
+  }
+
+  &--GR {
+    background-color: $vbColorsGR02;
+    border-color: $vbColorsGR02;
+  }
+
+  &--BG {
+    background-color: $vbColorsBG02;
+    border-color: $vbColorsBG02;
+  }
+
+  &--PU {
+    background-color: $vbColorsPU02;
+    border-color: $vbColorsPU02;
+  }
+
+  &--GY {
+    background-color: $vbColorsGY02;
+    border-color: $vbColorsGY02;
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    margin-top: -$vbMinimum;
+    height: $vbLargeSize;
+  }
+
+  &__type {
+    display: inline-block;
+    font-size: $vbCaptionFontSize;
+    color: $vbBurntColor;
+    margin-right: $vbSmallSize;
+    white-space: nowrap;
+
+    &--RE {
+      color: $vbColorsRE10;
+    }
+
+    &--OR {
+      color: $vbColorsOR10;
+    }
+
+    &--YE {
+      color: $vbColorsYE10;
+    }
+
+    &--YG {
+      color: $vbColorsYG10;
+    }
+
+    &--GR {
+      color: $vbColorsGR10;
+    }
+
+    &--BG {
+      color: $vbColorsBG10;
+    }
+
+    &--PU {
+      color: $vbColorsPU10;
+    }
+
+    &--GY {
+      color: $vbColorsGY10;
+    }
+  }
+
+  &__body {
+    font-size: $vbNormalFontSize;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &--success {
+      color: $vbPrimaryColor;
+    }
+
+    &--error {
+      color: $vbAlertColor;
+    }
+
+    &--RE {
+      color: $vbColorsRE10;
+    }
+
+    &--OR {
+      color: $vbColorsOR10;
+    }
+
+    &--YE {
+      color: $vbColorsYE10;
+    }
+
+    &--YG {
+      color: $vbColorsYG10;
+    }
+
+    &--GR {
+      color: $vbColorsGR10;
+    }
+
+    &--BG {
+      color: $vbColorsBG10;
+    }
+
+    &--PU {
+      color: $vbColorsPU10;
+    }
+
+    &--GY {
+      color: $vbColorsGY10;
+    }
+  }
+
+  &__removeButton {
+    font-size: 0;
+    color: $vbBaseColor3;
+    margin-left: $vbSmallSize;
+    height: $vbLargeSize;
+    width: $vbLargeSize;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    transition-property: color;
+
+    &:hover {
+      color: darken($vbBaseColor3, 12%);
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+
+    &--RE {
+      color: $vbColorsRE10;
+    }
+
+    &--OR {
+      color: $vbColorsOR10;
+    }
+
+    &--YE {
+      color: $vbColorsYE10;
+    }
+
+    &--YG {
+      color: $vbColorsYG10;
+    }
+
+    &--GR {
+      color: $vbColorsGR10;
+    }
+
+    &--BG {
+      color: $vbColorsBG10;
+    }
+
+    &--PU {
+      color: $vbColorsPU10;
+    }
+
+    &--GY {
+      color: $vbColorsGY10;
+    }
+  }
+
+  &__removeIcon {
+    // アイコンの縦横サイズ指定
+    font-size: $vbBasicSize;
+    vertical-align: middle;
+  }
+}
+
+.vb-miniTag {
+  display: inline-block;
+  height: 1.25rem;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0 $vbXSmallSize;
+  position: relative;
+  border-radius: $vbMiniPaddingBorderRadius;
+  font-size: $vbNormalFontSize;
+  font-family: $vbFontFamily;
+
+  &--RE {
+    background-color: $vbColorsRE02;
+    color: $vbColorsRE10;
+  }
+
+  &--OR {
+    background-color: $vbColorsOR02;
+    color: $vbColorsOR10;
+  }
+
+  &--YE {
+    background-color: $vbColorsYE02;
+    color: $vbColorsYE10;
+  }
+
+  &--YG {
+    background-color: $vbColorsYG02;
+    color: $vbColorsYG10;
+  }
+
+  &--GR {
+    background-color: $vbColorsGR02;
+    color: $vbColorsGR10;
+  }
+
+  &--BG {
+    background-color: $vbColorsBG02;
+    color: $vbColorsBG10;
+  }
+
+  &--PU {
+    background-color: $vbColorsPU02;
+    color: $vbColorsPU10;
+  }
+
+  &--GY {
+    background-color: $vbColorsGY02;
+    color: $vbColorsGY10;
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    height: 1.25rem;
+  }
+
+  &__body {
+    line-height: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__removeButton {
+    width: $vbBasicSize;
+    height: $vbBasicSize;
+    position: relative;
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+    flex-shrink: 0;
+    margin-left: $vbXSmallSize;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: $vbLargeSize;
+      height: $vbLargeSize;
+      top: math.div($vbBasicSize - $vbLargeSize, 2);
+      right: -$vbXSmallSize;
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+
+    &--RE {
+      color: $vbColorsRE10;
+    }
+
+    &--OR {
+      color: $vbColorsOR10;
+    }
+
+    &--YE {
+      color: $vbColorsYE10;
+    }
+
+    &--YG {
+      color: $vbColorsYG10;
+    }
+
+    &--GR {
+      color: $vbColorsGR10;
+    }
+
+    &--BG {
+      color: $vbColorsBG10;
+    }
+
+    &--PU {
+      color: $vbColorsPU10;
+    }
+
+    &--GY {
+      color: $vbColorsGY10;
+    }
+  }
+
+  &__removeIcon {
+    width: $vbBasicSize;
+    height: $vbBasicSize;
+  }
+}

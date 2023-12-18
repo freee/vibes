@@ -1,0 +1,176 @@
+// reset h1~h6
+%reset {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+%titleHeadline {
+  @extend %reset;
+
+  display: block;
+  overflow-wrap: break-word;
+  border-radius: $vbFocusHighlightBorderRadius;
+
+  &:focus {
+    outline: none;
+
+    &:focus-visible {
+      // ページの内容が変化したことをスクリーンリーダーに伝えたり、キーボード操作をしやすくするために、見出し部分へのフォーカスを行うことがあるが、
+      // 通常のフォーカスインジケーターが表示されていると存在感が強く、ユーザーに違和感を与えてしまう。
+      // このケースではフォーカスインジケーターを消してしまっても大きな問題とはならないはずだが、それをすると開発者がフォーカスの当たる挙動を確認することができなくなる問題が起き得る。
+      // そこで、focus-visibleな状況に限り、通常よりも薄い色のフォーカスインジケーターを表示する。
+      // focus-visibleな場合のみの表示なので、マウスポインタによる操作以外ではフォーカスインジケーターが表示される。
+      // ここではコントラスト比が低くなりそうな色を意図的に選んでいる。
+      box-shadow: 0 0 0 $vbMinimum * 2 $vbColorsP02;
+    }
+  }
+}
+
+.vb-pageTitle {
+  @extend %titleHeadline;
+
+  color: $vbBlackColor;
+  font: $vbHeadlineFont1;
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      font: $vbMobileHeadlineFont1;
+    }
+  }
+}
+
+.vb-sectionTitle {
+  @extend %titleHeadline;
+
+  color: $vbBlackColor;
+  font: $vbHeadlineFont2;
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      font: $vbMobileHeadlineFont2;
+    }
+  }
+}
+
+.vb-subSectionTitle {
+  @extend %titleHeadline;
+
+  color: $vbBurntColor;
+  font: $vbHeadlineFont3;
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      font: $vbMobileHeadlineFont3;
+    }
+  }
+}
+
+/** @define note */
+.vb-note {
+  @extend %reset;
+
+  display: block;
+  color: $vbBurntColor;
+  font: $vbCaptionFont;
+}
+
+/** @define paragraph */
+.vb-paragraph {
+  @extend %reset;
+
+  display: block;
+  font: $vbNormalFont;
+  color: $vbBlackColor;
+}
+
+.vb-text {
+  @extend %reset;
+
+  color: $vbBlackColor;
+  font: $vbNormalFont;
+
+  &--weightBold {
+    font-weight: bold;
+  }
+
+  &--size0750 {
+    font-size: $vbCaptionFontSize;
+  }
+
+  &--size1500 {
+    font-size: $vbHeadline1FontSize;
+  }
+
+  &--size1000 {
+    font-size: $vbHeadline2FontSize;
+  }
+
+  &--colorWhite {
+    color: #fff;
+  }
+
+  &--colorGY7 {
+    color: $vbColorsGY07;
+  }
+
+  &--colorS9 {
+    color: $vbColorsS09;
+  }
+
+  &--colorP7 {
+    color: $vbColorsP07;
+  }
+
+  &--colorP5 {
+    color: $vbColorsP05;
+  }
+
+  &--colorRE5 {
+    color: $vbColorsRE05;
+  }
+
+  &--colorYE10 {
+    color: $vbColorsYE10;
+  }
+
+  &--ellipsis {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+}
+
+.vb-pageTitle,
+.vb-sectionTitle,
+.vb-subSectionTitle,
+.vb-paragraph,
+.vb-note {
+  &--inline {
+    display: inline-block;
+  }
+
+  &--alignLeft {
+    text-align: left;
+  }
+
+  &--alignRight {
+    text-align: right;
+  }
+
+  &--alignCenter {
+    text-align: center;
+  }
+}
+
+.vb-paragraph,
+.vb-note {
+  &--ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+}

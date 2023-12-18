@@ -1,0 +1,26 @@
+[ignore]
+
+[include]
+./../../../index.js
+./../../../lv1.js
+./../../../lv2.js
+./../../../utilities.js
+./../../../node_modules/lottie-web/.*
+./../../../node_modules/react/.*
+./../../../node_modules/react-dom/.*
+./../../../node_modules/react-icons/.*
+./../../../node_modules/react-modal/.*
+./../../../node_modules/react-dnd/.*
+./../../../node_modules/react-dnd-html5-backend/.*
+
+[libs]
+
+[lints]
+
+[options]
+server.max_workers=4
+module.name_mapper='^vibes\(.*\)$' -> '<PROJECT_ROOT>/../../..\1'
+include_warnings=true
+suppress_comment= \\(.\\|\n\\)*\\$FlowExpectedError
+
+[strict]

@@ -1,0 +1,54 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title='doc/TypeScript' />
+
+# TypeScript (JavaScript)
+
+変更する場合は **srcディレクトリに格納されているts(x)ファイル** を変更してください。`dist` ディレクトリ内にあるファイルはビルド成果物です。取り間違いに気をつけてください。
+
+### コンポーネントの追加時の注意点
+
+コンポーネントを追加するときは、同名の `stories.tsx` ファイルを作成し、Storybookで閲覧できるようにしてください。
+Storybookで何をするべきかは [VibesのStorybookこうするぞ](https://freee.kibe.la/notes/24930) を参照してください。
+
+また、追加したコンポーネントをプロダクト側から参照できるよう、 `src/lv1/index.ts` `src/lv2/index.ts` で `export` してください。
+
+### 型定義ファイルについて
+
+TypeScriptの型定義に加えて、Flowでの型定義を `lv1.js.flow` `lv2.js.flow` に（手作業で）記述しています。
+こちらはコンポーネントを追加したり変更したりした際に必ず修正してください。
+
+## styled-components について
+
+部分的にstyled-componentsを採用しはじめていますが、以下をルールとします
+
+- Vibesの外部から利用できるかたちでstyled-components由来のpropを提供しない
+  - 特に as をexportしない。as を提供する場合は、使用できるtagNameを限定する
+- コンポーネントは `CommonStyle` (`src/internal/CommonStyle.ts`) を extendしたもの（`styled(CommonStyle)`）が最外層にあるようにする
+  - ここに `ma` `mt` `mb` `mr` `mr` のようなマージンを提供するpropや、共通のフォント設定などが定義されています
+
+以下のようなかたちになります
+
+```ts
+
+import { CommonStyle } from '../../internal/CommonStyle';
+
+const ComponentStyle = styled(commonStyle)`
+/* ここにコンポーネントのスタイルを書く */
+`
+
+type Props = {
+  //...
+} & CommonProps;
+
+export const Component: React.FC<Props> = (props: Props) =>{
+
+  return (
+    <ComponentStyle>
+      ...
+    </ComponentStyle>
+  );
+}
+```
+
+

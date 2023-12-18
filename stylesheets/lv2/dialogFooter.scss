@@ -1,0 +1,20 @@
+.vb-DialogFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      justify-content: center;
+      flex-direction: column;
+    }
+  }
+
+  &__sideContent {
+    &--responsive {
+      @media (max-width: $vbMobileBoundaryWidth) {
+        margin-top: 1rem;
+      }
+    }
+  }
+}

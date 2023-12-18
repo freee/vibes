@@ -1,0 +1,112 @@
+.vb-skeltonPageTitle {
+  padding: calc(($vbLineHeight - 1) * $vbHeadline1FontSize / 2) 0;
+  max-height: $vbHeadline1FontSize;
+}
+
+.vb-skeltonSectionTitle {
+  padding: calc(($vbLineHeight - 1) * $vbHeadline2FontSize / 2) 0;
+  max-height: $vbHeadline2FontSize;
+}
+
+.vb-skeltonParagraph {
+  padding: calc(($vbLineHeight - 1) * $vbNormalFontSize / 2) 0;
+  max-height: $vbNormalFontSize;
+}
+
+.vb-skeltonRectangle {
+  max-height: 5rem;
+}
+
+.vb-skeltonBlock {
+  max-height: 2.25rem;
+
+  &--small {
+    max-height: 1.5rem;
+  }
+
+  &--large {
+    max-height: 3rem;
+  }
+}
+
+.vb-skeltonIcon {
+  max-height: 2rem;
+
+  &--small {
+    max-height: 1.5rem;
+  }
+
+  &--large {
+    max-height: 3rem;
+  }
+}
+
+.vb-skeltonCircle {
+  max-height: 2rem;
+
+  &--small {
+    max-height: 1.5rem;
+  }
+
+  &--large {
+    max-height: 3rem;
+  }
+
+  &--xlarge {
+    max-height: 6rem;
+  }
+}
+
+.vb-skeletonInput {
+  align-items: center;
+  background-color: #fff;
+  border-radius: $vbFontBorderRadius;
+  border: 1px solid $vbColorsGY02;
+  box-sizing: border-box;
+  display: inline-flex;
+  height: $vbFormControlHeight;
+  overflow: hidden;
+  padding: 0 $vbSmallSize;
+  vertical-align: inherit;
+
+  &--small {
+    height: $vbFormControlSmallHeight;
+    padding: 0 $vbSmallSize;
+  }
+
+  &--large {
+    height: $vbFormControlLargeHeight;
+    padding: 0 $vbBasicSize;
+  }
+
+  &--widthXSmall {
+    width: 4rem;
+  }
+
+  &--widthSmall {
+    width: 7rem;
+  }
+
+  &--widthMedium {
+    width: 11rem;
+  }
+
+  &--widthLarge {
+    width: 24rem;
+  }
+
+  &--widthFull {
+    width: 100%;
+  }
+}
+
+.vb-skeletonStackedBarChart {
+  height: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  background-color: #fff;
+  border: $vbMinimum solid $vbColorsS06;
+  border-radius: $vbFullBorderRadius;
+}

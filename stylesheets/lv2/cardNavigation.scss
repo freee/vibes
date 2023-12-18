@@ -1,0 +1,74 @@
+.vb-cardNavigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  &__item {
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+
+    &--1 {
+      margin-right: 0;
+    }
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 5rem;
+
+    // 段落ち仕様を実現のため、数字指定で実装
+    // VibesのContainerは width="normal" のとき横幅70remになっている
+    // ContentsBaseをContainerの内側に配置して、そのさらに内部にCardNavigationが配置されることを想定
+    // Containerの幅70remから、Contents左右のpadding1.5rem*2を差し引いて、 67remを基準とする
+    // 計算式
+    // ( 標準幅 - item数 * itemのmargin - item数 * cardbaseのpadding ) / item数
+
+    // 4個以上は4個の場合をデフォルトとする
+    // (67rem - 4 item * 1 rem - 4 item * 3 rem) / 4 item = 12.75rem
+    width: calc((67rem - 4 * 1rem - 4 * 3rem) / 4);
+
+    // (67rem - 3 item * 1 rem - 3 item * 3 rem) / 3 item = 18.3333..rem
+    &--3 {
+      width: calc((67rem - 3 * 1rem - 3 * 3rem) / 3);
+    }
+
+    // (67rem - 2 item * 1 rem - 2 item * 3 rem) / 2 item = 29.5rem
+    &--2 {
+      width: calc((67rem - 2 * 1rem - 2 * 3rem) / 2);
+    }
+
+    // (67rem - 1 item * 0 rem - 1 item * 3 rem) / 1 item = 64rem
+    &--1 {
+      width: 64rem;
+    }
+  }
+
+  &__arrow {
+    flex-shrink: 0;
+  }
+
+  &__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: #285ac8;
+    margin-right: 1rem;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: flex-start;
+
+    &--text {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__url {
+    text-decoration: initial;
+    color: initial;
+  }
+}

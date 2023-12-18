@@ -1,0 +1,154 @@
+.vb-listCard {
+  position: relative;
+  background-color: #fff;
+  border-radius: $vbCardBorderRadius;
+  box-shadow: $vbCardShadow;
+  padding: $vbBasicSize;
+
+  &--disabled {
+    opacity: 0.5;
+  }
+
+  &__link,
+  &__button {
+    cursor: pointer;
+    text-decoration: none;
+    color: $vbBlackColor;
+    display: block;
+    text-align: left;
+    padding: 0;
+    border: 0;
+    background-color: #fff;
+
+    &--disabled {
+      cursor: not-allowed;
+    }
+
+    &::before {
+      // クリッカブル領域をカード全体に広げる
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      transition-duration: 0.2s;
+      transition-property: background-color, color;
+      border-radius: $vbCardBorderRadius;
+    }
+
+    &--current {
+      &::after {
+        content: '';
+        height: 100%;
+        width: 4px;
+        background-color: $vbColorsP05;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-top-left-radius: $vbXSmallSize;
+        border-bottom-left-radius: $vbXSmallSize;
+      }
+    }
+  }
+
+  // FIXME: おそらくlibsassのバグで、:not を複数のセレクタに対して使用することが上手くできない。
+  // そのため __link と __button を別々に書いている。
+  // libsass は deprecated なため、dart-sass等に移行したうえでこの2つを纏められないか確認する必要がある。
+  &__link {
+    &:not(&--disabled) {
+      &:hover {
+        &::before {
+          background-color: mix($vbPrimaryColor, #fff, 6%);
+        }
+      }
+    }
+  }
+
+  &__button {
+    &:not(&--disabled) {
+      &:hover {
+        &::before {
+          background-color: mix($vbPrimaryColor, #fff, 6%);
+        }
+      }
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    margin-right: $vbLargeSize;
+    display: flex;
+  }
+
+  &__thumbnail {
+    margin-right: $vbBasicSize;
+    flex-shrink: 0;
+    flex-grow: 0;
+    max-width: 5rem;
+
+    * {
+      max-width: 100%;
+      max-height: 5rem;
+    }
+
+    &--large {
+      margin-right: $vbBasicSize;
+      flex-shrink: 0;
+      flex-grow: 0;
+      max-width: 12rem;
+
+      * {
+        max-width: 100%;
+        max-height: 12rem;
+      }
+
+      @media (max-width: $vbMobileBoundaryWidth) {
+        max-width: 7.2rem;
+
+        * {
+          max-height: 7.2rem;
+        }
+      }
+    }
+
+    @media (max-width: $vbMobileBoundaryWidth) {
+      max-width: 3rem;
+
+      * {
+        max-height: 3rem;
+      }
+    }
+  }
+
+  &__main {
+    flex-shrink: 1;
+    flex-grow: 1;
+  }
+
+  &__icon {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    right: $vbSmallSize;
+    width: $vbLargeSize;
+    height: $vbLargeSize;
+  }
+
+  &__title {
+    font-size: $vbHeadline2FontSize;
+    font-weight: bold;
+  }
+
+  &__actions {
+    position: relative;
+    z-index: 1;
+    // 誤クリック・タップを防ぐため、paddingでaction周囲に反応しないエリアを作っている
+    // 上方向のみ、titleカード内コンテンツとの兼ねあいで小さくなっている
+    padding: $vbSmallSize $vbBasicSize $vbBasicSize;
+    margin: $vbSmallSize #{-1 * $vbBasicSize} #{-1 * $vbBasicSize};
+    width: fit-content;
+  }
+}

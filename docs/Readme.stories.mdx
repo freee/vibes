@@ -1,0 +1,152 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="doc/Readme" />
+
+# Vibes
+
+コンポーネントベースのデザインシステムです。
+
+## Vibes の動作ブラウザ
+
+Vibes の動作想定環境は[freee の動作環境](https://support.freee.co.jp/hc/ja/articles/202848120) に準じます。
+スクリーンリーダーに関しては[アクセシビリティー・ガイドラインの標準環境](https://a11y-guidelines.freee.co.jp/explanations/screen-reader-check.html#id79)に準じますが、簡便なテストのために VoiceOver を併用します。
+
+- 以下のブラウザで必要に応じて動作確認をしています
+  - Google Chrome
+  - Microsoft Edge (Chromium ベース)
+  - Firefox
+  - Safari
+  - Internet Explorer
+- スクリーンリーダーでの挙動・バグについては Windows 上の Chrome と NVDA での動作確認に基きます
+- 一部のブラウザにのみ発生する不具合に関してはバグとして対応しない判断をする場合があります
+
+## Vibes の使い方
+
+### Vibes を使った画面デザイン
+
+コーディングをせずに画面デザインを行う場合には Sketch を使用してください。Vibes の Library ファイルは Sketch Cloud で配布しています。
+必要な場合は UX チームにお問い合わせください。
+
+- Vibes のコンポーネントには、Figma では表現しきれない制約が存在しています。使おうとしているコンポーネントの仕様は Storybook で確認してください
+- その他の注意点などを [Design ページ](/?path=/docs/doc-design--page) に記載してあります。ご確認ください
+
+### Storybook からコンポーネントを探す
+
+Vibes のコンポーネントは他のどのコンポーネントにも依存しない `lv1` と、他のコンポーネントを組み合わせてある `lv2` に大別されています
+
+- コンポーネントを探す際は `lv2` から探し、作ろうとしているものが `lv2` で実現できない場合は `lv1` を組み合わせて使うことを検討してください
+- Storybook に `examples` として、レイアウトのサンプルを用意しています。こちらも参考にしてください
+
+### 作ろうとしているものが Vibes だけでは実現不可能なとき
+
+Vibes に追加されているコンポーネントは、プロダクトを跨いで使用するような汎用的なものを想定しています。
+そのため、プロダクト固有のドメインに強く紐付くもの、ユーザーに強くアトラクトする必要のあるものについては、Vibes を使用しないほうが効果的な場合があります。
+
+- あなた自身が画面デザインを作成している場合は、あなた自身が画面デザインを作成している場合は、Vibes のコンポーネントのみの組みあわせで目的を達成できるか検討してください
+  - Vibes で完結する画面設計であれば、工数の削減や品質の向上が見込めます。画面デザインで期待する効果と比較したうえで意思決定してください
+  - Vibes を使用しない場合でも、Vibes や freee 全体のトーン＆マナーを意識して、全体の統一感を著しく損わないよう注意してください
+- デザイナーから渡されたものをコーディングしている場合は、まずデザイナーに問い合わせてください
+  - デザイナーがコンポーネントの技術制約を認識できていない場合も考えられます。まずはデザイナーの意思を確認してください
+  - 必要に応じて、Vibes の仕様変更や、プロダクト側での UI コンポーネント実装を検討してください
+- プロダクト側で実装する場合には、今後のアップデートに耐えられる実装を意識してください
+  - **Vibes のコンポーネントへのスタイル上書きはしないでください** 。`.vb-` で始まるクラス名や、内部の要素セレクタへのスタイル指定を行わないでください。スタイルの上書きは影響範囲を読みづらく、メンテナンス性を下げてしまいます
+  - **`.vb-` で始まる className をプロダクト内で使用しないでください**。Vibes コンポーネントの DOM 構造は今後変更することがあり、その場合に Vibes のアップデートが困難になります
+    - Vibes 内で使用していない `.vb-` で始まる className も、使用しないでください。
+- Vibes と組み合わせてスタイルシートを記述する場合は、文字サイズ変更時の整合性を保つため、 `px` ではなく `rem` を使用してください
+
+### アクセシビリティ
+
+Vibes を使用しただけでは、必ずしもアクセシビリティの配慮が要らなくなるというものではありません。
+
+- Storybook 内の Examples や各コンポーネントのドキュメントにはあちこちにアクセシビリティの向上に必要な情報が書かれています
+  - アクセシビリティ向上のために用意された `prop` には、使い方を誤るとかえってアクセシビリティを下げてしまうものもあるため、ドキュメントをよく読んで使用してください
+- デザイン・コード・プロダクトを対象に必ず [アクセシビリティチェック](https://a11y-guidelines.freee.co.jp/checks/index.html) を実行してください
+
+## プロダクトへの導入方法
+
+### インストール
+
+TBD
+
+### CSS の読み込み
+
+スタイルを適用するため `node_modules/@freee_jp/vibes/vibes_2021.css` を読み込んでください。
+
+from Sass:
+
+```sass
+@import 'node_modules/@freee_jp/vibes/vibes_2021';
+```
+
+from JavaScript with CSS Modules:
+
+```js
+import '@freee_jp/vibes/css';
+```
+
+- CSS の読み込み方法は、プロジェクトの技術選定状況にあわせて検討してください
+
+### Vibes コンポーネントの使用
+
+`vibes` から 個別のコンポーネントを import して使用してください
+
+```tsx
+import * as React from 'react';
+import { ColumnBase, FormControlGroup, FormControl, TextField } from '@freee_jp/vibes';
+
+const Component = () =>
+  <ColumnBase>
+    <FormControlGroup>
+      <FormControl label="日付" fieldId="dateField" mb={1} mr={1}>
+        <TextField id="dateField" name="dateField" />
+      </FormControl>
+      <FormControl label="備考" fieldId="noteField" mb={1} mr={1}>
+        <TextField id="noteField" name="noteField" />
+      </FormControl>
+      ...
+    </FormControlGroup>
+    <Button onClick={() => doSubmit()}>送信</Button>
+  </ColumnBase>
+}
+```
+
+- Vibes では TypeScript をサポートしています。プロジェクトで使用できる場合には TypeScript を使用してください。
+  - Flow にも対応していますが、新規に採用するのは **非推奨** です。Flow の型定義ファイルは手作業によるメンテナンスとなっており、TypeScript との差異がある状態になっています。
+- `vibes/dist` や `vibes/src` からの import は **禁止** です。
+
+### コンポーネント共通の `props`
+
+`commonProps` として、全コンポーネントで使用可能な `props` を定義しています
+
+- `ma` `mt` `mb` `mr` `ml`
+  - マージン用の `prop` で、それぞれ全方向・上方向・下方向・右方向・左方向へのマージンを `rem` 単位で指定できます
+  - 指定できる値は `0.25` `0.5` `1` `1.5` `2` `3` および `-0.25` `-0.5` `-1` `-1.5` `-2` `-3` です。
+  - 一部のコンポーネントでは `marginTop` `marginBottom` `marginLeft` `marginRight` `marginSize` の指定も可能ですが、指定内容・利用可能コンポーネントが限定的なので、使用は推奨しません
+- `data-guide`
+  - peacemaker 等によるユーザガイド用で使用することを想定しています。DOM に `data-guide` 属性としてレンダリングされます
+- `data-test`
+  - Selenium や Puppeteer による E2E テストで使用することを想定しています。DOM に `data-test` 属性としてレンダリングされます
+- `data-tracking`
+  - Google Tag Manager などによるトラッキング用途に使用することを想定しています。DOM に `data-tracking` 属性としてレンダリングされます
+- `data-masking`
+  - Google Tag Manager などによるトラッキング用途に使用することを想定しています。DOM に `data-tracking` 属性としてレンダリングされます
+
+### VibesContext
+
+Vibes コンポーネント共通の設定を、`VibesContext` から変更して使うことができます
+
+```tsx
+import { VibesProvider } from '@freee_jp/vibes';
+
+<VibesProvider fixedLayout={true} portalParent={document.body} lang="ja">
+  ...
+</VibesProvider>;
+```
+
+設定できる項目は以下のとおりです
+
+- `fixedLayout`: ウインドウ幅に関わらずレイアウトを固定するかどうか。
+  - デフォルトは `false` で、レスポンシブ対応が有効となり、一部のコンポーネントが画面幅にあわせた表示になります。
+  - `true` の場合は、画面幅に関わらずレイアウトが固定され、常に PC 向けの表示となります。
+- `portalParent`: ポップアップやダイアログなど、通常時は body 要素の直下に挿入されるコンポーネントの挿入先を変更できます。
+- `lang`: コンポーネントの文言の言語を変更できます。デフォルトは `ja` です。

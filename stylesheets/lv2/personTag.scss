@@ -1,0 +1,90 @@
+@use 'sass:math';
+
+.vb-personTag {
+  display: inline-block;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding-left: $vbXSmallSize;
+  padding-right: $vbSmallSize;
+  border: $vbMinimum solid $vbBaseColor3;
+  border-radius: $vbFullBorderRadius;
+  height: $vbXLargeSize;
+  line-height: $vbXLargeSize;
+  font-size: $vbXLargeSize;
+
+  &--removable {
+    padding-right: $vbXSmallSize;
+  }
+
+  &--success {
+    border-color: $vbPrimaryColor;
+  }
+
+  &--error {
+    border-color: $vbAlertColor;
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    margin-top: -$vbMinimum;
+    height: $vbXLargeSize;
+  }
+
+  &__type {
+    display: inline-block;
+    font-size: $vbCaptionFontSize;
+    color: $vbBurntColor;
+    margin-right: $vbSmallSize;
+    white-space: nowrap;
+  }
+
+  &__body {
+    font-size: $vbNormalFontSize;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &--success {
+      color: $vbPrimaryColor;
+    }
+
+    &--error {
+      color: $vbAlertColor;
+    }
+  }
+
+  &__removeButton {
+    font-size: 0;
+    color: $vbBaseColor3;
+    margin-left: $vbSmallSize;
+    height: $vbLargeSize;
+    width: $vbLargeSize;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    transition-property: color;
+
+    &:hover {
+      color: darken($vbBaseColor3, 12%);
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &__removeIcon {
+    font-size: $vbBasicSize;
+    vertical-align: middle;
+  }
+}

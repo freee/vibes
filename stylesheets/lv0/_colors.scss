@@ -1,0 +1,110 @@
+@use 'sass:color';
+@use 'sass:math';
+
+$vbColorsP01: #ebf3ff;
+$vbColorsP02: #dce8ff;
+$vbColorsP03: #aac8ff;
+$vbColorsP04: #73a5ff;
+$vbColorsP05: #2864f0;
+$vbColorsP06: #3264dc;
+$vbColorsP07: #285ac8;
+$vbColorsP08: #1e46aa;
+$vbColorsP09: #23418c;
+$vbColorsP10: #143278;
+
+$vbColorsS01: #f7f5f5;
+$vbColorsS02: #f0eded;
+$vbColorsS03: #e9e7e7;
+$vbColorsS04: #e1dcdc;
+$vbColorsS05: #d7d2d2;
+$vbColorsS06: #bebaba;
+$vbColorsS07: #aaa7a7;
+$vbColorsS08: #8c8989;
+$vbColorsS09: #6e6b6b;
+$vbColorsS10: #464343;
+
+$vbColorsRE02: #fad2d7;
+$vbColorsRE04: #f07882;
+$vbColorsRE05: #dc1e32;
+$vbColorsRE07: #a51428;
+$vbColorsRE10: #6e0f19;
+
+$vbColorsOR02: #ffe1d2;
+$vbColorsOR04: #ffaa78;
+$vbColorsOR05: #fa6414;
+$vbColorsOR07: #be4b0f;
+$vbColorsOR10: #7d320a;
+
+$vbColorsYE02: #fff0d2;
+$vbColorsYE04: #ffd278;
+$vbColorsYE05: #ffb91e;
+$vbColorsYE07: #be8c14;
+$vbColorsYE10: #825a0f;
+
+$vbColorsYG02: #e6f0d2;
+$vbColorsYG04: #b4dc7d;
+$vbColorsYG05: #82c31e;
+$vbColorsYG07: #50961e;
+$vbColorsYG10: #3c5f14;
+
+$vbColorsGR02: #cdebd7;
+$vbColorsGR04: #64be8c;
+$vbColorsGR05: #00963c;
+$vbColorsGR07: #006e2d;
+$vbColorsGR10: #004b1e;
+
+$vbColorsBG02: #cdf0f0;
+$vbColorsBG04: #64d2d2;
+$vbColorsBG05: #00b9b9;
+$vbColorsBG07: #008c8c;
+$vbColorsBG10: #146464;
+
+$vbColorsPU02: #e6d7fa;
+$vbColorsPU04: #b482f0;
+$vbColorsPU05: #733ce6;
+$vbColorsPU07: #5a2daa;
+$vbColorsPU10: #3c1e73;
+
+$vbColorsGY01: #fbfbfb;
+$vbColorsGY02: #dcdcdc;
+$vbColorsGY04: #a0a0a0;
+$vbColorsGY05: #5a5a5a;
+$vbColorsGY07: #323232;
+$vbColorsGY10: #1e1e1e;
+
+$vbPrimaryColor: $vbColorsP07;
+$vbAccentColor: $vbColorsP04;
+$vbLinkColor: $vbColorsP07;
+$vbColumnColor: $vbColorsS01;
+$vbBaseColor1: $vbColorsS02;
+$vbBaseColor2: $vbColorsS03;
+$vbBaseColor3: $vbColorsS08;
+$vbBurntColor: $vbColorsS09;
+$vbBlackColor: $vbColorsGY07;
+$vbAlertColor: $vbColorsRE05;
+$vbNoticeColor: $vbColorsYE07;
+
+$vbBackgroundColor: $vbColorsP01;
+
+$vbScrimColor: rgba(0, 0, 0, 0.5);
+$vbThinScrimColor: rgba(0, 0, 0, 0.12);
+
+$vbCardShadow: 0 0 1rem rgba(0, 0, 0, 0.1),
+  0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+$vbFloatingShadow: 0 0 1.5rem rgba(0, 0, 0, 0.1),
+  0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+$vbPopupShadow: 0 0 2rem rgba(0, 0, 0, 0.1),
+  0 0.375rem 0.75rem rgba(0, 0, 0, 0.2);
+
+$use2021Style: true;
+
+// #FFFFFF の上に置いたときに $color に指定した色に見える、 opacity: $alpha な色を返す
+@function add-transparency($color, $alpha) {
+  @return color.change(
+    $color,
+    $red: math.div((color.red($color) - 255 * (1 - $alpha)), $alpha),
+    $green: math.div((color.green($color) - 255 * (1 - $alpha)), $alpha),
+    $blue: math.div((color.blue($color) - 255 * (1 - $alpha)), $alpha),
+    $alpha: $alpha
+  );
+}

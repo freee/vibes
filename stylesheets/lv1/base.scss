@@ -1,0 +1,554 @@
+/** @define base */
+%vbBase {
+  box-sizing: border-box;
+  padding: $vbLargeSize;
+  background-color: $vbColumnColor;
+}
+
+.vb-marginBase {
+  &--fitContent {
+    max-width: fit-content;
+  }
+}
+
+.vb-columnBase {
+  @extend %vbBase;
+
+  &--overflowHidden {
+    // `ColumnBase`内で`Portal`を利用していない`DropDown`があった場合、
+    // `overflow: hidden;`によって見切れてしまう問題が発生しているので、
+    // それを避けるために暫定的にオンオフできるようにしています
+    overflow: hidden;
+  }
+
+  &--rounded {
+    border-radius: $vbBaseBorderRadius;
+  }
+}
+
+.vb-floatingBase {
+  @extend %vbBase;
+
+  background-color: #fff;
+  box-shadow: $vbFloatingShadow;
+  z-index: $vbFloatingZIndex;
+  position: relative;
+  border-radius: $vbFloatingBorderRadius;
+  overflow: hidden;
+
+  &--fitContent {
+    max-width: fit-content;
+  }
+}
+
+.vb-scrimBase {
+  @extend %vbBase;
+
+  background-color: $vbScrimColor;
+  color: #fff;
+  z-index: $vbModalZIndex - 1;
+
+  &--small {
+    padding: $vbBasicSize;
+  }
+}
+
+.vb-popupBase {
+  @extend %vbBase;
+
+  background-color: #fff;
+  box-shadow: $vbPopupShadow;
+  z-index: $vbPopupZIndex;
+  position: relative;
+  border-radius: $vbPopupBorderRadius;
+  overflow: hidden;
+
+  &--fitContent {
+    max-width: fit-content;
+  }
+}
+
+.vb-dialogBase {
+  @extend %vbBase;
+
+  background-color: #fff;
+  z-index: $vbModalZIndex;
+  position: relative;
+  border-radius: $vbDialogBorderRadius;
+  overflow: hidden;
+
+  &--message {
+    z-index: $vbMessageModalZIndex;
+  }
+}
+
+.vb-cardBase {
+  @extend %vbBase;
+
+  background-color: #fff;
+  box-shadow: $vbCardShadow;
+  position: relative;
+  border-radius: $vbCardBorderRadius;
+
+  &--overflowHidden {
+    // `CardBase`内で`Portal`を利用していない`DropDown`があった場合、
+    // `overflow: hidden;`によって見切れてしまう問題が発生しているので、
+    // それを避けるために暫定的にオンオフできるようにしています
+    overflow: hidden;
+  }
+
+  &:not(&--disabled) &--clickable {
+    border-radius: $vbCardBorderRadius;
+    transition-duration: 0.2s;
+    transition-property: background-color, color;
+
+    &:hover {
+      background-color: mix($vbPrimaryColor, #fff, 6%);
+    }
+  }
+
+  &--disabled {
+    background-color: $vbBaseColor1;
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &__link,
+  &__button {
+    text-decoration: none;
+    color: $vbBlackColor;
+    display: block;
+    text-align: left;
+    border: 0;
+    background-color: transparent;
+    font-size: 100%;
+    padding: 0;
+    font-family: inherit;
+    cursor: pointer;
+
+    &::after {
+      // クリックできる領域をカード全体に広げる
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      border-radius: $vbCardBorderRadius;
+      // blur 時の挙動が意図通りでないため一旦コメントアウトする
+      // transition-property: background-color;
+      // transition-duration: 0.2s;
+    }
+
+    &:hover::after {
+      background-color: $vbColorsP01;
+      mix-blend-mode: multiply;
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  &__content {
+    position: relative;
+  }
+}
+
+.vb-zebraBase {
+  padding: $vbLargeSize;
+  background-color: $vbColumnColor;
+}
+
+.vb-columnBase,
+.vb-floatingBase,
+.vb-popupBase,
+.vb-dialogBase {
+  &--border {
+    &Default {
+      border: 1px solid $vbBaseColor2;
+      background-color: #fff;
+    }
+
+    &Alert {
+      border: 1px solid $vbAlertColor;
+      background-color: #fff;
+    }
+
+    &Notice {
+      border: 1px solid $vbNoticeColor;
+      background-color: #fff;
+    }
+
+    &Success {
+      border: 1px solid $vbPrimaryColor;
+      background-color: #fff;
+    }
+  }
+}
+
+.vb-columnBase,
+.vb-popupBase,
+.vb-floatingBase,
+.vb-dialogBase,
+.vb-cardBase {
+  &--inline {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.vb-columnBase,
+.vb-popupBase,
+.vb-floatingBase,
+.vb-dialogBase,
+.vb-zebraBase,
+.vb-cardBase {
+  &--padding {
+    &Small {
+      padding: $vbBasicSize;
+    }
+
+    &Large {
+      padding: $vbXLargeSize;
+    }
+
+    &Zero {
+      padding: 0;
+    }
+  }
+}
+
+.vb-columnBase,
+.vb-zebraBase,
+.vb-cardBase {
+  &--paddingResponsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      padding: $vbLargeSize $vbBasicSize;
+    }
+  }
+}
+
+.vb-zebraBase:nth-child(even) {
+  background-color: #fff;
+}
+
+%balloon-tail-base {
+  content: '';
+  display: block;
+  border-top: 0.5rem solid $vbColumnColor;
+  border-left: 0.314rem solid transparent;
+  border-right: 0.314rem solid transparent;
+  position: absolute;
+  bottom: -0.5rem;
+  transform: translateX(-50%);
+}
+
+%balloon-tail-border-base {
+  content: '';
+  display: block;
+  border-top: 0.6rem solid $vbBaseColor2;
+  border-left: 0.414rem solid transparent;
+  border-right: 0.414rem solid transparent;
+  position: absolute;
+  bottom: -0.6rem;
+  transform: translateX(-50%);
+}
+
+.vb-balloon {
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 13rem; // for IE (min非対応)
+  min-width: #{'min(13rem, 66vw)'};
+  max-width: 44rem; // for IE (min非対応)
+  max-width: #{'min(44rem, calc(100vw - 5rem), 66vw)'};
+  padding: $vbBasicSize;
+  background-color: $vbColumnColor;
+  box-shadow: $vbPopupShadow;
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.5rem);
+  transform: translateX(-50%);
+  font-size: $vbCaptionFontSize;
+  z-index: $vbPopupMessageZIndex;
+
+  &::after {
+    @extend %balloon-tail-base;
+
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &::before {
+    @extend %balloon-tail-border-base;
+
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &--left {
+    &::before,
+    &::after {
+      left: calc(1rem - 1px);
+      transform: translateX(-50%);
+    }
+
+    transform: none;
+    left: calc(-50% + 0.414rem + 1px);
+  }
+
+  &--right {
+    &::before,
+    &::after {
+      left: auto;
+      right: calc(1rem - 1px);
+      transform: translateX(50%);
+    }
+
+    transform: none;
+    left: auto;
+    right: calc(-50% + 0.414rem + 1px);
+  }
+
+  &--bottom {
+    bottom: auto;
+    top: 0.5rem;
+
+    &::after {
+      border-top: 0;
+      border-bottom: 0.5rem solid $vbColumnColor;
+      bottom: auto;
+      top: -0.5rem;
+    }
+
+    &::before {
+      border-top: 0;
+      border-bottom: 0.6rem solid $vbBaseColor2;
+      bottom: auto;
+      top: -0.6rem;
+    }
+  }
+
+  &--border {
+    &-default {
+      border: 1px solid $vbBaseColor2;
+      background-color: #fff;
+
+      &::after {
+        border-top-color: #fff;
+        border-bottom-color: #fff;
+      }
+    }
+
+    &-alert {
+      border: 1px solid $vbAlertColor;
+      background-color: #fff;
+
+      &::after {
+        border-top-color: #fff;
+        border-bottom-color: #fff;
+      }
+
+      &::before {
+        border-top-color: $vbAlertColor;
+        border-bottom-color: $vbAlertColor;
+      }
+    }
+
+    &-notice {
+      border: 1px solid $vbNoticeColor;
+      background-color: #fff;
+
+      &::after {
+        border-top-color: #fff;
+        border-bottom-color: #fff;
+      }
+
+      &::before {
+        border-top-color: $vbNoticeColor;
+        border-bottom-color: $vbNoticeColor;
+      }
+    }
+
+    &-success {
+      border: 1px solid $vbPrimaryColor;
+      background-color: #fff;
+
+      &::after {
+        border-top-color: #fff;
+        border-bottom-color: #fff;
+      }
+
+      &::before {
+        border-top-color: $vbPrimaryColor;
+        border-bottom-color: $vbPrimaryColor;
+      }
+    }
+  }
+}
+
+.vb-container {
+  display: block;
+  width: calc(100vw - 3rem);
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  max-width: $vbContainerSize;
+  min-width: $vbContainerSize;
+
+  &--widthWide {
+    max-width: 100rem;
+  }
+
+  &--widthNarrow {
+    max-width: 40rem;
+    min-width: 40rem;
+  }
+
+  &--responsive {
+    min-width: 20rem;
+
+    @media (max-width: $vbMobileBoundaryWidth) {
+      width: 100vw;
+    }
+  }
+}
+
+.vb-contentsBase {
+  display: block;
+  background-color: #fff;
+  padding: $vbLargeSize;
+  position: relative;
+  box-sizing: border-box;
+
+  &--padding {
+    &-small {
+      padding: $vbBasicSize;
+    }
+
+    &-large {
+      padding: $vbXLargeSize;
+    }
+  }
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      padding: $vbBasicSize;
+    }
+
+    & + & {
+      margin-top: $vbLargeSize;
+
+      @media (max-width: $vbMobileBoundaryWidth) {
+        margin-top: 0;
+        border-top: $vbMinimum solid $vbBaseColor2;
+      }
+    }
+  }
+}
+
+.vb-negativeContentsBase {
+  $componentClass: &;
+
+  margin-left: -$vbLargeSize;
+  margin-right: -$vbLargeSize;
+
+  &:last-child {
+    margin-bottom: -$vbLargeSize;
+  }
+
+  &--negativeMarginSmall {
+    margin-left: -$vbBasicSize;
+    margin-right: -$vbBasicSize;
+
+    &:last-child {
+      margin-bottom: -$vbLargeSize;
+    }
+  }
+
+  &--negativeMarginLarge {
+    margin-left: -$vbXLargeSize;
+    margin-right: -$vbXLargeSize;
+
+    &:last-child {
+      margin-bottom: -$vbXLargeSize;
+    }
+  }
+
+  &--responsive {
+    @media (max-width: $vbMobileBoundaryWidth) {
+      margin-left: -$vbBasicSize;
+      margin-right: -$vbBasicSize;
+
+      &:last-child {
+        margin-bottom: -$vbBasicSize;
+      }
+    }
+  }
+}
+
+.vb-negativeMargin {
+  &--small {
+    &--top {
+      margin-top: -$vbBasicSize;
+    }
+
+    &--left {
+      margin-left: -$vbBasicSize;
+    }
+
+    &--right {
+      margin-right: -$vbBasicSize;
+    }
+
+    &--bottom {
+      margin-bottom: -$vbBasicSize;
+    }
+  }
+
+  &--medium {
+    &--top {
+      margin-top: -$vbLargeSize;
+    }
+
+    &--left {
+      margin-left: -$vbLargeSize;
+    }
+
+    &--right {
+      margin-right: -$vbLargeSize;
+    }
+
+    &--bottom {
+      margin-bottom: -$vbLargeSize;
+    }
+  }
+
+  &--large {
+    &--top {
+      margin-top: -$vbXLargeSize;
+    }
+
+    &--left {
+      margin-left: -$vbXLargeSize;
+    }
+
+    &--right {
+      margin-right: -$vbXLargeSize;
+    }
+
+    &--bottom {
+      margin-bottom: -$vbXLargeSize;
+    }
+  }
+}
+
+.vb-scrollableBase {
+  &--scrollableY {
+    overflow-y: auto;
+  }
+
+  &--scrollableX {
+    overflow-x: auto;
+  }
+}

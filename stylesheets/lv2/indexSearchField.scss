@@ -1,0 +1,108 @@
+/** @define indexSearchField */
+.vb-indexSearchField {
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
+
+  &--widthFull {
+    width: 100%;
+  }
+
+  & &__icon {
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    position: absolute;
+    top: 50%;
+    left: 0.5em;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: left 0.3s ease, fill 0.3s ease;
+
+    &--searchAreaClosed {
+      left: 0.375em;
+      pointer-events: none;
+    }
+  }
+
+  & &__input {
+    @extend %form-text-base;
+
+    padding-left: 2.75em;
+    max-width: 100%;
+    transition: width 0.3s ease, background-color 0.3s ease,
+      border-color 0.3s ease;
+
+    &::placeholder {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    &::-webkit-search-cancel-button {
+      cursor: pointer;
+    }
+
+    + svg {
+      fill: $vbBaseColor2;
+    }
+
+    &--widthXSmall {
+      width: 4rem;
+    }
+
+    &--widthSmall {
+      width: 7rem;
+    }
+
+    &--widthMedium {
+      width: 11rem;
+    }
+
+    &--widthLarge {
+      width: 24rem;
+    }
+
+    &--widthFull {
+      width: 100%;
+    }
+
+    &--searchAreaClosed {
+      width: 2.25rem;
+      padding: 0;
+      cursor: pointer;
+
+      &::placeholder {
+        opacity: 0;
+      }
+    }
+
+    &:not(&--disabled) {
+      &:hover {
+        background-color: $vbColorsP02;
+        border-color: $vbColorsP08;
+
+        & + .vb-indexSearchField__icon {
+          fill: $vbColorsP08;
+        }
+      }
+    }
+  }
+
+  & &__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    opacity: 0;
+
+    &--searchAreaOpen {
+      transition: opacity 0.3s 0.3s ease;
+      opacity: 1;
+    }
+  }
+
+  & &__dropdownItem {
+    margin: 0.25em;
+    padding: 0.25em;
+    cursor: pointer;
+  }
+}

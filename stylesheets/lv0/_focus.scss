@@ -1,0 +1,16 @@
+@import './colors';
+@import './size';
+
+$vbFocusHighlightWidth: 2;
+
+$vbFocusHighlightShadow: 0 0 0 $vbMinimum #fff,
+  //内側に白1px
+  0 0 0 $vbMinimum * ($vbFocusHighlightWidth + 1) $vbColorsP05,
+  //内側の白1px+フォーカスインジケーターの幅(#vbFocusHighlightWidth)
+  0 0 0 $vbMinimum * (
+      $vbFocusHighlightWidth + 2
+    ) #fff; //内側の白1px+フォーカスインジケーターの幅(#vbFocusHighlightWidth)+外側の1px
+
+$vbFocusHighlightShadowInset: inset 0 0 0 $vbMinimum #fff,
+  inset 0 0 0 $vbMinimum * ($vbFocusHighlightWidth + 1) $vbColorsP05,
+  inset 0 0 0 $vbMinimum * ($vbFocusHighlightWidth + 2) #fff;

@@ -1,0 +1,55 @@
+.vb-propListForm {
+  display: block;
+
+  &__list {
+    display: flex;
+
+    &--wrap {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__item {
+    display: flex;
+    border-bottom: solid 1px $vbColorsS03;
+    align-items: flex-start;
+  }
+
+  &__term {
+    display: inline-block;
+    min-height: $vbFormControlHeight;
+    font-size: $vbNormalFontSize;
+    vertical-align: middle;
+    margin-right: 1rem;
+  }
+
+  &__description {
+    margin-left: 0;
+  }
+
+  &__termInner,
+  &__descriptionInner {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    min-height: $vbFormControlHeight;
+    white-space: pre-line;
+  }
+
+  &__termLabel {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &__termIcons {
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+  }
+
+  &__field {
+    display: flex;
+    align-items: center;
+  }
+}

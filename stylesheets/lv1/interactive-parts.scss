@@ -1,0 +1,270 @@
+.vb-tab {
+  display: inline-block;
+  min-width: 7.25em;
+  height: 2em;
+  padding: 0 $vbCaptionFontSize;
+  margin: 0;
+  background-color: #fff;
+  border: none;
+  box-sizing: border-box;
+  font-size: $vbHeadline2FontSize;
+  font-weight: bold;
+  text-align: center;
+  line-height: 2em;
+  vertical-align: bottom;
+  position: relative;
+  transition-duration: 0.2s;
+  transition-property: background-color, color;
+  color: $vbBurntColor;
+
+  &::after {
+    content: '';
+    display: block;
+    height: 1px;
+    background-color: $vbBaseColor2;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    transition-duration: 0.2s;
+    transition-property: background-color;
+  }
+
+  &:focus {
+    color: $vbBlackColor;
+    z-index: 1; // focusリングが表に出るよう、他のものよりz-indexを上げる
+  }
+
+  &:hover:not(.vb-tab--current) {
+    cursor: pointer;
+    background-color: mix($vbPrimaryColor, #fff, 6%);
+
+    &::after {
+      background-color: $vbAccentColor;
+    }
+  }
+
+  &--current {
+    color: $vbPrimaryColor;
+    cursor: default;
+
+    @if $use2021Style {
+      color: $vbColorsP05;
+    }
+
+    &::after {
+      height: 2px;
+      background-color: $vbPrimaryColor;
+
+      @if $use2021Style {
+        background-color: $vbColorsP05;
+      }
+    }
+  }
+
+  &--small {
+    font-size: $vbCaptionFontSize;
+  }
+
+  &__block {
+    display: inline-block;
+    position: relative;
+  }
+
+  &__notificationDot {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: $vbAlertColor;
+    border-radius: $vbFullBorderRadius;
+    z-index: 1; // focus しても表示されるように、focus 時の tab の z-index と揃える
+  }
+}
+
+/** @define segmentControl */
+.vb-segmentControlButton {
+  display: inline-block;
+  height: $vbFormControlHeight;
+  line-height: calc(#{$vbFormControlHeight} - #{$vbMinimum * 2});
+  padding: 0 1rem;
+  border: $vbMinimum solid $vbPrimaryColor;
+  min-width: 3rem;
+  border-right-width: 0;
+  box-sizing: border-box;
+  font-size: $vbNormalFontSize;
+  font-weight: bold;
+  vertical-align: middle;
+  transition-duration: 0.2s;
+  transition-property: background-color, color;
+  background-color: #fff;
+  color: $vbPrimaryColor;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    background-color: $vbColumnColor;
+    text-decoration: none;
+  }
+
+  &:first-child {
+    border-top-left-radius: 0.4em;
+    border-bottom-left-radius: 0.4em;
+  }
+
+  &:last-child {
+    border-top-right-radius: 0.4em;
+    border-bottom-right-radius: 0.4em;
+    border-right-width: 1px;
+  }
+
+  &--large {
+    font-size: $vbHeadline2FontSize;
+    height: $vbFormControlLargeHeight;
+    line-height: calc(#{$vbFormControlLargeHeight} - #{$vbMinimum * 2});
+  }
+
+  &--small {
+    font-size: $vbCaptionFontSize;
+    height: $vbFormControlSmallHeight;
+    line-height: calc(#{$vbFormControlSmallHeight} - #{$vbMinimum * 2});
+  }
+
+  &--icon {
+    padding-left: 2.75em;
+    position: relative;
+    text-align: left;
+  }
+
+  &__icon {
+    width: 1.5em;
+    height: 1.5em;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0.625em;
+  }
+
+  &--current {
+    background-color: $vbPrimaryColor;
+    color: #fff;
+    cursor: default;
+
+    &:hover {
+      background-color: $vbPrimaryColor;
+    }
+  }
+}
+
+.vb-stepNumber {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 3rem;
+  height: 3rem;
+  border-radius: $vbFullBorderRadius;
+  position: relative;
+  background-color: #fff;
+  border: $vbMinimum solid $vbBaseColor3;
+  color: $vbBurntColor;
+  font-family: $vbFontFamily;
+  font-size: 1.5em;
+
+  &__numberCheck {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    border-radius: $vbFullBorderRadius;
+    background-color: $vbBaseColor3;
+    position: absolute;
+    top: -0.25rem;
+    right: -0.25rem;
+  }
+
+  &__numberCheckSvg {
+    display: block;
+    width: 0.75rem;
+    height: 0.75rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    fill: #fff;
+  }
+
+  &--current {
+    background-color: #fff;
+    border: $vbMinimum solid $vbColorsP05;
+    color: $vbColorsP05;
+  }
+
+  &--done {
+    background-color: #fff;
+    border: $vbMinimum solid $vbBaseColor3;
+    color: $vbBurntColor;
+  }
+
+  &--disabled {
+    background-color: #fff;
+    border: 1px dashed $vbBaseColor3;
+    color: $vbBurntColor;
+  }
+
+  &--small {
+    font-size: 1rem;
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
+.vb-stepBlock {
+  $block: &;
+
+  display: inline-block;
+  width: 4rem;
+  text-align: center;
+
+  &__title {
+    display: block;
+    margin-top: 0.5rem;
+    font: $vbCaptionFont;
+    color: $vbBurntColor;
+  }
+
+  &--current {
+    #{$block}__title {
+      color: $vbColorsP05;
+    }
+  }
+
+  &--small {
+    font-size: 0.75rem;
+  }
+}
+
+.vb-stepBorder {
+  display: inline-block;
+  width: 3em;
+  height: 4px;
+  background-color: $vbBaseColor2;
+
+  @if $use2021Style {
+    background-color: $vbBaseColor2;
+  }
+
+  &--done {
+    background-color: $vbPrimaryColor;
+
+    @if $use2021Style {
+      background-color: $vbBurntColor;
+    }
+  }
+
+  &--separator {
+    margin: 1.5em -0.5em 0;
+  }
+}

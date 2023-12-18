@@ -1,0 +1,42 @@
+.vb-gridWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.vb-gridBlock {
+  display: flex;
+
+  > * {
+    // 直下の要素だけflex-growする = ボックスの高さがピッタリになる
+    flex-grow: 1;
+  }
+
+  $vbGridBlockInterval: 1.5rem;
+
+  &--oneThird {
+    flex-basis: calc((100% - #{$vbGridBlockInterval} * 2) / 3);
+  }
+
+  &--twoThirds {
+    flex-basis: calc(
+      (100% - #{$vbGridBlockInterval} * 2) / 3 * 2 + #{$vbGridBlockInterval}
+    );
+  }
+
+  &--half {
+    flex-basis: calc((100% - #{$vbGridBlockInterval}) / 2);
+  }
+
+  &--oneQuarter {
+    flex-basis: calc((100% - #{$vbGridBlockInterval} * 3) / 4);
+  }
+
+  &--threeQuarters {
+    flex-basis: calc(
+      (100% - #{$vbGridBlockInterval} * 3) / 4 * 3 + #{$vbGridBlockInterval} * 2
+    );
+  }
+}

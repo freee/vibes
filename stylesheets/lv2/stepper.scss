@@ -1,0 +1,93 @@
+.vb-stepper {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  padding: 0;
+  gap: 2rem;
+  $block: &;
+
+  &__listItem {
+    list-style-type: none;
+    width: 4rem;
+    position: relative;
+
+    &:not(:last-child)::after {
+      content: '';
+      width: 3rem;
+      height: 0.25rem;
+      background-color: $vbColorsS09;
+      display: block;
+      position: absolute;
+      left: calc(100% - 0.5rem);
+      top: 1.5rem;
+    }
+  }
+
+  &__listContent {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  &--small {
+    gap: 1.5rem;
+
+    #{$block}__listItem {
+      width: 3rem;
+
+      &:not(:last-child)::after {
+        width: 2.5rem;
+        top: 1rem;
+      }
+    }
+  }
+}
+
+.vb-verticalSteps {
+  &__number {
+    // StepNumberが入る要素。__titleのほうにVisuallyHiddenで数字を書いているので、コピペ時に数字がダブらないように user-select: none にしてある
+    user-select: none;
+  }
+
+  &__step {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    column-gap: 0.5rem;
+    row-gap: 0;
+
+    &:not(:last-child)::after {
+      content: '';
+      background: $vbColorsS09;
+      grid-column: 1 / 2;
+      grid-row: 2 / 3;
+      width: 0.25rem;
+      margin: 0 auto;
+    }
+  }
+
+  &__title {
+    grid-column: 2 / 3;
+    font: $vbHeadlineFont2;
+    color: $vbBlackColor;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &--future {
+      color: $vbBurntColor;
+      font-weight: normal;
+    }
+  }
+
+  &__content {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    padding: 0 0 1.5rem;
+  }
+
+  &__actions {
+    margin: 1rem 0 0 0;
+  }
+}

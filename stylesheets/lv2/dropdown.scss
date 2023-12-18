@@ -1,0 +1,174 @@
+@use 'sass:math';
+
+%button-disabled-face {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+
+  &:hover {
+    cursor: not-allowed;
+  }
+}
+
+.vb-dropdown {
+  position: relative;
+  text-align: left;
+  font-size: $vbNormalFontSize;
+
+  &__body {
+    position: absolute;
+    top: 0;
+    width: auto;
+  }
+
+  &--alignRight {
+    .vb-dropdown__body {
+      right: 0;
+    }
+  }
+
+  &--positionRelative .vb-dropdown__body {
+    position: relative;
+  }
+}
+
+.vb-dropdownMenuContent {
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-height: 60vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    li:first-child > *::before {
+      border-top-left-radius: $vbPopupBorderRadius;
+      border-top-right-radius: $vbPopupBorderRadius;
+    }
+
+    li:last-child > *::before {
+      border-bottom-left-radius: $vbPopupBorderRadius;
+      border-bottom-right-radius: $vbPopupBorderRadius;
+    }
+
+    // IEのmax-heightとflexの食い合わせが悪いので、IEのみflexを解除しておく
+    @at-root {
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        & {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.vb-dropdownItem {
+  width: 100%;
+
+  &--selectable:not(&--disabled) {
+    cursor: pointer;
+    transition-duration: 0.2s;
+    transition-property: background-color;
+
+    &:hover {
+      background-color: $vbColumnColor;
+    }
+  }
+
+  &--disabled {
+    @extend %button-disabled-face;
+  }
+
+  &--unread {
+    background-image: linear-gradient(
+      135deg,
+      $vbAlertColor 10px,
+      transparent 0
+    );
+  }
+
+  &--rule {
+    height: 0;
+    min-height: 0;
+    padding: 0;
+    border-top: 1px solid $vbBaseColor2;
+  }
+
+  &__text {
+    font-size: $vbNormalFontSize;
+    line-height: 1.5rem;
+    // 行の高さから line-height * font-size を引き、2で割って上下のpaddingとする
+    padding: math.div(2.25rem - 1.5 * $vbNormalFontSize, 2) $vbBasicSize;
+    width: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+  }
+
+  &__content,
+  &__checkBoxItem {
+    display: block;
+    min-width: 10rem;
+    max-width: 42rem; // for IE
+    max-width: #{'min(42rem, calc(100vw - 6rem))'};
+    width: max-content;
+  }
+
+  &__content--danger {
+    color: $vbAlertColor;
+  }
+
+  &__checkBoxItem {
+    font-size: $vbNormalFontSize;
+    line-height: 1.5rem;
+    // 行の高さから line-height * font-size を引き、2で割って上下のpaddingとする
+    padding: math.div(2.25rem - 1.5 * $vbNormalFontSize, 2) $vbBasicSize;
+  }
+
+  &__selectable {
+    cursor: pointer;
+    background: transparent;
+    // 行の高さから line-height * font-size を引き、2で割って上下のpaddingとする
+    padding: math.div(2.25rem - 1.5 * $vbNormalFontSize, 2) $vbBasicSize;
+    line-height: 1.5;
+    font-size: $vbNormalFontSize;
+    border: 0;
+    text-align: left;
+    width: 100%;
+    color: $vbBlackColor;
+    text-decoration: none;
+    display: block;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+
+    &--rightIcon {
+      padding-right: #{$vbLargeSize + $vbBasicSize + $vbSmallSize};
+    }
+
+    &:focus {
+      // フォーカスインジケーターが外側に表示されて見辛くなることがあるので、内側に自前で実装している
+      outline: none;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: $vbMinimum * 2 solid $vbAccentColor;
+      }
+    }
+  }
+
+  &__rightIcon {
+    position: absolute;
+    top: 50%;
+    right: $vbSmallSize;
+    transform: translateY(-50%);
+    height: $vbLargeSize;
+    width: $vbLargeSize;
+  }
+}
