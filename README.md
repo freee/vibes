@@ -22,7 +22,7 @@ from JavaScript with CSS Modules:
 import '@freee_jp/vibes/css';
 ```
 
-スタイルを読み込んだら、Vibes の React Component を次のように使うだけです。
+スタイルを読み込んだら、vibes の React Component を次のように使うだけです。
 
 ```js
 import * as React from 'react';
