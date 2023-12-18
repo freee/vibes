@@ -451,7 +451,7 @@ export const RowClickForReactRouter = () => (
 export const ApplyDataMaskingToCell = () => (
   <>
     <Paragraph marginBottom>
-      freee-rrwebで要素にマスキングを設定する一つの方法として、TableCellに個別でマスキングをかけたい場合、cellに
+      行動追跡ツールで要素にマスキングを設定する一つの方法として、TableCellに個別でマスキングをかけたい場合、cellに
       <code>&#39;data-masking&#39;&#58; true</code>を指定して使用します
     </Paragraph>
     <ListTable
