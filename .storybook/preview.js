@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { DocsContainer } from '@storybook/addon-docs';
-import '../stylesheets/freee.scss';
-import '../stylesheets/vibes_2021.scss';
+import '../vibes_2021.min.css';
 import { VibesProvider, useLang } from '../src/utilities/VibesProvider';
 import ReactDOM from 'react-dom';
 
