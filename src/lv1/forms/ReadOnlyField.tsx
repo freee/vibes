@@ -83,7 +83,7 @@ const ReadOnlyField: React.FC<Props> = (props: Props) => {
 
   /**
    * ユーザーの入力内容が表示される想定のコンポーネントのため、
-   * data-masking が明示的に false でない限りは true にして freee-rrweb で録画されないようにする。
+   * data-masking が明示的に false でない限りは true にして行動追跡ツールに保存されないようにする。
    * props 自体は readonly のため、コピーした配列で data-masking が undefined のときに true で上書きしている。
    */
   const checkedProps = {
