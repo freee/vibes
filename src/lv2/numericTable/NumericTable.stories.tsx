@@ -82,7 +82,7 @@ const sampleRows: Array<NumericTableRow> = [
   },
   {
     cells: [
-      { value: 'ステータスつけれれるよ' },
+      { value: 'ステータスつけられるよ' },
       { value: 'alert', status: 'alert' },
       { value: 'notice', status: 'notice' },
       { value: 'success', status: 'success' },
