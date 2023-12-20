@@ -8,16 +8,18 @@ export default {
 };
 
 export const PopupProgressBarComponent = () => (
-  <PopupProgressBarPortal
-    progressStates={[
-      {
-        status: 'doing' as const,
-        message: 'メッセージ',
-        progressValue: 30,
-        progressMaxValue: 100,
-      },
-    ]}
-  />
+  <div style={{ height: '4rem' }}>
+    <PopupProgressBarPortal
+      progressStates={[
+        {
+          status: 'doing' as const,
+          message: 'メッセージ',
+          progressValue: 30,
+          progressMaxValue: 100,
+        },
+      ]}
+    />
+  </div>
 );
 
 export const MultipleExample = () => {
