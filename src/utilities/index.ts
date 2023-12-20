@@ -1,5 +1,5 @@
-// utilities ディレクトリの中身はVibes内部でしか使わないものとVibes外でも使いたいものの
-// 整理ができていないので、Vibes外でも使うことが想定されるものだけexportする方針とします
+// utilities ディレクトリの中身はvibes内部でしか使わないものとvibes外でも使いたいものの
+// 整理ができていないので、vibes外でも使うことが想定されるものだけexportする方針とします
 
 export { Ascii } from './Ascii';
 export { pickCommonProps } from './commonProps';
