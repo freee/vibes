@@ -42,7 +42,7 @@ export const parameters = {
   },
   github: {
     repository: 'freee/vibes',
-    branch: 'master',
+    branch: 'main',
   },
 };
 
