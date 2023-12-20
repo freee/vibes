@@ -17,7 +17,7 @@ const deviceRemSize =
     : parseFloat(getComputedStyle(document.documentElement).fontSize);
 
 /**
- * Vibes共通のコンテクストを提供するProviderコンポーネントです。
+ * vibes共通のコンテクストを提供するProviderコンポーネントです。
  *
  * Provider component which determine media type according to screen width.
  *

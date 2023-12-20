@@ -21,7 +21,7 @@ TypeScriptの型定義に加えて、Flowでの型定義を `lv1.js.flow` `lv2.j
 
 部分的にstyled-componentsを採用しはじめていますが、以下をルールとします
 
-- Vibesの外部から利用できるかたちでstyled-components由来のpropを提供しない
+- vibesの外部から利用できるかたちでstyled-components由来のpropを提供しない
   - 特に as をexportしない。as を提供する場合は、使用できるtagNameを限定する
 - コンポーネントは `CommonStyle` (`src/internal/CommonStyle.ts`) を extendしたもの（`styled(CommonStyle)`）が最外層にあるようにする
   - ここに `ma` `mt` `mb` `mr` `mr` のようなマージンを提供するpropや、共通のフォント設定などが定義されています
