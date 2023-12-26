@@ -78,9 +78,9 @@ const Footer: React.FC<Props> = (props: Props) => {
     >
       <div className="vb-footerLinksArea">
         <ul className="vb-footerLinks">{createLinks(links)}</ul>
-        <address className="vb-footerCopyright">
+        <small className="vb-footerCopyright">
           {copyright ? copyright : defaultCopyright}
-        </address>
+        </small>
       </div>
 
       {sectionNode ? (
