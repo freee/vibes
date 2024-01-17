@@ -433,15 +433,20 @@ export const FixedDropdownButton: StoryObj<typeof DropdownButton> = {
           }}
         >
           <DropdownButton
-            contentsFixed={true}
             buttonLabel={'ヘッダー表示設定'}
+            appearance="primary"
+            dropdownContents={dropdownContents}
+          />
+        </div>
+        <div style={{ position: 'sticky', top: '8rem', marginTop: '12rem' }}>
+          <DropdownButton
+            buttonLabel="position: sticky"
             appearance="primary"
             dropdownContents={dropdownContents}
           />
         </div>
         <FormActions align="left" position="fixed">
           <DropdownButton
-            contentsFixed={true}
             buttonLabel={'フッダー表示設定'}
             appearance="primary"
             dropdownContents={dropdownContents}

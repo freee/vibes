@@ -158,7 +158,11 @@ export const useApiComboBoxInternal = ({
   );
 
   const onSelectOption = useCallback(
-    (option: SingleComboBoxOption): void => {
+    (option?: SingleComboBoxOption): void => {
+      if (option?.disabled) {
+        return;
+      }
+
       handleSelectOption(option);
       setOpen(false);
     },

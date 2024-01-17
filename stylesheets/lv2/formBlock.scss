@@ -13,6 +13,9 @@
 }
 
 .vb-phoneNumberField {
+  display: flex;
+  align-items: center;
+
   & &__hyphen {
     margin: 0 0.5rem;
 

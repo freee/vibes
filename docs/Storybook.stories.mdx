@@ -23,7 +23,97 @@ Storybookの画面は、Sidebar, Canvas, Docs, Addonsからなります。
 - Docsはコンポーネントのコードコメントから生成されたドキュメントが表示される部分です。上部のタブでCanvasと切り変えられます。
 - AddonsはCanvasのコンポーネントに対する操作ができます。Aキーで表示・非表示にできます。
 
-### Knobsの使用
+### Knobs/Controlsの使用
 
-Canvasに表示されたコンポーネントは、AddonsパネルのKnobsタブで表示のカスタマイズをして確認することができます。
+Canvasに表示されたコンポーネントは、AddonsパネルのKnobs/Controlsタブで表示のカスタマイズをして確認することができます。
 サイズに関するオプションなどを試したい場合に使用してください。
+
+
+## Storybookの書き方
+
+Storybookはコンポーネントのドキュメンテーションであると同時に、その挙動を保証するテストにもなります。その両方の意味において、書き方がある程度統一されていることが求められます。
+本章では、vibesに置ける標準的なStorybookの書き方を説明します。
+
+### 前提
+2023年12月6日時点で利用している`storybook@7.6.1`における書き方になります。
+
+### 記法
+#### Component Story Format 3（CSF3）で記載する（必須）
+[CSF3](https://storybook.js.org/blog/component-story-format-3-0)を利用します。現時点ではそうではない書き方が多く残っていますが、既存のものに修正を入れる場合や新しく書く場合は書き換えてください。
+
+#### パラメータの検証はaddon-knobsではなくaddon-controlsを利用する（必須）
+addon-knobsは非推奨です。現時点では利用箇所が多く残っていますが、既存のものに修正を入れる場合や新しく書く場合は[addon-controls](https://storybook.js.org/docs/essentials/controls)を利用してください。
+
+#### 関数のmockはaddon-actionsではなくstorybook-testのfnを利用する（推奨）
+addon-actionsは、後述するinteraction testでの再利用ができません。そのため、storybook-testのfnを利用してください。
+
+#### 一番上にBasicというstoryを用意する（推奨）
+addon-docsの仕様上、一番上のstoryがメインのstoryとなります。そのため、そのコンポーネントの基本的な利用の確認ができるようなstoryを書いてください。
+またこのBasicは、後述するinteraction testでも再利用する想定です。
+2つ目以降のstoryは、必要に応じて色々なパターンを見せる用に記載してください。
+
+#### コンポーネントにコメントを付与する（任意）
+addon-docsによってコードコメントがStorybookにも表示されるようになります。必要に応じて、コンポーネントの利用に関する注意事項を記載してください。
+
+```jsx
+// good example
+import { fn } from '@storybook/test';
+import { Meta, StoryObj } from '@storybook/react';
+import Button from './Button';
+
+export default {
+  component: Button,
+} as Meta<typeof Button>;
+
+type Story = StoryObj<typeof Button>;
+
+export const Basic: Story = {
+  args: {
+    onClick: fn(),
+    onSelfWindowNavigation: fn(),
+    onFocus: fn(),
+    onBlur: fn(),
+    children: 'ボタン',
+  },
+  render: (args) => {
+    const ref = React.createRef<HTMLButtonElement | HTMLAnchorElement>();
+
+    return <Button {...args} ref={ref} />;
+  },
+};
+
+// bad example
+import { action } from '@storybook/addon-actions';
+import { text } from '@storybook/addon-knobs';
+import Button from './Button';
+
+export const ButtonComponent = () => {
+  const ref = React.createRef<HTMLButtonElement | HTMLAnchorElement>();
+  return (
+    <Button
+    onClick={action('click')}
+    onSelfWindowNavigation={action('self window navigation')}
+    onFocus={action('focus')}
+    onBlur={action('blur')}
+    ref={ref}
+  >
+    {text('Children', 'ボタン', 'Button')}
+  </Button>
+  );
+};
+```
+
+### テスト
+storybook を利用したテストとしては以下の2つを考えています。
+- intreaction test
+- visual regression test
+
+#### interaction test
+ここでいうinteraction testとは、コンポーネントの画面上での表示や操作した時の振る舞いを確認するテストです。
+必要に応じてaddon-intreactionを利用し、interaction testを書いてください。Button.stories.tsxが参考になると思います。
+
+#### visual regression test
+visual regression testとは、修正が入る前後でコンポーネントがどのように表示されるかの画像比較を行うテストです。
+コンポーネントのバリエーションを一覧できるようなstoryを用意してください。必要に応じてaddon-pseudo-statesを利用し、擬似クラスの表示も確認できるようにしてください。Button.stories.tsxが参考になると思います。
+
+なお、現時点ではどのようにvisual regression testを行うかは未定です。

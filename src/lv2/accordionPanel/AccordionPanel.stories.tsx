@@ -1,79 +1,85 @@
 import * as React from 'react';
 
-import { action } from '@storybook/addon-actions';
-import { boolean, select, text } from '@storybook/addon-knobs';
-import { commonKnobs } from '../../../stories';
-import Paragraph from '../../lv1/typography/Paragraph';
+import { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
 import AccordionPanel from './AccordionPanel';
+import Paragraph from '../../lv1/typography/Paragraph';
 
 export default {
   component: AccordionPanel,
+} as Meta<typeof AccordionPanel>;
+
+type Story = StoryObj<typeof AccordionPanel>;
+
+export const Basic: Story = {
+  args: {
+    title: 'アコーディオン',
+  },
+  render: (args) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [isOpen, setOpen] = React.useState(false);
+
+    return (
+      <AccordionPanel
+        {...args}
+        open={isOpen}
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        <Paragraph>ほげほげほげほげ</Paragraph>
+        <Paragraph>ふがふがふがふが</Paragraph>
+      </AccordionPanel>
+    );
+  },
 };
 
-export const AccordionPanelComponent = () => (
-  <AccordionPanel
-    title={text('Title', 'アコーディオン', 'AccordionPanel')}
-    border={
-      select(
-        'Border',
-        {
-          undefined: '',
-          both: 'both',
-          bottom: 'bottom',
-          top: 'top',
-        },
-        '',
-        'AccordionPanel'
-      ) || undefined // select の options に undefined を渡せないので空文字を || で undefined にする
-    }
-    small={boolean('Small', false, 'AccordionPanel')}
-    open={boolean('Open', false, 'AccordionPanel')}
-    onClick={action('click')}
-    {...commonKnobs()}
-  >
-    <Paragraph marginBottom>ほげほげほげほげ</Paragraph>
-    <Paragraph>ふがふがふがふが</Paragraph>
-  </AccordionPanel>
-);
+export const Interaction: Story = {
+  ...Basic,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const accordionPanel = canvas.getByRole('button');
 
-export const InteractiveSample = () => {
-  const [isOpen, setOpen] = React.useState(false);
-  return (
-    <AccordionPanel
-      title="アコーディオン"
-      open={isOpen}
-      onClick={() => setOpen(!isOpen)}
-      {...commonKnobs()}
-    >
-      <Paragraph marginBottom>ほげほげほげほげ</Paragraph>
-      <Paragraph>ふがふがふがふが</Paragraph>
-    </AccordionPanel>
-  );
+    expect(accordionPanel).toBeInTheDocument();
+    expect(accordionPanel.ariaExpanded).toBe('false');
+
+    await userEvent.click(accordionPanel);
+    expect(accordionPanel.ariaExpanded).toBe('true');
+
+    await userEvent.click(accordionPanel);
+    expect(accordionPanel.ariaExpanded).toBe('false');
+  },
 };
 
-export const HasSiblings = () => {
-  return (
-    <>
-      <AccordionPanel
-        title="アコーディオン1"
-        open={false}
-        onClick={() => undefined}
-        {...commonKnobs()}
-      />
-      <AccordionPanel
-        title="アコーディオン2"
-        open={false}
-        border="top"
-        onClick={() => undefined}
-        {...commonKnobs()}
-      />
-      <AccordionPanel
-        title="アコーディオン3"
-        open={false}
-        border="top"
-        onClick={() => undefined}
-        {...commonKnobs()}
-      />
-    </>
-  );
+export const HasSiblings: Story = {
+  render: () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [isOpen, setOpen] = React.useState([false, false, false]);
+
+    return (
+      <>
+        <AccordionPanel
+          title="アコーディオン1"
+          open={isOpen[0]}
+          onClick={() => setOpen((prev) => [!prev[0], prev[1], prev[2]])}
+        >
+          <Paragraph>あいうえお</Paragraph>
+        </AccordionPanel>
+        <AccordionPanel
+          title="アコーディオン2"
+          open={isOpen[1]}
+          onClick={() => setOpen((prev) => [prev[0], !prev[1], prev[2]])}
+          border="top"
+        >
+          <Paragraph>かきくけこ</Paragraph>
+        </AccordionPanel>
+        <AccordionPanel
+          title="アコーディオン3"
+          open={isOpen[2]}
+          onClick={() => setOpen((prev) => [prev[0], prev[1], !prev[2]])}
+          border="top"
+        >
+          <Paragraph>さしすせそ</Paragraph>
+        </AccordionPanel>
+      </>
+    );
+  },
 };

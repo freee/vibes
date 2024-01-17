@@ -1,7 +1,7 @@
 import functionalMarginClasses, {
   pickFunctionalMarginProps,
   MarginSize,
-} from '../../src/utilities/functionalMarginClasses';
+} from './functionalMarginClasses';
 
 const ma: MarginSize = 0.5;
 const mt: MarginSize = 1;

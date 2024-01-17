@@ -57,13 +57,10 @@ type Props = {
 } & Omit<PropsFromTextField, 'onFocus' | 'onBlur'> &
   CommonProps;
 
-/**
- * `MultiComboBox` に API による検索とページネーションの機能を付与したコンポーネントです。使い方・使い分けについては `MultiComboBox` も参照してください
- *
- * * リソース管理のため、基本的には`useApiMultiComboBox`を併用してください
- * * リスト内の項目が固定されている場合は`MultiComboBox`を使用してください。
- */
-export default function ApiMultiComboBox(props: Props): React.ReactElement {
+function ApiMultiComboBoxInner(
+  props: Props,
+  ref?: React.Ref<HTMLInputElement> | React.MutableRefObject<HTMLInputElement>
+): React.ReactElement {
   const {
     fetchItems,
     isLoading,
@@ -124,7 +121,10 @@ export default function ApiMultiComboBox(props: Props): React.ReactElement {
   });
 
   const listBoxClassName = createListBoxClassName({ isOpen, listWidth, width });
-  const { textFieldRef, listOptionsMaxHeight } = useAdjustListPosition(isOpen);
+  const { textFieldRef, listOptionsMaxHeight } = useAdjustListPosition(
+    isOpen,
+    ref
+  );
   const hasNextPages = currentPage < totalPages;
   const listIsEmpty = !isLoading && filteredOptions.length === 0;
   const isLoadingAll = isLoading && !isLoadingMore;
@@ -270,3 +270,12 @@ export default function ApiMultiComboBox(props: Props): React.ReactElement {
     </span>
   );
 }
+
+/**
+ * `MultiComboBox` に API による検索とページネーションの機能を付与したコンポーネントです。使い方・使い分けについては `MultiComboBox` も参照してください
+ *
+ * * リソース管理のため、基本的には`useApiMultiComboBox`を併用してください
+ * * リスト内の項目が固定されている場合は`MultiComboBox`を使用してください。
+ */
+const ApiMultiComboBox = React.forwardRef(ApiMultiComboBoxInner);
+export default ApiMultiComboBox;

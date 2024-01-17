@@ -70,11 +70,14 @@ export const ApiComboboxComponent = () => {
   const items = useApiComboBox<Item>({
     fetchItems: createMockApi('item').fetch,
     createOptions: (items) =>
-      items.map(({ id, name, shortcut, shortcutNum }) => ({
-        id,
-        label: name,
-        keywords: [shortcut, shortcutNum].filter((v) => v) as string[],
-      })),
+      items.map(
+        ({ id, name, shortcut, shortcutNum }): SingleComboBoxOption => ({
+          id,
+          label: name,
+          keywords: [shortcut, shortcutNum].filter((v) => v) as string[],
+          disabled: id % 10 === 0,
+        })
+      ),
   });
 
   return (

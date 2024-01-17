@@ -1,10 +1,14 @@
-module.exports = {
+import type { StorybookConfig } from '@storybook/react-webpack5';
+
+const config: StorybookConfig = {
   addons: [
     '@storybook/addon-knobs',
     '@storybook/addon-essentials',
     '@storybook/addon-links',
     '@storybook/addon-a11y',
+    '@storybook/addon-interactions',
     '@storybook/addon-storysource',
+    'storybook-addon-pseudo-states',
     '@kemuridama/storybook-addon-github',
   ],
   stories: [
@@ -20,7 +24,7 @@ module.exports = {
     module: {
       ...config.module,
       rules: [
-        ...config.module.rules,
+        ...(config.module?.rules ?? []),
         {
           test: /\.stories\.tsx?$/,
           use: [require.resolve('@storybook/source-loader')],
@@ -63,3 +67,5 @@ module.exports = {
     autodocs: true,
   },
 };
+
+export default config;
