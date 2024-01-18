@@ -1,16 +1,18 @@
 import * as React from 'react';
-import { DocsContainer } from '@storybook/addon-docs';
-import '../vibes_2021.min.css';
-import { VibesProvider, useLang } from '../src/utilities/VibesProvider';
 import ReactDOM from 'react-dom';
+import { DocsContainer } from '@storybook/addon-docs';
+import { Decorator, Parameters } from '@storybook/react';
+import { VibesProvider, useLang } from '../src/utilities/VibesProvider';
+import '../vibes_2021.min.css';
 
-const LanguagePortal = React.forwardRef(({ lang }, ref) =>
-  ReactDOM.createPortal(<div lang={lang} ref={ref}></div>, document.body)
+const LanguagePortal = React.forwardRef<HTMLDivElement, { lang: string }>(
+  ({ lang }, ref) =>
+    ReactDOM.createPortal(<div lang={lang} ref={ref}></div>, document.body)
 );
 
-export const decorators = [
+export const decorators: Decorator[] = [
   (Story, context) => {
-    const portalParentRef = React.useRef();
+    const portalParentRef = React.useRef(null);
     return (
       <VibesProvider
         fixedLayout={!context.globals.responsive}
@@ -26,7 +28,7 @@ export const decorators = [
   },
 ];
 
-export const parameters = {
+export const parameters: Parameters = {
   viewMode: 'docs',
   docs: {
     container: ({ children, context }) => (

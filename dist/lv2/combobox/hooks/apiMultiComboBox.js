@@ -102,6 +102,9 @@ export var useApiMultiComboBoxInternal = function (_a) {
         }
     }, [onFocus, setOpen, maxSelectionCount, values]);
     var onSelectOption = useCallback(function (option) {
+        if (option.disabled) {
+            return;
+        }
         setFieldValue('');
         setSelectedIndex(0);
         if (onChange) {

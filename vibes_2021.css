@@ -5230,6 +5230,7 @@
   background: inherit;
   opacity: 0.5;
   cursor: default;
+  pointer-events: none;
 }
 .vb-comboBox__listOption--selected:not(.vb-comboBox__listOption--disabled) {
   background: #2864f0;
@@ -5738,6 +5739,10 @@
   color: #e9e7e7;
 }
 
+.vb-phoneNumberField {
+  display: flex;
+  align-items: center;
+}
 .vb-phoneNumberField .vb-phoneNumberField__hyphen {
   margin: 0 0.5rem;
 }
@@ -5758,6 +5763,11 @@
 .vb-dateField .vb-dateField__unit--small {
   margin: 0 0.25rem;
   font-size: 0.6875rem;
+}
+
+.vb-amountRangeField {
+  display: inline-flex;
+  align-items: center;
 }
 
 .vb-filterTag__block {

@@ -38,11 +38,11 @@ import { filterButtonAriaProps, } from '../../utilities/AriaProps';
  * @param props
  */
 var DropdownButton = function (props) {
-    var buttonLabel = props.buttonLabel, disabled = props.disabled, small = props.small, large = props.large, dropdownContents = props.dropdownContents, appearance = props.appearance, iconOnly = props.iconOnly, iconPosition = props.iconPosition, contentsFixed = props.contentsFixed, IconOnlyComponent = props.IconOnlyComponent, marginTop = props.marginTop, marginLeft = props.marginLeft, marginRight = props.marginRight, marginBottom = props.marginBottom, marginSize = props.marginSize, onOpen = props.onOpen, onClose = props.onClose;
+    var buttonLabel = props.buttonLabel, disabled = props.disabled, small = props.small, large = props.large, dropdownContents = props.dropdownContents, appearance = props.appearance, iconOnly = props.iconOnly, iconPosition = props.iconPosition, IconOnlyComponent = props.IconOnlyComponent, marginTop = props.marginTop, marginLeft = props.marginLeft, marginRight = props.marginRight, marginBottom = props.marginBottom, marginSize = props.marginSize, onOpen = props.onOpen, onClose = props.onClose;
     return (React.createElement("span", __assign({}, commonProps(props, 'vb-dropdownButton', {}, { marginTop: marginTop, marginLeft: marginLeft, marginRight: marginRight, marginBottom: marginBottom, marginSize: marginSize })),
         React.createElement(WithDropdown, { dropdownContents: dropdownContents, disabled: disabled, renderButton: function (dropdownId, isOpen, ref) {
                 return iconOnly ? (React.createElement(IconOnlyButton, __assign({}, filterButtonAriaProps(props), { IconComponent: IconOnlyComponent || MdMoreHoriz, appearance: appearance, "aria-controls": dropdownId, "aria-expanded": isOpen, "aria-haspopup": true, disabled: disabled, label: buttonLabel, small: small, large: large, ref: ref, type: "button" }))) : (React.createElement(Button, __assign({}, filterButtonAriaProps(props), { IconComponent: MdArrowDropDown, iconPosition: iconPosition || 'right', disabled: disabled, small: small, large: large, appearance: appearance, "aria-expanded": isOpen, "aria-haspopup": true, "aria-controls": dropdownId, ref: ref, type: "button" }), buttonLabel));
-            }, contentsFixed: contentsFixed, onOpen: onOpen, onClose: onClose })));
+            }, onOpen: onOpen, onClose: onClose })));
 };
 export default DropdownButton;
 //# sourceMappingURL=DropdownButton.js.map

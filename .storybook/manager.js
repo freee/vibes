@@ -1,6 +1,6 @@
 import { addons } from '@storybook/addons';
 import { create } from '@storybook/theming';
-import logo from '../.storybook/logo-vibes.svg';
+import logo from './logo-vibes.svg';
 
 addons.setConfig({
   theme: create({
@@ -8,4 +8,4 @@ addons.setConfig({
     brandTitle: 'vibes',
     brandImage: logo,
   }),
-})
+});

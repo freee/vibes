@@ -1,4 +1,4 @@
-import { Digits } from '../../src/utilities/Digits';
+import { Digits } from './Digits';
 
 describe('Digits', () => {
   describe('formalize', () => {

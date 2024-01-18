@@ -1,4 +1,4 @@
-import { Ascii } from '../../src/utilities/Ascii';
+import { Ascii } from './Ascii';
 
 describe('Ascii', () => {
   const zenkaku =

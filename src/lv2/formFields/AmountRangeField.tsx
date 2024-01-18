@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import commonProps, { CommonProps } from '../../utilities/commonProps';
 import DigitInput from '../formFields/DigitsInput';
 
 type Props = {
@@ -76,7 +77,7 @@ type Props = {
   onBlur?: React.FormEventHandler;
   onInput?: React.FormEventHandler;
   onKeyDown?: React.KeyboardEventHandler;
-};
+} & CommonProps;
 
 const AmountRangeField = ({
   required,
@@ -101,6 +102,7 @@ const AmountRangeField = ({
   onBlur,
   onInput,
   onKeyDown,
+  ...rest
 }: Props) => {
   const [minAmount, setMinAmount] = React.useState<number | null>(
     originalMinAmount || null
@@ -154,7 +156,7 @@ const AmountRangeField = ({
   );
 
   return (
-    <>
+    <div {...commonProps(rest, 'vb-amountRangeField')}>
       <DigitInput
         id={minAmountId}
         label={minAmountLabel ?? '最小値'}
@@ -174,7 +176,7 @@ const AmountRangeField = ({
         nullable={nullable}
         width="small"
       />
-      <span> 〜 </span>
+      <span>&nbsp;〜&nbsp;</span>
       <DigitInput
         id={maxAmountId}
         label={maxAmountLabel ?? '最大値'}
@@ -194,7 +196,7 @@ const AmountRangeField = ({
         nullable={nullable}
         width="small"
       />
-    </>
+    </div>
   );
 };
 

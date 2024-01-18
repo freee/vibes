@@ -16,6 +16,9 @@ type Props = {
   renderButton: Pick<Parameters<typeof WithPopup>[0], 'render'>['render'];
   disabled?: boolean;
   dropdownContents: Array<DropdownContent>;
+  /**
+   * @deprecated このプロパティは使用されません
+   */
   contentsFixed?: boolean;
   /**
    * dropdownを開いた時に発火します。useEffectのトリガーになるためメモ化したものを渡すことを推奨します。
@@ -39,14 +42,7 @@ type Props = {
  *   - `buttonRef` を開閉ボタンの `ref` に渡してください
  */
 const WithDropdown: React.FC<Props> = (props: Props) => {
-  const {
-    renderButton,
-    disabled,
-    dropdownContents,
-    contentsFixed,
-    onOpen,
-    onClose,
-  } = props;
+  const { renderButton, disabled, dropdownContents, onOpen, onClose } = props;
 
   return (
     <WithPopup
@@ -62,7 +58,6 @@ const WithDropdown: React.FC<Props> = (props: Props) => {
           />
         </PopupBase>
       )}
-      contentsFixed={contentsFixed}
       onOpen={onOpen}
       onClose={onClose}
       {...pickCommonProps(props)}

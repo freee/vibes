@@ -48,7 +48,6 @@ declare type Props = {
      */
     controlRefDoNotUseAsRefAttribute: React.RefObject<HTMLElement>) => React.ReactNode;
     disabled?: boolean;
-    contentsFixed?: boolean;
     /**
      * popupを開いた時に発火します。useEffectのトリガーになるためメモ化したものを渡すことを推奨します。
      */

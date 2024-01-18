@@ -9,6 +9,7 @@ import ApiMultiComboBox, {
 import { FormControlGroup, TextField } from '../..';
 import { FormControl } from '..';
 import { boolean, text } from '@storybook/addon-knobs';
+import Button from '../../lv1/buttons/Button';
 
 type Item = {
   id: number;
@@ -68,11 +69,14 @@ export const ApiMultiComboBoxComponent = () => {
   const items = useApiMultiComboBox<Item>({
     fetchItems: createMockApi('item').fetch,
     createOptions: (items) =>
-      items.map(({ id, name, shortcut, shortcutNum }) => ({
-        id,
-        label: name,
-        keywords: [shortcut, shortcutNum].filter((v) => v) as string[],
-      })),
+      items.map(
+        ({ id, name, shortcut, shortcutNum }): MultiComboBoxOption => ({
+          id,
+          label: name,
+          keywords: [shortcut, shortcutNum].filter((v) => v) as string[],
+          disabled: id % 10 === 0,
+        })
+      ),
   });
 
   return (
@@ -231,5 +235,51 @@ export const SingleSelect = () => {
       maxSelectionCount={1}
       {...commonKnobs()}
     />
+  );
+};
+
+export const ManualFocus = () => {
+  const ref = React.useRef<HTMLInputElement>(null);
+  const onClick = () => {
+    ref.current?.focus();
+  };
+  const [values, setValues] = React.useState<MultiComboBoxOption[]>();
+  const items = useApiMultiComboBox<Item>({
+    fetchItems: createMockApi('item').fetch,
+    createOptions: (items) =>
+      items.map(
+        ({ id, name, shortcut, shortcutNum }): MultiComboBoxOption => ({
+          id,
+          label: name,
+          keywords: [shortcut, shortcutNum].filter((v) => v) as string[],
+          disabled: id % 10 === 0,
+        })
+      ),
+  });
+
+  return (
+    <>
+      <Button mr={1} onClick={onClick}>
+        フォーカスを当てる
+      </Button>
+      <ApiMultiComboBox
+        ref={ref}
+        id={text('id', 'apimulticombobox-id', 'ApiMultiComboBox')}
+        values={values}
+        createNewItem={(fieldValue: string) => {
+          if (!fieldValue) return;
+          setValues((values) => [
+            ...(values ?? []),
+            { id: 10000, label: fieldValue },
+          ]);
+        }}
+        onChange={(options) => {
+          setValues(options);
+        }}
+        {...items}
+        borderless={boolean('borderless', false, 'ApiMultiComboBox')}
+        {...commonKnobs()}
+      />
+    </>
   );
 };

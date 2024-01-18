@@ -9,5 +9,5 @@ export { TimeString } from './TimeString';
 export { VibesContext } from './VibesContext';
 export { VibesProvider, useVibes } from './VibesProvider';
 export * from './FocusableEelements';
-export var VibesVersion = '100.0.0';
+export var VibesVersion = '100.1.0';
 //# sourceMappingURL=index.js.map

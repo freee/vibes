@@ -1,5 +1,5 @@
-import commonProps, { pickCommonProps } from '../../src/utilities/commonProps';
-import { MarginSize } from '../../src/utilities/functionalMarginClasses';
+import commonProps, { pickCommonProps } from './commonProps';
+import { MarginSize } from './functionalMarginClasses';
 
 const ma: MarginSize = 0.5;
 const mt: MarginSize = 1;

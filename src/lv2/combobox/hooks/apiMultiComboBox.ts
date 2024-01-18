@@ -99,6 +99,10 @@ export const useApiMultiComboBoxInternal = ({
 
   const onSelectOption = useCallback(
     (option: MultiComboBoxOption) => {
+      if (option.disabled) {
+        return;
+      }
+
       setFieldValue('');
       setSelectedIndex(0);
       if (onChange) {

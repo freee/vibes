@@ -2,10 +2,11 @@ import * as React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import commonProps, { CommonProps } from '../../utilities/commonProps';
 import ScrollPortal from '../../utilities/ScrollPortal';
-import FixedPortal from '../../utilities/FixedPortal';
 import { Keys } from '../../utilities/keyboard';
 import useUniqueId from '../../hooks/useUniqueId';
 import { FocusTrap } from '../../lv1';
+import Button from '../../lv1/buttons/Button';
+import VisuallyHidden from '../../lv1/a11y/VisuallyHidden';
 
 type Props = {
   /**
@@ -57,7 +58,6 @@ type Props = {
     controlRefDoNotUseAsRefAttribute: React.RefObject<HTMLElement>
   ) => React.ReactNode;
   disabled?: boolean;
-  contentsFixed?: boolean;
   /**
    * popupを開いた時に発火します。useEffectのトリガーになるためメモ化したものを渡すことを推奨します。
    */
@@ -83,8 +83,7 @@ type Props = {
  *   - フォーカス可能な要素より前に説明文等がある場合は、firstSelectedItemRef をどの要素にも渡さないでください
  */
 const WithPopup: React.FC<Props> = (props: Props) => {
-  const { render, disabled, contentsFixed, renderPopup, onOpen, onClose } =
-    props;
+  const { render, disabled, renderPopup, onOpen, onClose } = props;
   const baseClass = 'vb-withPopup';
   const [open, setOpen] = React.useState(false);
   const firstSelectableItemRef = React.useRef<HTMLElement>(null);
@@ -241,6 +240,10 @@ const WithPopup: React.FC<Props> = (props: Props) => {
               {renderPopup(requestClose, firstSelectableItemRef, controlRef)}
             </div>
           </FocusTrap>
+          {/* iOS VoiceOver/Android Talkbackでポップアップを閉じられるように明示的に閉じるUIを置いておく */}
+          <VisuallyHidden>
+            <Button onClick={closeMenu}>閉じる</Button>
+          </VisuallyHidden>
         </div>
       </CSSTransition>
     );
@@ -281,30 +284,17 @@ const WithPopup: React.FC<Props> = (props: Props) => {
       <span className={`${baseClass}__contentWrapper`} ref={contentWrapperRef}>
         {render(popupId, open, controlRef, togglePopup)}
       </span>
-      {contentsFixed ? (
-        <FixedPortal
-          isActive={open}
-          positionalBaseElement={contentWrapperRef.current || undefined}
-          horizontalPosition={horizontalPosition}
-          verticalPosition={verticalPosition}
-          popupRef={popupRef}
-          data-masking={props['data-masking']}
-        >
-          {popupWrapper()}
-        </FixedPortal>
-      ) : (
-        <ScrollPortal
-          isActive={open}
-          positionalBaseElement={contentWrapperRef.current || undefined}
-          horizontalPosition={horizontalPosition}
-          verticalPosition={verticalPosition}
-          onOverflow={() => closeMenu()}
-          popupRef={popupRef}
-          data-masking={props['data-masking']}
-        >
-          {popupWrapper()}
-        </ScrollPortal>
-      )}
+      <ScrollPortal
+        isActive={open}
+        positionalBaseElement={contentWrapperRef.current || undefined}
+        horizontalPosition={horizontalPosition}
+        verticalPosition={verticalPosition}
+        onOverflow={() => closeMenu()}
+        popupRef={popupRef}
+        data-masking={props['data-masking']}
+      >
+        {popupWrapper()}
+      </ScrollPortal>
     </span>
   );
 };

@@ -28,9 +28,7 @@ type Props = {
   iconOnly?: boolean;
   iconPosition?: 'left' | 'right';
   /**
-   * dropdownContentsをスクロール追従させないための設定です。
-   * ドロップダウンボタン自体は、この設定では固定されません。
-   * ドロップダウンボタンをfixed要素に配置する場合に利用してください。
+   * @deprecated このプロパティは使用されません
    */
   contentsFixed?: boolean;
   /**
@@ -81,7 +79,6 @@ const DropdownButton = (props: Props): React.ReactElement => {
     appearance,
     iconOnly,
     iconPosition,
-    contentsFixed,
     IconOnlyComponent,
     marginTop,
     marginLeft,
@@ -139,7 +136,6 @@ const DropdownButton = (props: Props): React.ReactElement => {
             </Button>
           )
         }
-        contentsFixed={contentsFixed}
         onOpen={onOpen}
         onClose={onClose}
       />

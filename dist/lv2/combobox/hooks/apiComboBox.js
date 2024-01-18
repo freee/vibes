@@ -150,6 +150,9 @@ export var useApiComboBoxInternal = function (_a) {
         debouncedFetchItems,
     ]);
     var onSelectOption = useCallback(function (option) {
+        if (option === null || option === void 0 ? void 0 : option.disabled) {
+            return;
+        }
         handleSelectOption(option);
         setOpen(false);
     }, [handleSelectOption, setOpen]);

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { CommonProps } from '../../utilities/commonProps';
 declare type Props = {
     /**
      * input required を指定します
@@ -73,6 +74,6 @@ declare type Props = {
     onBlur?: React.FormEventHandler;
     onInput?: React.FormEventHandler;
     onKeyDown?: React.KeyboardEventHandler;
-};
-declare const AmountRangeField: ({ required, disabled, error, minAmount: originalMinAmount, minAmountId, minAmountName, minAmountLabel, minAmountLabelledby, minAmountPlaceholder, maxAmount: originalMaxAmount, maxAmountId, maxAmountName, maxAmountLabel, maxAmountLabelledby, maxAmountPlaceholder, small, nullable, onChange, onFocus, onBlur, onInput, onKeyDown, }: Props) => JSX.Element;
+} & CommonProps;
+declare const AmountRangeField: ({ required, disabled, error, minAmount: originalMinAmount, minAmountId, minAmountName, minAmountLabel, minAmountLabelledby, minAmountPlaceholder, maxAmount: originalMaxAmount, maxAmountId, maxAmountName, maxAmountLabel, maxAmountLabelledby, maxAmountPlaceholder, small, nullable, onChange, onFocus, onBlur, onInput, onKeyDown, ...rest }: Props) => JSX.Element;
 export default AmountRangeField;

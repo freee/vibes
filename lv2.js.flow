@@ -987,6 +987,7 @@ class AmountRangeField extends React.Component<{|
   onKeyDown?: (
     SyntheticKeyboardEvent<HTMLInputElement>
   ) => void | Promise<void>,
+  ...CommonProps,
 |}> {}
 
 /**

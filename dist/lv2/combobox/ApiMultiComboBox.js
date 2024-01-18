@@ -32,13 +32,7 @@ import { useApiMultiComboBoxInternal } from './hooks/apiMultiComboBox';
 import vbClassNames from '../../utilities/vbClassNames';
 export { useApiMultiComboBox } from './hooks/apiMultiComboBox';
 var baseClassName = 'vb-multiComboBox';
-/**
- * `MultiComboBox` に API による検索とページネーションの機能を付与したコンポーネントです。使い方・使い分けについては `MultiComboBox` も参照してください
- *
- * * リソース管理のため、基本的には`useApiMultiComboBox`を併用してください
- * * リスト内の項目が固定されている場合は`MultiComboBox`を使用してください。
- */
-export default function ApiMultiComboBox(props) {
+function ApiMultiComboBoxInner(props, ref) {
     var fetchItems = props.fetchItems, isLoading = props.isLoading, _a = props.meta, currentPage = _a.currentPage, totalPages = _a.totalPages, createNewItem = props.createNewItem, _b = props.values, values = _b === void 0 ? [] : _b, options = props.options, maxSelectionCount = props.maxSelectionCount, emptyMessage = props.emptyMessage, listWidth = props.listWidth, id = props.id, label = props.label, labelledby = props.labelledby, name = props.name, required = props.required, disabled = props.disabled, width = props.width, error = props.error, borderless = props.borderless, onBlur = props.onBlur, onFocus = props.onFocus, onInput = props.onInput, onKeyDown = props.onKeyDown, onChange = props.onChange;
     var uniqueId = useUniqueId(id || baseClassName);
     var _c = useApiMultiComboBoxInternal({
@@ -55,7 +49,7 @@ export default function ApiMultiComboBox(props) {
         maxSelectionCount: maxSelectionCount,
     }), filteredOptions = _c.filteredOptions, isLoadingMore = _c.isLoadingMore, loadMore = _c.loadMore, textFieldValue = _c.fieldValue, isOpen = _c.isOpen, setOpen = _c.setOpen, selectedIndex = _c.selectedIndex, listOptionsRef = _c.listOptionsRef, selectedOptionRef = _c.selectedOptionRef, borderRef = _c.borderRef, onFieldBlur = _c.onFieldBlur, onFieldChange = _c.onFieldChange, onFieldFocus = _c.onFieldFocus, onFieldKeyDown = _c.onFieldKeyDown, onSelectOption = _c.onSelectOption, onRemoveOption = _c.onRemoveOption, onClickNewItem = _c.onClickNewItem;
     var listBoxClassName = createListBoxClassName({ isOpen: isOpen, listWidth: listWidth, width: width });
-    var _d = useAdjustListPosition(isOpen), textFieldRef = _d.textFieldRef, listOptionsMaxHeight = _d.listOptionsMaxHeight;
+    var _d = useAdjustListPosition(isOpen, ref), textFieldRef = _d.textFieldRef, listOptionsMaxHeight = _d.listOptionsMaxHeight;
     var hasNextPages = currentPage < totalPages;
     var listIsEmpty = !isLoading && filteredOptions.length === 0;
     var isLoadingAll = isLoading && !isLoadingMore;
@@ -106,4 +100,12 @@ export default function ApiMultiComboBox(props) {
                             }) && (React.createElement(CreateNewItem, { createNewItem: onClickNewItem, fieldValue: textFieldValue, isSelected: selectedIndex ===
                                 filteredOptions.length + (hasNextPages ? 1 : 0), selectedOptionRef: selectedOptionRef, uniqueId: uniqueId }))))))));
 }
+/**
+ * `MultiComboBox` に API による検索とページネーションの機能を付与したコンポーネントです。使い方・使い分けについては `MultiComboBox` も参照してください
+ *
+ * * リソース管理のため、基本的には`useApiMultiComboBox`を併用してください
+ * * リスト内の項目が固定されている場合は`MultiComboBox`を使用してください。
+ */
+var ApiMultiComboBox = React.forwardRef(ApiMultiComboBoxInner);
+export default ApiMultiComboBox;
 //# sourceMappingURL=ApiMultiComboBox.js.map

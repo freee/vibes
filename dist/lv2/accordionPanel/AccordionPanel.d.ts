@@ -9,6 +9,9 @@ declare type Props = {
      * border を表示するか
      */
     border?: 'both' | 'bottom' | 'top';
+    /**
+     * @deprecated この値を指定しても何も変わりません
+     */
     small?: boolean;
     onClick: () => any;
 } & MarginClassProps & CommonProps;

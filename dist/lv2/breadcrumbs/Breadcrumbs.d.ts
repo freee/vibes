@@ -8,7 +8,7 @@ declare type Props = {
         url?: string;
         onClick?: () => void;
         /**
-         * (deprecated) `onSelfWindowNavigation` を使用してください
+         * @deprecated `onSelfWindowNavigation` を使用してください
          */
         onClickNavigator?: () => void;
         /**

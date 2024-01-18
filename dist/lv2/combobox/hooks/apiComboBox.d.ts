@@ -21,7 +21,7 @@ export declare const useApiComboBoxInternal: ({ createNewItem, currentPage, fetc
     onFieldChange: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
     onFieldFocus: (e: React.FormEvent<HTMLInputElement>) => void;
     onFieldKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-    onSelectOption: (option: SingleComboBoxOption) => void;
+    onSelectOption: (option?: SingleComboBoxOption<never> | undefined) => void;
     selectedIndex: number;
     selectedOptionRef: import("react").RefObject<HTMLDivElement>;
 };
