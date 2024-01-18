@@ -13,6 +13,9 @@ declare type Props = {
     renderButton: Pick<Parameters<typeof WithPopup>[0], 'render'>['render'];
     disabled?: boolean;
     dropdownContents: Array<DropdownContent>;
+    /**
+     * @deprecated このプロパティは使用されません
+     */
     contentsFixed?: boolean;
     /**
      * dropdownを開いた時に発火します。useEffectのトリガーになるためメモ化したものを渡すことを推奨します。

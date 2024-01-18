@@ -13,10 +13,11 @@ import * as React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import commonProps from '../../utilities/commonProps';
 import ScrollPortal from '../../utilities/ScrollPortal';
-import FixedPortal from '../../utilities/FixedPortal';
 import { Keys } from '../../utilities/keyboard';
 import useUniqueId from '../../hooks/useUniqueId';
 import { FocusTrap } from '../../lv1';
+import Button from '../../lv1/buttons/Button';
+import VisuallyHidden from '../../lv1/a11y/VisuallyHidden';
 /**
  * ポップアップを実装するためのコンポーネントです。
  *
@@ -32,7 +33,7 @@ import { FocusTrap } from '../../lv1';
  *   - フォーカス可能な要素より前に説明文等がある場合は、firstSelectedItemRef をどの要素にも渡さないでください
  */
 var WithPopup = function (props) {
-    var render = props.render, disabled = props.disabled, contentsFixed = props.contentsFixed, renderPopup = props.renderPopup, onOpen = props.onOpen, onClose = props.onClose;
+    var render = props.render, disabled = props.disabled, renderPopup = props.renderPopup, onOpen = props.onOpen, onClose = props.onClose;
     var baseClass = 'vb-withPopup';
     var _a = React.useState(false), open = _a[0], setOpen = _a[1];
     var firstSelectableItemRef = React.useRef(null);
@@ -155,7 +156,9 @@ var WithPopup = function (props) {
                                     controlRef.current.focus();
                                 }
                             }
-                        }, onClick: function (e) { return e.stopPropagation(); }, ref: popupRef }, renderPopup(requestClose, firstSelectableItemRef, controlRef))))));
+                        }, onClick: function (e) { return e.stopPropagation(); }, ref: popupRef }, renderPopup(requestClose, firstSelectableItemRef, controlRef))),
+                React.createElement(VisuallyHidden, null,
+                    React.createElement(Button, { onClick: closeMenu }, "\u9589\u3058\u308B")))));
     };
     return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
@@ -185,7 +188,7 @@ var WithPopup = function (props) {
             }
         } }),
         React.createElement("span", { className: "".concat(baseClass, "__contentWrapper"), ref: contentWrapperRef }, render(popupId, open, controlRef, togglePopup)),
-        contentsFixed ? (React.createElement(FixedPortal, { isActive: open, positionalBaseElement: contentWrapperRef.current || undefined, horizontalPosition: horizontalPosition, verticalPosition: verticalPosition, popupRef: popupRef, "data-masking": props['data-masking'] }, popupWrapper())) : (React.createElement(ScrollPortal, { isActive: open, positionalBaseElement: contentWrapperRef.current || undefined, horizontalPosition: horizontalPosition, verticalPosition: verticalPosition, onOverflow: function () { return closeMenu(); }, popupRef: popupRef, "data-masking": props['data-masking'] }, popupWrapper()))));
+        React.createElement(ScrollPortal, { isActive: open, positionalBaseElement: contentWrapperRef.current || undefined, horizontalPosition: horizontalPosition, verticalPosition: verticalPosition, onOverflow: function () { return closeMenu(); }, popupRef: popupRef, "data-masking": props['data-masking'] }, popupWrapper())));
 };
 export default WithPopup;
 //# sourceMappingURL=WithPopup.js.map

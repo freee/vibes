@@ -8,4 +8,4 @@ export { TimeString } from './TimeString';
 export { VibesContext } from './VibesContext';
 export { VibesProvider, useVibes } from './VibesProvider';
 export * from './FocusableEelements';
-export declare const VibesVersion = "100.0.0";
+export declare const VibesVersion = "100.1.0";

@@ -26,9 +26,9 @@ import WithPopup from '../withPopup/WithPopup';
  *   - `buttonRef` を開閉ボタンの `ref` に渡してください
  */
 var WithDropdown = function (props) {
-    var renderButton = props.renderButton, disabled = props.disabled, dropdownContents = props.dropdownContents, contentsFixed = props.contentsFixed, onOpen = props.onOpen, onClose = props.onClose;
+    var renderButton = props.renderButton, disabled = props.disabled, dropdownContents = props.dropdownContents, onOpen = props.onOpen, onClose = props.onClose;
     return (React.createElement(WithPopup, __assign({ disabled: disabled, render: renderButton, renderPopup: function (requestClose, firstSelectableRef, controlRef) { return (React.createElement(PopupBase, { paddingSize: "zero" },
-            React.createElement(DropdownMenuContent, { contents: dropdownContents, onRequestClose: requestClose, onFocusOut: function () { var _a; return (_a = controlRef.current) === null || _a === void 0 ? void 0 : _a.focus(); }, ref: firstSelectableRef }))); }, contentsFixed: contentsFixed, onOpen: onOpen, onClose: onClose }, pickCommonProps(props))));
+            React.createElement(DropdownMenuContent, { contents: dropdownContents, onRequestClose: requestClose, onFocusOut: function () { var _a; return (_a = controlRef.current) === null || _a === void 0 ? void 0 : _a.focus(); }, ref: firstSelectableRef }))); }, onOpen: onOpen, onClose: onClose }, pickCommonProps(props))));
 };
 export default WithDropdown;
 //# sourceMappingURL=WithDropdown.js.map
