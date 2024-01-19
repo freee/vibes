@@ -10,6 +10,26 @@ const config: StorybookConfig = {
     '@storybook/addon-storysource',
     'storybook-addon-pseudo-states',
     '@kemuridama/storybook-addon-github',
+    '@storybook/addon-styling-webpack',
+    {
+      name: '@storybook/addon-styling-webpack',
+      options: {
+        rules: [
+          // Replaces any existing Sass rules with given rules
+          {
+            test: /\.s[ac]ss$/i,
+            use: [
+              'style-loader',
+              'css-loader',
+              {
+                loader: 'sass-loader',
+                options: { implementation: require.resolve('sass') },
+              },
+            ],
+          },
+        ],
+      },
+    },
   ],
   stories: [
     '../docs/**/*.stories.mdx',
@@ -29,32 +49,6 @@ const config: StorybookConfig = {
           test: /\.stories\.tsx?$/,
           use: [require.resolve('@storybook/source-loader')],
           enforce: 'pre',
-        },
-        {
-          test: /\.scss$/,
-          use: [
-            {
-              loader: 'style-loader',
-            },
-            {
-              loader: 'css-loader',
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                implementation: require('sass'),
-              },
-            },
-          ],
-        },
-        {
-          test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/,
-          use: {
-            loader: 'file-loader',
-            options: {
-              name: './fonts/[name].[ext]',
-            },
-          },
         },
       ],
     },
