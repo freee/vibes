@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { DocsContainer } from '@storybook/addon-docs';
 import { Decorator, Parameters } from '@storybook/react';
 import { VibesProvider, useLang } from '../src/utilities/VibesProvider';
-import '../vibes_2021.min.css';
+import '../stylesheets/vibes_2021.scss';
 
 const LanguagePortal = React.forwardRef<HTMLDivElement, { lang: string }>(
   ({ lang }, ref) =>
