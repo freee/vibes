@@ -120,7 +120,7 @@ const CheckBoxInternal: React.ForwardRefRenderFunction<
  * - 基本的に、チェックボックスのラベルには句読点は使わないようにしてください。
  *
  * ## accessibility
- * VibesのCheckBoxコンポーネントはブラウザのデフォルト表示の見た目から変更していません。
+ * vibesのCheckBoxコンポーネントはブラウザのデフォルト表示の見た目から変更していません。
  * a11yチェックにある「クリックやタッチに反応するサイズが、充分な大きさになっているか」の項目OKにして問題ありません。
  *
  */
