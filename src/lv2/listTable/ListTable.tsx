@@ -56,6 +56,7 @@ export type TableCell = {
    */
   breakWord?: boolean;
   colSpan?: number;
+  rowSpan?: number;
   'data-masking'?: boolean;
   'data-test'?: string;
 };
@@ -187,6 +188,7 @@ const ListTable: React.FC<Props> = (props: Props) => {
                       onSelfWindowNavigation={row.onSelfWindowNavigation}
                       breakWord={cell.breakWord}
                       colSpan={cell.colSpan}
+                      rowSpan={cell.rowSpan}
                       data-masking={cell['data-masking']}
                       data-test={cell['data-test']}
                     >

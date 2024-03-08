@@ -164,12 +164,22 @@ const rows = [
   {
     cells: [
       { value: 'テーブルリスト' },
-      { value: 'テーブルリスト' },
+      {
+        value: '結合セル',
+        rowSpan: 2,
+      },
       {
         value: '結合セル',
         colSpan: 2,
         alignCenter: true,
       },
+    ],
+  },
+  {
+    cells: [
+      { value: 'テーブルリスト' },
+      { value: 'テーブルリスト' },
+      { value: 'テーブルリスト' },
     ],
   },
 ];
