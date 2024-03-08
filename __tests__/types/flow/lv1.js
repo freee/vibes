@@ -841,6 +841,7 @@ export default function App() {
         url="/hoge/fuga"
         onSelfWindowNavigation={() => {}}
         colSpan={2}
+        rowSpan={2}
         indentLevel={2}
         {...commonProps}
       >

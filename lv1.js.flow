@@ -1196,6 +1196,7 @@ class TableListCell extends React.Component<{|
   alignTop?: boolean,
   onSelfWindowNavigation?: (url?: string) => void | Promise<void>,
   colSpan?: number,
+  rowSpan?: number,
   indentLevel?: number,
   ...CommonProps,
 |}> {}

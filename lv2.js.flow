@@ -126,6 +126,7 @@ export type TableCell = {|
   alignTop?: boolean,
   small?: boolean,
   colSpan?: number,
+  rowSpan?: number,
   'data-masking'?: boolean,
   'data-test'?: string,
 |};

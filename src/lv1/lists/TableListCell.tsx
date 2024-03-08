@@ -41,6 +41,10 @@ type Props = {
    */
   colSpan?: number;
   /**
+   * rowSpanを設定します
+   */
+  rowSpan?: number;
+  /**
    * ツリー状の表現のためのインデントレベルです。左端のカラムにのみ使われる想定です
    */
   indentLevel?: number;
@@ -58,6 +62,7 @@ const TableListCell: React.FC<Props> = (props: Props) => {
     alignTop,
     breakWord,
     colSpan,
+    rowSpan,
     indentLevel,
     onSelfWindowNavigation,
   } = props;
@@ -75,7 +80,11 @@ const TableListCell: React.FC<Props> = (props: Props) => {
   const textNodeId = `${uniqueId}__text`;
 
   return (
-    <td {...commonProps(props, listBaseClass, classModifier)} colSpan={colSpan}>
+    <td
+      {...commonProps(props, listBaseClass, classModifier)}
+      colSpan={colSpan}
+      rowSpan={rowSpan}
+    >
       {/* IEのみdisplay:tableで表示するため、indentContainerWrapperが必要 */}
       <span className="vb-tableListCell__indentContainerWrapper">
         <span className="vb-tableListCell__indentContainer">
