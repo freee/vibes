@@ -122,12 +122,14 @@ const useHandlers = ({
       setShowingValue(origValue);
 
       if (onChange) {
-        const numValue =
-          nullable && !origValue
-            ? null
-            : sliceDecimal(Digits.numberize(Ascii.zenkakuToHankaku(origValue)));
+        const numValue = Digits.numberize(Ascii.zenkakuToHankaku(origValue));
 
-        onChange(numValue);
+        // Invokes `onChange()` handler with `null` or `0` if the parsed input value is not a finite number.
+        if (!Number.isFinite(numValue)) {
+          return onChange(nullable ? null : 0);
+        }
+
+        onChange(nullable && !origValue ? null : sliceDecimal(numValue));
       }
     },
     [nullable, onChange, setShowingValue, sliceDecimal]
