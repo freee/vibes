@@ -4,7 +4,7 @@
 
 ## Install
 
-TBD
+npm i @freee_jp/vibes
 
 ## Usage
 
